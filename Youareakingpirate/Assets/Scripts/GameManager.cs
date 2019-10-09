@@ -13,6 +13,10 @@ public class GameManager : MonoBehaviour
     public int sailorsStock;
     public int sailorsMaxStock;
 
+    public int choiceFoodValue;
+    public int choiceWoodValue;
+    public int choiceGoldValue;
+    public int choiceSailorValue;
 
     public static GameManager instance;
 
@@ -33,4 +37,19 @@ public class GameManager : MonoBehaviour
         if (GameManager.instance != this)
             Destroy(gameObject);
     }
+
+    private void Update()
+    {
+        print(choiceSailorValue);
+    }
+
+    public void UpdateStock()
+    {
+       /* woodStock += choiceWoodValue;
+        foodStock += choiceFoodValue;
+        goldStock += choiceGoldValue;
+        sailorsStock += choiceSailorValue;*/
+    }
+
+
 }

@@ -6,7 +6,6 @@ public class BoatController : MonoBehaviour
 {
     [Header("STATE (no manual change)")]
     public BoatState currentState;
-    public Encounter.EncounterType currentEncounter;
 
 #pragma warning disable 0649
     [Header("SPEED PARAMETERS")]

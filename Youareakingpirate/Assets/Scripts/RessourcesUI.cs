@@ -35,13 +35,4 @@ public class RessourcesUI : MonoBehaviour
         if (GameManager.instance.sailorsMaxStock.ToString() != sailorsMaxStock.text)
             sailorsMaxStock.text = GameManager.instance.sailorsMaxStock.ToString();
     }
-
-    public void ShowRessources(bool show)
-    {
-        foreach (Transform item in transform)
-        {
-            item.gameObject.SetActive(show);
-        }
-    }
-
 }

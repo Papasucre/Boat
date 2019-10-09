@@ -32,7 +32,9 @@ namespace LPWAsset {
 
         public static void Scale(LowPolyWaterScript _target) {
             // don't scale prefabs 
+#pragma warning disable CS0618 // Le type ou le membre est obsolète
             if (PrefabUtility.GetPrefabParent(_target) == null && PrefabUtility.GetPrefabObject(_target) != null) return;
+#pragma warning restore CS0618 // Le type ou le membre est obsolète
             if (_target.material == null || !_target.material.HasProperty("_TransformScale_")) return;
 
             // scale everything when scaling transform's localscale

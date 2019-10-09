@@ -43,3 +43,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4589f7982c4dc7a4f82561a933896eba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  woodStock: 0
+  woodMaxStock: 10
+  goldStock: 0
+  goldMaxStock: 30
+  foodStock: 0
+  foodMaxStock: 15
+  sailorsStock: 0
+  sailorsMaxStock: 5

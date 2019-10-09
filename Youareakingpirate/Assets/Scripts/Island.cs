@@ -5,28 +5,23 @@ using UnityEngine.SceneManagement;
 
 public class Island : Encounter
 {
-    [Header("CAMERA TARGET POS/ROT")]
-#pragma warning disable 0649
-    [SerializeField] public GameObject dockingPos;
-    [SerializeField] public GameObject exitDirection;
-#pragma warning restore 0649
+    private void Start()
+    {
+        ShowUI(true);
+    }
 
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.A))
         {
-
-            UnloadUI();
+            ShowUI(false);
         }
     }
 
-    public override void LoadUI()
+    void ShowUI(bool show)
     {
-        GameObject.FindGameObjectWithTag("RessourcesUI").GetComponent<RessourcesUI>().ShowRessources(true);
+        GameObject.FindGameObjectWithTag("UI").GetComponent<DisplayUI>().ShowUI("Encounter", show);
     }
 
-    public override void UnloadUI()
-    {
-        GameObject.FindGameObjectWithTag("RessourcesUI").GetComponent<RessourcesUI>().ShowRessources(false);
-    }
+
 }

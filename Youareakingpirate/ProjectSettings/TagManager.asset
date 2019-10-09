@@ -5,6 +5,10 @@ TagManager:
   serializedVersion: 2
   tags:
   - RessourcesUI
+  - Choice1
+  - Choice2
+  - Choice3
+  - UI
   layers:
   - Default
   - TransparentFX
