@@ -11,9 +11,6 @@ public class CameraController : MonoBehaviour
     [SerializeField] float xOffset = 5; 
     [SerializeField] float zOffset = 5;
 
-    [Header("CAMERA TRANSITION")]
-    [SerializeField] float speed = 1;
-
     /*Camera preset for boat
      * 
      * 1)
@@ -39,7 +36,8 @@ public class CameraController : MonoBehaviour
 
     void Start()
     {
-        target = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
+        if(currentFocus == CameraFocus.boat)
+            target = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
     }
 
     void Update()
@@ -54,22 +52,10 @@ public class CameraController : MonoBehaviour
                 transform.position = new Vector3(target.position.x + xOffset, transform.position.y, target.position.z - zOffset);
                 break;
             case CameraFocus.island:
-                transform.position = Vector3.Lerp(transform.position, targetPos, Time.deltaTime * speed);
-                transform.eulerAngles = new Vector3(
-                                                    Mathf.LerpAngle(transform.eulerAngles.x, targetRot.x, Time.deltaTime),
-                                                    Mathf.LerpAngle(transform.eulerAngles.y, targetRot.y, Time.deltaTime),
-                                                    transform.eulerAngles.z);
                 break;
             default:
                 break;
         }
-    }
-
-    public void FocusIsland(Vector3 pos, Vector3 rot)
-    {
-        currentFocus = CameraFocus.island;
-        targetPos = pos;
-        targetRot = rot;
     }
 
     public enum CameraFocus

@@ -8,12 +8,7 @@ public abstract class Encounter : MonoBehaviour
 
     public enum EncounterType
     {
-        none, heading, islandLoad, island, merchant, wreck, pirates
-    }
-
-    private void Start()
-    {
-        
+        none, island, merchant, wreck, pirates
     }
 
     public abstract void LoadUI();
