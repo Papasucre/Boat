@@ -1,0 +1,410 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &4509127565684308123
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4509127565684308121}
+  - component: {fileID: 4509127565684308122}
+  - component: {fileID: 4509127565684308120}
+  - component: {fileID: 4801736768823978848}
+  - component: {fileID: 1769214712039554076}
+  m_Layer: 0
+  m_Name: IslandDataTable
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4509127565684308121
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4509127565684308123}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4509127565684308122
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4509127565684308123}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2629373db5f8c2f49af2ff665e21613b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  actionsList:
+  - actionName: Harvest food
+    ID: Is_01
+    sailorPrice: 0
+    foodPrice: 0
+    woodPrice: 0
+    goldPrice: 0
+    relicPrice: 0
+    sailorReward: 0
+    foodReward: 3
+    woodReward: 0
+    goldReward: 0
+    relicReward: 0
+  - actionName: Harvest wood
+    ID: Is_02
+    sailorPrice: 0
+    foodPrice: 0
+    woodPrice: 0
+    goldPrice: 0
+    relicPrice: 0
+    sailorReward: 0
+    foodReward: 0
+    woodReward: 3
+    goldReward: 0
+    relicReward: 0
+  - actionName: Harvest gold
+    ID: Is_03
+    sailorPrice: 0
+    foodPrice: 0
+    woodPrice: 0
+    goldPrice: 0
+    relicPrice: 0
+    sailorReward: 0
+    foodReward: 0
+    woodReward: 0
+    goldReward: 3
+    relicReward: 0
+  - actionName: Engage sailors
+    ID: Is_04
+    sailorPrice: 0
+    foodPrice: 0
+    woodPrice: 0
+    goldPrice: 2
+    relicPrice: 0
+    sailorReward: 2
+    foodReward: 0
+    woodReward: 0
+    goldReward: 0
+    relicReward: 0
+  - actionName: Carpenter workshop
+    ID: Is_05
+    sailorPrice: 0
+    foodPrice: 0
+    woodPrice: 0
+    goldPrice: 3
+    relicPrice: 0
+    sailorReward: 0
+    foodReward: 0
+    woodReward: 0
+    goldReward: 0
+    relicReward: 1
+  - actionName: Help villagers
+    ID: Is_06
+    sailorPrice: 0
+    foodPrice: 0
+    woodPrice: 0
+    goldPrice: 0
+    relicPrice: 0
+    sailorReward: 0
+    foodReward: 0
+    woodReward: 0
+    goldReward: 0
+    relicReward: 0
+  - actionName: Explore ruins
+    ID: Is_07
+    sailorPrice: 1
+    foodPrice: 2
+    woodPrice: 1
+    goldPrice: 0
+    relicPrice: 0
+    sailorReward: 0
+    foodReward: 0
+    woodReward: 0
+    goldReward: 2
+    relicReward: 2
+--- !u!114 &4509127565684308120
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4509127565684308123}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 369849c520afe15449caa4ab368d9e35, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  probList:
+  - ID: Is_01
+    prob: 17
+  - ID: Is_02
+    prob: 17
+  - ID: Is_03
+    prob: 17
+  - ID: Is_04
+    prob: 17
+  - ID: Is_05
+    prob: 11
+  - ID: Is_06
+    prob: 11
+  - ID: Is_07
+    prob: 10
+--- !u!114 &4801736768823978848
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4509127565684308123}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d2fafa9d03416b040a5692fbe69f1fb3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  actionsList:
+  - actionName: Help villagers (Sailors)
+    ID: Hv_01
+    sailorPrice: 2
+    foodPrice: 0
+    woodPrice: 0
+    goldPrice: 0
+    relicPrice: 0
+    sailorReward: 0
+    foodReward: 2
+    woodReward: 2
+    goldReward: 0
+    relicReward: 0
+  - actionName: Help villagers (Sailors)
+    ID: Hv_02
+    sailorPrice: 2
+    foodPrice: 0
+    woodPrice: 0
+    goldPrice: 0
+    relicPrice: 0
+    sailorReward: 0
+    foodReward: 2
+    woodReward: 0
+    goldReward: 2
+    relicReward: 0
+  - actionName: Help villagers (Sailors)
+    ID: Hv_03
+    sailorPrice: 2
+    foodPrice: 0
+    woodPrice: 0
+    goldPrice: 0
+    relicPrice: 0
+    sailorReward: 0
+    foodReward: 0
+    woodReward: 2
+    goldReward: 2
+    relicReward: 0
+  - actionName: Help villagers (Sailors)
+    ID: Hv_04
+    sailorPrice: 2
+    foodPrice: 0
+    woodPrice: 0
+    goldPrice: 0
+    relicPrice: 0
+    sailorReward: 0
+    foodReward: 0
+    woodReward: 0
+    goldReward: 0
+    relicReward: 3
+  - actionName: Help villagers (Food)
+    ID: ' Hv_05'
+    sailorPrice: 0
+    foodPrice: 2
+    woodPrice: 0
+    goldPrice: 0
+    relicPrice: 0
+    sailorReward: 0
+    foodReward: 0
+    woodReward: 2
+    goldReward: 2
+    relicReward: 0
+  - actionName: Help villagers (Food)
+    ID: Hv_06
+    sailorPrice: 0
+    foodPrice: 2
+    woodPrice: 0
+    goldPrice: 0
+    relicPrice: 0
+    sailorReward: 2
+    foodReward: 0
+    woodReward: 2
+    goldReward: 0
+    relicReward: 0
+  - actionName: Help villagers (Food)
+    ID: Hv_07
+    sailorPrice: 0
+    foodPrice: 2
+    woodPrice: 0
+    goldPrice: 0
+    relicPrice: 0
+    sailorReward: 2
+    foodReward: 0
+    woodReward: 0
+    goldReward: 2
+    relicReward: 0
+  - actionName: Help villagers (Food)
+    ID: Hv_08
+    sailorPrice: 0
+    foodPrice: 2
+    woodPrice: 0
+    goldPrice: 0
+    relicPrice: 0
+    sailorReward: 0
+    foodReward: 0
+    woodReward: 0
+    goldReward: 0
+    relicReward: 3
+  - actionName: Help villagers (Wood)
+    ID: Hv_09
+    sailorPrice: 0
+    foodPrice: 0
+    woodPrice: 2
+    goldPrice: 0
+    relicPrice: 0
+    sailorReward: 2
+    foodReward: 2
+    woodReward: 0
+    goldReward: 0
+    relicReward: 0
+  - actionName: Help villagers (Wood)
+    ID: Hv_10
+    sailorPrice: 0
+    foodPrice: 0
+    woodPrice: 2
+    goldPrice: 0
+    relicPrice: 0
+    sailorReward: 2
+    foodReward: 0
+    woodReward: 0
+    goldReward: 2
+    relicReward: 0
+  - actionName: Help villagers (Wood)
+    ID: Hv_11
+    sailorPrice: 0
+    foodPrice: 0
+    woodPrice: 2
+    goldPrice: 0
+    relicPrice: 0
+    sailorReward: 0
+    foodReward: 2
+    woodReward: 0
+    goldReward: 2
+    relicReward: 0
+  - actionName: Help villagers (Wood)
+    ID: Hv_12
+    sailorPrice: 0
+    foodPrice: 0
+    woodPrice: 2
+    goldPrice: 0
+    relicPrice: 0
+    sailorReward: 0
+    foodReward: 0
+    woodReward: 0
+    goldReward: 0
+    relicReward: 3
+  - actionName: Help villagers (Gold)
+    ID: Hv_13
+    sailorPrice: 0
+    foodPrice: 0
+    woodPrice: 0
+    goldPrice: 2
+    relicPrice: 0
+    sailorReward: 0
+    foodReward: 2
+    woodReward: 2
+    goldReward: 0
+    relicReward: 0
+  - actionName: Help villagers (Gold)
+    ID: Hv_14
+    sailorPrice: 0
+    foodPrice: 0
+    woodPrice: 0
+    goldPrice: 2
+    relicPrice: 0
+    sailorReward: 2
+    foodReward: 0
+    woodReward: 2
+    goldReward: 0
+    relicReward: 0
+  - actionName: Help villagers (Gold)
+    ID: Hv_15
+    sailorPrice: 0
+    foodPrice: 0
+    woodPrice: 0
+    goldPrice: 2
+    relicPrice: 0
+    sailorReward: 2
+    foodReward: 2
+    woodReward: 0
+    goldReward: 0
+    relicReward: 0
+  - actionName: Help villagers (Gold)
+    ID: Hv_16
+    sailorPrice: 0
+    foodPrice: 0
+    woodPrice: 0
+    goldPrice: 2
+    relicPrice: 0
+    sailorReward: 0
+    foodReward: 0
+    woodReward: 0
+    goldReward: 0
+    relicReward: 3
+--- !u!114 &1769214712039554076
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4509127565684308123}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2dc4dcca14f62147a7c283b204bafd8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  probList:
+  - ID: Hv_01
+    prob: 8
+  - ID: Hv_02
+    prob: 8
+  - ID: Hv_03
+    prob: 8
+  - ID: Hv_04
+    prob: 1
+  - ID: Hv_05
+    prob: 8
+  - ID: Hv_06
+    prob: 8
+  - ID: Hv_07
+    prob: 8
+  - ID: Hv_08
+    prob: 1
+  - ID: Hv_09
+    prob: 8
+  - ID: Hv_10
+    prob: 8
+  - ID: Hv_11
+    prob: 8
+  - ID: Hv_12
+    prob: 1
+  - ID: Hv_13
+    prob: 8
+  - ID: Hv_14
+    prob: 8
+  - ID: Hv_15
+    prob: 8
+  - ID: Hv_16
+    prob: 1
