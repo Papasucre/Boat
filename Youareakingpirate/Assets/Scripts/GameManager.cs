@@ -146,9 +146,12 @@ public class GameManager : MonoBehaviour
 #pragma warning restore 0649
 
     public List<Action> choicesList = new List<Action>();
+    public List<Upgrade> choicesUpgradeList = new List<Upgrade>();
     public bool makeChoice;
+    public bool atCarpenterWorkshop;
 
     IslandsTable loadScript;
+    CarpenterDataTable carpenterScript;
 
     public static GameManager instance;
     public static GameManager Instance {
@@ -161,13 +164,19 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private void Start()
+    private void Awake()
     {
         DontDestroyOnLoad(gameObject);
         print(Instance);
         ShowRessources();
         if (GameManager.instance != this)
             Destroy(gameObject);
+        
+    }
+
+    private void Start()
+    {
+        carpenterScript = GetComponent<CarpenterDataTable>();
         loadScript = GetComponent<IslandsTable>();
         loadScript.LoadRandomIsland();
     }
@@ -178,15 +187,30 @@ public class GameManager : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.Alpha1))
             {
-                if (SimulateCost(choicesList[0]))
+                if (atCarpenterWorkshop)
+                {
+                    print("You choose " + choicesUpgradeList[0].actionName);
+                    atCarpenterWorkshop = false;
+                    goldStock -= GetGoldCostCarpenter(choicesUpgradeList[0].goldPrice);
+                    ShowRessources();
+                    StartCoroutine(LoadNextEncounter());
+                }
+                else if (SimulateCost(choicesList[0]))
                 {
                     print("You choose " + choicesList[0].actionName);
                     makeChoice = false;
-                    ApplyCost(choicesList[0]);
-                    GainReward(choicesList[0]);
-                    CheckStock();
-                    ShowRessources();
-                    StartCoroutine(LoadNextEncounter());
+                    if(choicesList[0].ID == "Is_05")
+                    {
+                        carpenterScript.AtCarpenter();
+                    }
+                    else
+                    {
+                        ApplyCost(choicesList[0]);
+                        GainReward(choicesList[0]);
+                        CheckStock();
+                        ShowRessources();
+                        StartCoroutine(LoadNextEncounter());
+                    }
                 }
                 else
                 {
@@ -195,15 +219,30 @@ public class GameManager : MonoBehaviour
             }
             if (Input.GetKeyDown(KeyCode.Alpha2))
             {
-                if (SimulateCost(choicesList[1]))
+                if (atCarpenterWorkshop)
+                {
+                    print("You choose " + choicesUpgradeList[1].actionName);
+                    atCarpenterWorkshop = false;
+                    goldStock -= GetGoldCostCarpenter(choicesUpgradeList[1].goldPrice);
+                    ShowRessources();
+                    StartCoroutine(LoadNextEncounter());
+                }
+                else if (SimulateCost(choicesList[1]))
                 {
                     print("You choose " + choicesList[1].actionName);
                     makeChoice = false;
-                    ApplyCost(choicesList[1]);
-                    GainReward(choicesList[1]);
-                    CheckStock();
-                    ShowRessources();
-                    StartCoroutine(LoadNextEncounter());
+                    if (choicesList[1].ID == "Is_05")
+                    {
+                        carpenterScript.AtCarpenter();
+                    }
+                    else
+                    {
+                        ApplyCost(choicesList[1]);
+                        GainReward(choicesList[1]);
+                        CheckStock();
+                        ShowRessources();
+                        StartCoroutine(LoadNextEncounter());
+                    }
                 }
                 else
                 {
@@ -212,15 +251,30 @@ public class GameManager : MonoBehaviour
             }
             if (Input.GetKeyDown(KeyCode.Alpha3))
             {
-                if (SimulateCost(choicesList[2]))
+                if (atCarpenterWorkshop)
+                {
+                    print("You choose " + choicesUpgradeList[2].actionName);
+                    atCarpenterWorkshop = false;
+                    goldStock -= GetGoldCostCarpenter(choicesUpgradeList[2].goldPrice);
+                    ShowRessources();
+                    StartCoroutine(LoadNextEncounter());
+                }
+                else if (SimulateCost(choicesList[2]))
                 {
                     print("You choose " + choicesList[2].actionName);
                     makeChoice = false;
-                    ApplyCost(choicesList[2]);
-                    GainReward(choicesList[2]);
-                    CheckStock();
-                    ShowRessources();
-                    StartCoroutine(LoadNextEncounter());
+                    if (choicesList[2].ID == "Is_05")
+                    {
+                        carpenterScript.AtCarpenter();
+                    }
+                    else
+                    {
+                        ApplyCost(choicesList[2]);
+                        GainReward(choicesList[2]);
+                        CheckStock();
+                        ShowRessources();
+                        StartCoroutine(LoadNextEncounter());
+                    }
                 }
                 else
                 {
@@ -833,6 +887,22 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public int GetGoldCostCarpenter(GameLevel cost)
+    {
+        switch (cost)
+        {
+            case GameLevel.lvl1:
+                return lvl1_highGoldCost;
+            case GameLevel.lvl2:
+                return lvl2_highGoldCost;
+            case GameLevel.lvl3:
+                return lvl3_highGoldCost;
+            default:
+                print("You shouldn't be there.");
+                return 0;
+        }
+    }
+
     public void ShowRessources()
     {
         print("Ship supplies :");
@@ -874,5 +944,23 @@ public class GameManager : MonoBehaviour
         public GameManager.Cost woodReward;
         public GameManager.Cost goldReward;
         public GameManager.Cost relicReward;
+    }
+
+    [System.Serializable]
+    public struct Upgrade
+    {
+        public string actionName;
+        public string ID;
+        public GameLevel goldPrice;
+        public int newCapacity;
+        public bool bought;
+    }
+
+    [System.Serializable]
+    public struct ProbUpgrade
+    {
+        public string ID;
+        [Range(0, 100)] public int prob;
+        public GameLevel levelUpgrade;
     }
 }

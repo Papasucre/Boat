@@ -10,6 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 3836452765826376421}
   - component: {fileID: 5106184026394599058}
+  - component: {fileID: 3332060135297979182}
+  - component: {fileID: 724519719177920316}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -164,4 +166,110 @@ MonoBehaviour:
   lvl3_foodConsumption: 4
   currentLevel: 0
   choicesList: []
+  choicesUpgradeList: []
   makeChoice: 0
+  atCarpenterWorkshop: 0
+--- !u!114 &3332060135297979182
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8551236696909422262}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 538c57d32333c7644959e69dc0465c62, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  probList:
+  - ID: Island 1
+    prob: 50
+  - ID: Island 2
+    prob: 50
+--- !u!114 &724519719177920316
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8551236696909422262}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 635303108030d4044b3ff8e2974cb7ed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  upgradesList:
+  - actionName: Upgrade sailor capacity
+    ID: US_01
+    goldPrice: 0
+    newCapacity: 12
+    bought: 0
+  - actionName: Upgrade sailor capacity
+    ID: US_02
+    goldPrice: 1
+    newCapacity: 20
+    bought: 1
+  - actionName: Upgrade food storage
+    ID: UF_01
+    goldPrice: 0
+    newCapacity: 25
+    bought: 0
+  - actionName: Upgrade food storage
+    ID: UF_02
+    goldPrice: 1
+    newCapacity: 40
+    bought: 1
+  - actionName: Upgrade wood storage
+    ID: UW_01
+    goldPrice: 0
+    newCapacity: 15
+    bought: 0
+  - actionName: Upgrade wood storage
+    ID: UW_02
+    goldPrice: 1
+    newCapacity: 25
+    bought: 1
+  - actionName: Upgrade gold storage
+    ID: UG_01
+    goldPrice: 0
+    newCapacity: 100
+    bought: 0
+  - actionName: Upgrade gold storage
+    ID: UG_02
+    goldPrice: 1
+    newCapacity: 200
+    bought: 1
+  - actionName: Relic
+    ID: Relic
+    goldPrice: 1
+    newCapacity: 0
+    bought: 0
+  probList:
+  - ID: US_01
+    prob: 12
+    levelUpgrade: 0
+  - ID: US_02
+    prob: 12
+    levelUpgrade: 1
+  - ID: UF_01
+    prob: 12
+    levelUpgrade: 0
+  - ID: UF_02
+    prob: 12
+    levelUpgrade: 1
+  - ID: UW_01
+    prob: 12
+    levelUpgrade: 0
+  - ID: UW_02
+    prob: 12
+    levelUpgrade: 1
+  - ID: UG_01
+    prob: 12
+    levelUpgrade: 0
+  - ID: UG_02
+    prob: 12
+    levelUpgrade: 1
+  - ID: Relic
+    prob: 4
+    levelUpgrade: 1
+  IDList: []
