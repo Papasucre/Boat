@@ -135,11 +135,20 @@ public class GameManager : MonoBehaviour
     [SerializeField] int lvl3_mediumGoldMAX;
     [SerializeField] int lvl3_highGoldMIN;
     [SerializeField] int lvl3_highGoldMAX;
+
+    [Header("FOOD CONSUMPTION")]
+    [SerializeField] int lvl1_foodConsumption;
+    [SerializeField] int lvl2_foodConsumption;
+    [SerializeField] int lvl3_foodConsumption;
+
+    [Header("GAME INFORMATION")]
     public GameLevel currentLevel;
 #pragma warning restore 0649
 
     public List<Action> choicesList = new List<Action>();
     public bool makeChoice;
+
+    IslandsTable loadScript;
 
     public static GameManager instance;
     public static GameManager Instance {
@@ -156,9 +165,11 @@ public class GameManager : MonoBehaviour
     {
         DontDestroyOnLoad(gameObject);
         print(Instance);
+        ShowRessources();
         if (GameManager.instance != this)
             Destroy(gameObject);
-        SceneManager.LoadScene("Island 1");
+        loadScript = GetComponent<IslandsTable>();
+        loadScript.LoadRandomIsland();
     }
 
     private void Update()
@@ -167,31 +178,77 @@ public class GameManager : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.Alpha1))
             {
-                print("You choose " + choicesList[0].actionName);
-                makeChoice = false;
-                ApplyCost(choicesList[0]);
-                GainReward(choicesList[0]);
-                ShowRessources();
+                if (SimulateCost(choicesList[0]))
+                {
+                    print("You choose " + choicesList[0].actionName);
+                    makeChoice = false;
+                    ApplyCost(choicesList[0]);
+                    GainReward(choicesList[0]);
+                    CheckStock();
+                    ShowRessources();
+                    StartCoroutine(LoadNextEncounter());
+                }
+                else
+                {
+                    print("You cannot take this choice, you don't have enough ressources.");
+                }
             }
             if (Input.GetKeyDown(KeyCode.Alpha2))
             {
-                print("You choose " + choicesList[1].actionName);
-                makeChoice = false;
-                ApplyCost(choicesList[1]);
-                GainReward(choicesList[1]);
-                ShowRessources();
+                if (SimulateCost(choicesList[1]))
+                {
+                    print("You choose " + choicesList[1].actionName);
+                    makeChoice = false;
+                    ApplyCost(choicesList[1]);
+                    GainReward(choicesList[1]);
+                    CheckStock();
+                    ShowRessources();
+                    StartCoroutine(LoadNextEncounter());
+                }
+                else
+                {
+                    print("You cannot take this choice, you don't have enough ressources.");
+                }
             }
             if (Input.GetKeyDown(KeyCode.Alpha3))
             {
-                print("You choose " + choicesList[2].actionName);
-                makeChoice = false;
-                ApplyCost(choicesList[2]);
-                GainReward(choicesList[2]);
-                ShowRessources();
+                if (SimulateCost(choicesList[2]))
+                {
+                    print("You choose " + choicesList[2].actionName);
+                    makeChoice = false;
+                    ApplyCost(choicesList[2]);
+                    GainReward(choicesList[2]);
+                    CheckStock();
+                    ShowRessources();
+                    StartCoroutine(LoadNextEncounter());
+                }
+                else
+                {
+                    print("You cannot take this choice, you don't have enough ressources.");
+                }
             }
         }
         if (Input.GetKeyDown(KeyCode.R))
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    IEnumerator LoadNextEncounter()
+    {
+        yield return new WaitForSeconds(4);
+        loadScript.LoadRandomIsland();
+    }
+
+    bool SimulateCost(Action item)
+    {
+        if (sailorsStock - item.sailorPrice <= 0)
+            return false;
+        if (foodStock - item.foodPrice < 0)
+            return false;
+        if (woodStock - item.woodPrice < 0)
+            return false;
+        if (goldStock - item.goldPrice < 0)
+            return false;
+        return true;
     }
 
     void ApplyCost(Action item)
@@ -204,10 +261,10 @@ public class GameManager : MonoBehaviour
 
     void GainReward(Action item)
     {
-        sailorsStock += GetSailorReward(item.sailorPrice);
-        foodStock += GetFoodReward(item.foodPrice);
-        woodStock += GetWoodReward(item.woodPrice);
-        goldStock += GetGoldReward(item.goldPrice);
+        sailorsStock += GetSailorReward(item.sailorReward);
+        foodStock += GetFoodReward(item.foodReward);
+        woodStock += GetWoodReward(item.woodReward);
+        goldStock += GetGoldReward(item.goldReward);
         if (sailorsStock > sailorsMaxStock)
             sailorsStock = sailorsMaxStock;
         if (foodStock > foodMaxStock)
@@ -242,13 +299,19 @@ public class GameManager : MonoBehaviour
             woodStock = 0;
             Defeat("Wood");
         }
-        
+        if(goldStock <= 0)
+        {
+            goldStock = 0;
+        }        
     }
 
     void Defeat(string cause)
     {
         switch (cause)
         {
+            case "Food":
+                print("You eat your last man to survive, do you deserve to be called captain ?");
+                break;
             case "Wood":
                 print("You have no more wood, you see your ship sink, shame on you.");
                 break;
@@ -261,7 +324,82 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    int GetSailorCost(Cost cost)
+    public void FoodConsumption()
+    {
+        switch (currentLevel)
+        {
+            case GameLevel.lvl1:
+                if(foodStock - lvl1_foodConsumption == 0)
+                {
+                    foodStock = 0;
+                    print("You ate your last rations when you got here.");
+                }else if(foodStock - lvl1_foodConsumption < 0)
+                {
+                    foodStock = 0;
+                    sailorsStock--;
+                    if(sailorsStock == 0)
+                    {
+                        Defeat("Food");
+                    }
+                    if (sailorsStock < 0)
+                        Debug.LogError("You shoudnl't be there.");
+                }
+                else
+                {
+                    foodStock -= lvl1_foodConsumption;
+                }
+                break;
+            case GameLevel.lvl2:
+                if (foodStock - lvl2_foodConsumption == 0)
+                {
+                    foodStock = 0;
+                    print("You ate your last rations when you got here.");
+                }
+                else if (foodStock - lvl2_foodConsumption < 0)
+                {
+                    foodStock = 0;
+                    sailorsStock--;
+                    if (sailorsStock == 0)
+                    {
+                        Defeat("Food");
+                    }
+                    if (sailorsStock < 0)
+                        Debug.LogError("You shoudnl't be there.");
+                }
+                else
+                {
+                    foodStock -= lvl2_foodConsumption;
+                }
+                break;
+            case GameLevel.lvl3:
+                if (foodStock - lvl3_foodConsumption == 0)
+                {
+                    foodStock = 0;
+                    print("You ate your last rations when you got here.");
+                }
+                else if (foodStock - lvl3_foodConsumption < 0)
+                {
+                    foodStock = 0;
+                    sailorsStock--;
+                    if (sailorsStock == 0)
+                    {
+                        Defeat("Food");
+                    }
+                    if (sailorsStock < 0)
+                        Debug.LogError("You shoudnl't be there.");
+                }
+                else
+                {
+                    foodStock -= lvl3_foodConsumption;
+                }
+                break;
+            default:
+                Debug.LogError("You shoudln't be there.");
+                break;
+        }
+    }
+
+    public int GetSailorCost(Cost cost)
     {
         switch (currentLevel)
         {
@@ -269,7 +407,6 @@ public class GameManager : MonoBehaviour
                 switch (cost)
                 {
                     case Cost.none:
-                        Debug.LogError("Shouldn't be there.");
                         return 0;
                     case Cost.low:
                         return lvl1_lowSailorCost;
@@ -285,7 +422,6 @@ public class GameManager : MonoBehaviour
                 switch (cost)
                 {
                     case Cost.none:
-                        Debug.LogError("Shouldn't be there.");
                         return 0;
                     case Cost.low:
                         return lvl2_lowSailorCost;
@@ -301,7 +437,6 @@ public class GameManager : MonoBehaviour
                 switch (cost)
                 {
                     case Cost.none:
-                        Debug.LogError("Shouldn't be there.");
                         return 0;
                     case Cost.low:
                         return lvl3_lowSailorCost;
@@ -318,7 +453,7 @@ public class GameManager : MonoBehaviour
                 return 0;
         }
     }
-    int GetFoodCost(Cost cost)
+    public int GetFoodCost(Cost cost)
     {
         switch (currentLevel)
         {
@@ -326,7 +461,6 @@ public class GameManager : MonoBehaviour
                 switch (cost)
                 {
                     case Cost.none:
-                        Debug.LogError("Shouldn't be there.");
                         return 0;
                     case Cost.low:
                         return lvl1_lowFoodCost;
@@ -342,7 +476,6 @@ public class GameManager : MonoBehaviour
                 switch (cost)
                 {
                     case Cost.none:
-                        Debug.LogError("Shouldn't be there.");
                         return 0;
                     case Cost.low:
                         return lvl2_lowFoodCost;
@@ -375,7 +508,7 @@ public class GameManager : MonoBehaviour
                 return 0;
         }
     }
-    int GetWoodCost(Cost cost)
+    public int GetWoodCost(Cost cost)
     {
         switch (currentLevel)
         {
@@ -383,7 +516,6 @@ public class GameManager : MonoBehaviour
                 switch (cost)
                 {
                     case Cost.none:
-                        Debug.LogError("Shouldn't be there.");
                         return 0;
                     case Cost.low:
                         return lvl1_lowWoodCost;
@@ -399,7 +531,6 @@ public class GameManager : MonoBehaviour
                 switch (cost)
                 {
                     case Cost.none:
-                        Debug.LogError("Shouldn't be there.");
                         return 0;
                     case Cost.low:
                         return lvl2_lowWoodCost;
@@ -415,7 +546,6 @@ public class GameManager : MonoBehaviour
                 switch (cost)
                 {
                     case Cost.none:
-                        Debug.LogError("Shouldn't be there.");
                         return 0;
                     case Cost.low:
                         return lvl3_lowWoodCost;
@@ -432,7 +562,7 @@ public class GameManager : MonoBehaviour
                 return 0;
         }
     }
-    int GetGoldCost(Cost cost)
+    public int GetGoldCost(Cost cost)
     {
         switch (currentLevel)
         {
@@ -440,7 +570,6 @@ public class GameManager : MonoBehaviour
                 switch (cost)
                 {
                     case Cost.none:
-                        Debug.LogError("Shouldn't be there.");
                         return 0;
                     case Cost.low:
                         return lvl1_lowGoldCost;
@@ -456,7 +585,6 @@ public class GameManager : MonoBehaviour
                 switch (cost)
                 {
                     case Cost.none:
-                        Debug.LogError("Shouldn't be there.");
                         return 0;
                     case Cost.low:
                         return lvl2_lowGoldCost;
@@ -472,7 +600,6 @@ public class GameManager : MonoBehaviour
                 switch (cost)
                 {
                     case Cost.none:
-                        Debug.LogError("Shouldn't be there.");
                         return 0;
                     case Cost.low:
                         return lvl3_lowGoldCost;
@@ -489,7 +616,7 @@ public class GameManager : MonoBehaviour
                 return 0;
         }
     }
-    int GetSailorReward(Cost cost)
+    public int GetSailorReward(Cost cost)
     {
         switch (currentLevel)
         {
@@ -497,7 +624,6 @@ public class GameManager : MonoBehaviour
                 switch (cost)
                 {
                     case Cost.none:
-                        Debug.LogError("Shouldn't be there.");
                         return 0;
                     case Cost.low:
                         return Random.Range(lvl1_lowSailorMIN, lvl1_lowSailorMAX + 1);
@@ -513,7 +639,6 @@ public class GameManager : MonoBehaviour
                 switch (cost)
                 {
                     case Cost.none:
-                        Debug.LogError("Shouldn't be there.");
                         return 0;
                     case Cost.low:
                         return Random.Range(lvl2_lowSailorMIN, lvl2_lowSailorMAX + 1);
@@ -529,7 +654,6 @@ public class GameManager : MonoBehaviour
                 switch (cost)
                 {
                     case Cost.none:
-                        Debug.LogError("Shouldn't be there.");
                         return 0;
                     case Cost.low:
                         return Random.Range(lvl3_lowSailorMIN, lvl3_lowSailorMAX + 1);
@@ -546,7 +670,7 @@ public class GameManager : MonoBehaviour
                 return 0;
         }
     }
-    int GetFoodReward(Cost cost)
+    public int GetFoodReward(Cost cost)
     {
         switch (currentLevel)
         {
@@ -554,7 +678,6 @@ public class GameManager : MonoBehaviour
                 switch (cost)
                 {
                     case Cost.none:
-                        Debug.LogError("Shouldn't be there.");
                         return 0;
                     case Cost.low:
                         return Random.Range(lvl1_lowFoodMIN, lvl1_lowFoodMAX + 1);
@@ -570,7 +693,6 @@ public class GameManager : MonoBehaviour
                 switch (cost)
                 {
                     case Cost.none:
-                        Debug.LogError("Shouldn't be there.");
                         return 0;
                     case Cost.low:
                         return Random.Range(lvl2_lowFoodMIN, lvl2_lowFoodMAX + 1);
@@ -586,7 +708,6 @@ public class GameManager : MonoBehaviour
                 switch (cost)
                 {
                     case Cost.none:
-                        Debug.LogError("Shouldn't be there.");
                         return 0;
                     case Cost.low:
                         return Random.Range(lvl3_lowFoodMIN, lvl3_lowFoodMAX + 1);
@@ -603,7 +724,7 @@ public class GameManager : MonoBehaviour
                 return 0;
         }
     }
-    int GetWoodReward(Cost cost)
+    public int GetWoodReward(Cost cost)
     {
         switch (currentLevel)
         {
@@ -611,7 +732,6 @@ public class GameManager : MonoBehaviour
                 switch (cost)
                 {
                     case Cost.none:
-                        Debug.LogError("Shouldn't be there.");
                         return 0;
                     case Cost.low:
                         return Random.Range(lvl1_lowWoodMIN, lvl1_lowWoodMAX + 1);
@@ -627,7 +747,6 @@ public class GameManager : MonoBehaviour
                 switch (cost)
                 {
                     case Cost.none:
-                        Debug.LogError("Shouldn't be there.");
                         return 0;
                     case Cost.low:
                         return Random.Range(lvl2_lowWoodMIN, lvl2_lowWoodMAX + 1);
@@ -643,7 +762,6 @@ public class GameManager : MonoBehaviour
                 switch (cost)
                 {
                     case Cost.none:
-                        Debug.LogError("Shouldn't be there.");
                         return 0;
                     case Cost.low:
                         return Random.Range(lvl3_lowWoodMIN, lvl3_lowWoodMAX + 1);
@@ -660,7 +778,7 @@ public class GameManager : MonoBehaviour
                 return 0;
         }
     }
-    int GetGoldReward(Cost cost)
+    public int GetGoldReward(Cost cost)
     {
         switch (currentLevel)
         {
@@ -668,7 +786,6 @@ public class GameManager : MonoBehaviour
                 switch (cost)
                 {
                     case Cost.none:
-                        Debug.LogError("Shouldn't be there.");
                         return 0;
                     case Cost.low:
                         return Random.Range(lvl1_lowGoldMIN, lvl1_lowGoldMAX + 1);
@@ -684,7 +801,6 @@ public class GameManager : MonoBehaviour
                 switch (cost)
                 {
                     case Cost.none:
-                        Debug.LogError("Shouldn't be there.");
                         return 0;
                     case Cost.low:
                         return Random.Range(lvl2_lowGoldMIN, lvl2_lowGoldMAX + 1);
@@ -700,7 +816,6 @@ public class GameManager : MonoBehaviour
                 switch (cost)
                 {
                     case Cost.none:
-                        Debug.LogError("Shouldn't be there.");
                         return 0;
                     case Cost.low:
                         return Random.Range(lvl3_lowGoldMIN, lvl3_lowGoldMAX + 1);

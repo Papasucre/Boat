@@ -159,3 +159,9 @@ MonoBehaviour:
   lvl3_mediumGoldMAX: 120
   lvl3_highGoldMIN: 120
   lvl3_highGoldMAX: 180
+  lvl1_foodConsumption: 1
+  lvl2_foodConsumption: 2
+  lvl3_foodConsumption: 4
+  currentLevel: 0
+  choicesList: []
+  makeChoice: 0

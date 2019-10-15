@@ -19,7 +19,7 @@ public class IslandEncounterProb : MonoBehaviour
             totalProb += item.prob;
         }
         if (totalProb != 100)
-            Debug.LogError("Total of probability is not egal to 100. (="+totalProb);
+            Debug.LogError("Total of probability is not egal to 100. (="+totalProb + ")");
         foreach (GameManager.Prob item in probList)
         {
             for (int i = 0; i < item.prob; i++)

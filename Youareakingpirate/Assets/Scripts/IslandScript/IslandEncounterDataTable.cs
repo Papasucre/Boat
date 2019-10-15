@@ -12,6 +12,7 @@ public class IslandEncounterDataTable : MonoBehaviour
     private void Start()
     {
         GameManager.instance.choicesList.Clear();
+        GameManager.instance.FoodConsumption();
         helpVillagersScript = GetComponent<HelpVillagersDataTable>();
         probScript = GetComponent<IslandEncounterProb>();
         print("START ISLAND");
@@ -30,7 +31,8 @@ public class IslandEncounterDataTable : MonoBehaviour
                     {
                         GameManager.instance.choicesList.Add(item);
                         print(item.ID + " " + item.actionName + " ===============================");
-                        print("Cost : " + "SAILOR " + item.sailorPrice + " FOOD " + item.foodPrice + " WOOD " + item.woodPrice + " GOLD " + item.goldPrice + " RELIC " + item.relicPrice);
+                        print("Cost : " + "SAILOR " + GameManager.instance.GetSailorCost(item.sailorPrice) + " FOOD " + GameManager.instance.GetFoodCost(item.foodPrice) + 
+                            " WOOD " + GameManager.instance.GetWoodCost(item.woodPrice) + " GOLD " + GameManager.instance.GetGoldCost(item.goldPrice) + " RELIC " + item.relicPrice);
                         print("Reward : " + "SAILOR " + item.sailorReward + " FOOD " + item.foodReward + " WOOD " + item.woodReward + " GOLD " + item.goldReward + " RELIC " + item.relicReward);
                         break;
                     }
