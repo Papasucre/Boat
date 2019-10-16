@@ -12,6 +12,14 @@ GameObject:
   - component: {fileID: 5106184026394599058}
   - component: {fileID: 3332060135297979182}
   - component: {fileID: 724519719177920316}
+  - component: {fileID: 1762078727}
+  - component: {fileID: 1762078728}
+  - component: {fileID: 1762078729}
+  - component: {fileID: 1762078730}
+  - component: {fileID: 1762078731}
+  - component: {fileID: 1762078732}
+  - component: {fileID: 1762078733}
+  - component: {fileID: 1762078734}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -51,7 +59,7 @@ MonoBehaviour:
   foodMaxStock: 15
   woodStock: 6
   woodMaxStock: 10
-  goldStock: 0
+  goldStock: 50
   goldMaxStock: 50
   lvl1_lowSailorCost: 1
   lvl1_mediumSailorCost: 2
@@ -165,6 +173,7 @@ MonoBehaviour:
   lvl2_foodConsumption: 2
   lvl3_foodConsumption: 4
   currentLevel: 0
+  currentBoat: 0
   choicesList: []
   choicesUpgradeList: []
   makeChoice: 0
@@ -198,52 +207,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 635303108030d4044b3ff8e2974cb7ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  upgradesList:
-  - actionName: Upgrade sailor capacity
-    ID: US_01
-    goldPrice: 0
-    newCapacity: 12
-    bought: 0
-  - actionName: Upgrade sailor capacity
-    ID: US_02
-    goldPrice: 1
-    newCapacity: 20
-    bought: 1
-  - actionName: Upgrade food storage
-    ID: UF_01
-    goldPrice: 0
-    newCapacity: 25
-    bought: 0
-  - actionName: Upgrade food storage
-    ID: UF_02
-    goldPrice: 1
-    newCapacity: 40
-    bought: 1
-  - actionName: Upgrade wood storage
-    ID: UW_01
-    goldPrice: 0
-    newCapacity: 15
-    bought: 0
-  - actionName: Upgrade wood storage
-    ID: UW_02
-    goldPrice: 1
-    newCapacity: 25
-    bought: 1
-  - actionName: Upgrade gold storage
-    ID: UG_01
-    goldPrice: 0
-    newCapacity: 100
-    bought: 0
-  - actionName: Upgrade gold storage
-    ID: UG_02
-    goldPrice: 1
-    newCapacity: 200
-    bought: 1
-  - actionName: Relic
-    ID: Relic
-    goldPrice: 1
-    newCapacity: 0
-    bought: 0
+  upgradesList: []
   probList:
   - ID: US_01
     prob: 12
@@ -272,4 +236,139 @@ MonoBehaviour:
   - ID: Relic
     prob: 4
     levelUpgrade: 1
-  IDList: []
+--- !u!114 &1762078727
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8551236696909422262}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e34c5d8c5823f264292a1a24bf6c6ab6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  actionName: Upgrade gold storage
+  ID: UG_02
+  goldPrice: 1
+  newCapacity: 200
+  bought: 1
+--- !u!114 &1762078728
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8551236696909422262}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e34c5d8c5823f264292a1a24bf6c6ab6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  actionName: Upgrade gold storage
+  ID: UG_01
+  goldPrice: 0
+  newCapacity: 100
+  bought: 0
+--- !u!114 &1762078729
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8551236696909422262}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e34c5d8c5823f264292a1a24bf6c6ab6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  actionName: Upgrade wood storage
+  ID: UW_02
+  goldPrice: 1
+  newCapacity: 25
+  bought: 1
+--- !u!114 &1762078730
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8551236696909422262}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e34c5d8c5823f264292a1a24bf6c6ab6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  actionName: Upgrade wood storage
+  ID: UW_01
+  goldPrice: 0
+  newCapacity: 15
+  bought: 0
+--- !u!114 &1762078731
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8551236696909422262}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e34c5d8c5823f264292a1a24bf6c6ab6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  actionName: Upgrade food storage
+  ID: UF_02
+  goldPrice: 1
+  newCapacity: 40
+  bought: 1
+--- !u!114 &1762078732
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8551236696909422262}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e34c5d8c5823f264292a1a24bf6c6ab6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  actionName: Upgrade food storage
+  ID: UF_01
+  goldPrice: 0
+  newCapacity: 25
+  bought: 0
+--- !u!114 &1762078733
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8551236696909422262}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e34c5d8c5823f264292a1a24bf6c6ab6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  actionName: Upgrade sailor capacity
+  ID: US_02
+  goldPrice: 1
+  newCapacity: 20
+  bought: 1
+--- !u!114 &1762078734
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8551236696909422262}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e34c5d8c5823f264292a1a24bf6c6ab6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  actionName: Upgrade sailor capacity
+  ID: US_01
+  goldPrice: 0
+  newCapacity: 12
+  bought: 0

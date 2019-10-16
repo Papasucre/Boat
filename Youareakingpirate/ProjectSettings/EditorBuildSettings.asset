@@ -14,4 +14,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Island 2.unity
     guid: 914e3e84a241f5148867639b2e468a02
+  - enabled: 1
+    path: Assets/Scenes/Pirates.unity
+    guid: dc10e0dfd20a5f746acdddf73fdd66cd
   m_configObjects: {}

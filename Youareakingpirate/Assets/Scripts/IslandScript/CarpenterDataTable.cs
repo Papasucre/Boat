@@ -5,16 +5,26 @@ using UnityEngine;
 public class CarpenterDataTable : MonoBehaviour
 {
 #pragma warning disable 0649
-    [SerializeField] List<GameManager.Upgrade> upgradesList;
+    public List<Upgrade> upgradesList;
     [SerializeField] List<GameManager.ProbUpgrade> probList;
 #pragma warning restore 0649
     List<string> IDList = new List<string>();
 
     int totalProb;
+    int upgradeBought = 0;
+
+    private void Start()
+    {
+        for (int i = 0; i < GetComponents<Upgrade>().Length; i++)
+        {
+            upgradesList.Add(GetComponents<Upgrade>()[i]);
+        }
+    }
 
     void FullProbList()
     {
         IDList.Clear();
+        totalProb = 0;
         foreach (GameManager.ProbUpgrade item in probList)
         {
             totalProb += item.prob;
@@ -34,7 +44,7 @@ public class CarpenterDataTable : MonoBehaviour
                         }
                         break;
                     case GameManager.GameLevel.lvl2:
-                        if(GameManager.instance.currentLevel != GameManager.GameLevel.lvl1)
+                        if(GameManager.instance.currentBoat != GameManager.BoatLevel.little)
                         {
                             for (int i = 0; i < item.prob; i++)
                             {
@@ -43,7 +53,7 @@ public class CarpenterDataTable : MonoBehaviour
                         }
                         break;
                     case GameManager.GameLevel.lvl3:
-                        if(GameManager.instance.currentLevel == GameManager.GameLevel.lvl3)
+                        if(GameManager.instance.currentBoat == GameManager.BoatLevel.big)
                         {
                             for (int i = 0; i < item.prob; i++)
                             {
@@ -66,9 +76,16 @@ public class CarpenterDataTable : MonoBehaviour
         print("CARPENTER WORKSHOP");
         for (int i = 0; i < 3; i++)
         {
+            if (IDList.Count == 0)
+                break;
             string ID = GetChoiceID();
-            foreach (GameManager.Upgrade item in upgradesList)
+            foreach (Upgrade item in upgradesList)
             {
+                if(ID == "Relic")
+                {
+                    //Handle relics
+                    break;
+                }
                 if (item.ID == ID)
                 {
                     GameManager.instance.choicesUpgradeList.Add(item);
@@ -85,16 +102,48 @@ public class CarpenterDataTable : MonoBehaviour
         print("Choose your action with 1 2 or 3.");
     }
 
+    public void UpgradePurchase()
+    {
+        upgradeBought++;
+        switch (GameManager.instance.currentBoat)
+        {
+            case GameManager.BoatLevel.little:
+                if (upgradeBought == 2)
+                {
+                    GameManager.instance.currentBoat = GameManager.BoatLevel.normal;
+                    print("Nique sa mere la sloop, on change de bateau.");
+                }
+                break;
+            case GameManager.BoatLevel.normal:
+                if (upgradeBought == 4)
+                {
+                    GameManager.instance.currentBoat = GameManager.BoatLevel.big;
+                    print("A toi le galion petite salope !");
+                }
+                break;
+            case GameManager.BoatLevel.big:
+                break;
+            default:
+                print("You can't be there.");
+                break;
+        }
+    }
+
     bool GetBoolState(string ID)
     {
-        foreach (GameManager.Upgrade item in upgradesList)
+        foreach (Upgrade item in upgradesList)
         {
             if (ID == item.ID)
             {
                 return item.bought;
             }
         }
-        Debug.LogError("You shoudln't be there.");
+        if(ID == "Relic")
+        {
+            //A changer une fois les reliques implémentées
+            return true;
+        }
+        Debug.LogError("You shoudln't be there. " + ID);
         return true;
     }
 
@@ -113,5 +162,17 @@ public class CarpenterDataTable : MonoBehaviour
     string GetRandomID()
     {
         return IDList[Random.Range(0, IDList.Count)];
+    }
+
+    public void SetBoolState(string ID, bool state)
+    {
+        for (int i = 0; i < upgradesList.Count; i++)
+        {
+            if(ID == upgradesList[i].ID)
+            {
+                upgradesList[i].bought = state;
+                break;
+            }
+        }
     }
 }

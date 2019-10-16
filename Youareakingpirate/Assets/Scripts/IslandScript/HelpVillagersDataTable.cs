@@ -45,7 +45,7 @@ public class HelpVillagersDataTable : MonoBehaviour
                 return item;
             }
         }
-        Debug.LogError("You shoudln't be there.");
+        Debug.LogError("You shoudln't be there."+ID+".");
         return new GameManager.Action();
     }
     string GetChoiceID()

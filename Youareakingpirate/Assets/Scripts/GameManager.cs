@@ -143,6 +143,7 @@ public class GameManager : MonoBehaviour
 
     [Header("GAME INFORMATION")]
     public GameLevel currentLevel;
+    public BoatLevel currentBoat;
 #pragma warning restore 0649
 
     public List<Action> choicesList = new List<Action>();
@@ -178,7 +179,8 @@ public class GameManager : MonoBehaviour
     {
         carpenterScript = GetComponent<CarpenterDataTable>();
         loadScript = GetComponent<IslandsTable>();
-        loadScript.LoadRandomIsland();
+        SceneManager.LoadScene("Pirates");
+        //loadScript.LoadRandomIsland();
     }
 
     private void Update()
@@ -189,11 +191,19 @@ public class GameManager : MonoBehaviour
             {
                 if (atCarpenterWorkshop)
                 {
-                    print("You choose " + choicesUpgradeList[0].actionName);
-                    atCarpenterWorkshop = false;
-                    goldStock -= GetGoldCostCarpenter(choicesUpgradeList[0].goldPrice);
-                    ShowRessources();
-                    StartCoroutine(LoadNextEncounter());
+                    if (SimulateCarpenterCost(choicesUpgradeList[0]))
+                    {
+                        print("You choose " + choicesUpgradeList[0].actionName);
+                        atCarpenterWorkshop = false;
+                        goldStock -= GetGoldCostCarpenter(choicesUpgradeList[0].goldPrice);
+                        ApplyUpgrade(choicesUpgradeList[0]);
+                        ShowRessources();
+                        StartCoroutine(LoadNextEncounter());
+                    }
+                    else
+                    {
+                        print("You cannot take this choice, you don't have enough gold.");
+                    }
                 }
                 else if (SimulateCost(choicesList[0]))
                 {
@@ -217,15 +227,23 @@ public class GameManager : MonoBehaviour
                     print("You cannot take this choice, you don't have enough ressources.");
                 }
             }
-            if (Input.GetKeyDown(KeyCode.Alpha2))
+            if (Input.GetKeyDown(KeyCode.Alpha2) && (choicesList.Count == 3 || choicesUpgradeList.Count == 3))
             {
                 if (atCarpenterWorkshop)
                 {
-                    print("You choose " + choicesUpgradeList[1].actionName);
-                    atCarpenterWorkshop = false;
-                    goldStock -= GetGoldCostCarpenter(choicesUpgradeList[1].goldPrice);
-                    ShowRessources();
-                    StartCoroutine(LoadNextEncounter());
+                    if (SimulateCarpenterCost(choicesUpgradeList[1]))
+                    {
+                        print("You choose " + choicesUpgradeList[1].actionName);
+                        atCarpenterWorkshop = false;
+                        goldStock -= GetGoldCostCarpenter(choicesUpgradeList[1].goldPrice);
+                        ApplyUpgrade(choicesUpgradeList[1]);
+                        ShowRessources();
+                        StartCoroutine(LoadNextEncounter());
+                    }
+                    else
+                    {
+                        print("You cannot take this choice, you don't have enough gold.");
+                    }
                 }
                 else if (SimulateCost(choicesList[1]))
                 {
@@ -253,11 +271,19 @@ public class GameManager : MonoBehaviour
             {
                 if (atCarpenterWorkshop)
                 {
-                    print("You choose " + choicesUpgradeList[2].actionName);
-                    atCarpenterWorkshop = false;
-                    goldStock -= GetGoldCostCarpenter(choicesUpgradeList[2].goldPrice);
-                    ShowRessources();
-                    StartCoroutine(LoadNextEncounter());
+                    if (SimulateCarpenterCost(choicesUpgradeList[2]))
+                    {
+                        print("You choose " + choicesUpgradeList[2].actionName);
+                        atCarpenterWorkshop = false;
+                        goldStock -= GetGoldCostCarpenter(choicesUpgradeList[2].goldPrice);
+                        ApplyUpgrade(choicesUpgradeList[2]);
+                        ShowRessources();
+                        StartCoroutine(LoadNextEncounter());
+                    }
+                    else
+                    {
+                        print("You cannot take this choice, you don't have enough gold.");
+                    }
                 }
                 else if (SimulateCost(choicesList[2]))
                 {
@@ -292,15 +318,22 @@ public class GameManager : MonoBehaviour
         loadScript.LoadRandomIsland();
     }
 
+    bool SimulateCarpenterCost(Upgrade item)
+    {
+        if (goldStock - GetGoldCostCarpenter(item.goldPrice) >= 0)
+            return true;
+        return false;
+    }
+
     bool SimulateCost(Action item)
     {
-        if (sailorsStock - item.sailorPrice <= 0)
+        if (sailorsStock - GetSailorCost(item.sailorPrice) <= 0)
             return false;
-        if (foodStock - item.foodPrice < 0)
+        if (foodStock - GetFoodCost(item.foodPrice) < 0)
             return false;
-        if (woodStock - item.woodPrice < 0)
+        if (woodStock - GetWoodCost(item.woodPrice) < 0)
             return false;
-        if (goldStock - item.goldPrice < 0)
+        if (goldStock - GetGoldCost(item.goldPrice) < 0)
             return false;
         return true;
     }
@@ -903,11 +936,51 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    void ApplyUpgrade(Upgrade upgrade)
+    {
+        carpenterScript.UpgradePurchase();
+        carpenterScript.SetBoolState(upgrade.ID, true);
+        switch (upgrade.ID)
+        {
+            case "US_01":
+                sailorsMaxStock = upgrade.newCapacity;
+                carpenterScript.SetBoolState("US_02", false);
+                break;
+            case "US_02":
+                sailorsMaxStock = upgrade.newCapacity;
+                break;
+            case "UF_01":
+                foodMaxStock = upgrade.newCapacity;
+                carpenterScript.SetBoolState("UF_02", false);
+                break;
+            case "UF_02":
+                foodMaxStock = upgrade.newCapacity;
+                break;
+            case "UW_01":
+                woodMaxStock = upgrade.newCapacity;
+                carpenterScript.SetBoolState("UW_02", false);
+                break;
+            case "UW_02":
+                woodMaxStock = upgrade.newCapacity;
+                break;
+            case "UG_01":
+                goldMaxStock = upgrade.newCapacity;
+                carpenterScript.SetBoolState("UG_02", false);
+                break;
+            case "UG_02":
+                goldMaxStock = upgrade.newCapacity;
+                break;
+            default:
+                break;
+        }
+    }
+
     public void ShowRessources()
     {
         print("Ship supplies :");
-        print("Sailor : " + GameManager.Instance.sailorsStock + "/" + GameManager.Instance.sailorsMaxStock + " Food : " + GameManager.Instance.foodStock + "/" + GameManager.Instance.foodMaxStock + " Wood : "
-            + GameManager.Instance.woodStock + "/" + GameManager.Instance.foodMaxStock + " Gold : " + GameManager.Instance.goldStock + "/" + GameManager.Instance.goldMaxStock);
+        print("Sailor : " + GameManager.Instance.sailorsStock + "/" + GameManager.Instance.sailorsMaxStock + " | Food : " + GameManager.Instance.foodStock + "/" + GameManager.Instance.foodMaxStock 
+            + "  | Wood : " + GameManager.Instance.woodStock + "/" + GameManager.Instance.woodMaxStock + 
+            " | Gold : " + GameManager.Instance.goldStock + "/" + GameManager.Instance.goldMaxStock);
     }
 
     public enum Cost
@@ -918,6 +991,11 @@ public class GameManager : MonoBehaviour
     public enum GameLevel
     {
         lvl1, lvl2, lvl3
+    }
+
+    public enum BoatLevel
+    {
+        little, normal, big
     }
 
     [System.Serializable]
@@ -944,16 +1022,6 @@ public class GameManager : MonoBehaviour
         public GameManager.Cost woodReward;
         public GameManager.Cost goldReward;
         public GameManager.Cost relicReward;
-    }
-
-    [System.Serializable]
-    public struct Upgrade
-    {
-        public string actionName;
-        public string ID;
-        public GameLevel goldPrice;
-        public int newCapacity;
-        public bool bought;
     }
 
     [System.Serializable]

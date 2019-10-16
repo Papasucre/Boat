@@ -206,7 +206,7 @@ MonoBehaviour:
     goldReward: 0
     relicReward: 3
   - actionName: Help villagers (Food)
-    ID: ' Hv_05'
+    ID: Hv_05
     sailorPrice: 0
     foodPrice: 2
     woodPrice: 0
