@@ -102,6 +102,30 @@ public class CarpenterDataTable : MonoBehaviour
         print("Choose your action with 1 2 or 3.");
     }
 
+    public void GetRandomUpgrade()
+    {
+        FullProbList();
+        RemoveItem("Relic");
+        GameManager.instance.choicesUpgradeList.Clear();
+        if (IDList.Count == 0)
+            return;
+        string ID = GetChoiceID();
+        foreach (Upgrade item in upgradesList)
+        {
+            if (item.ID == ID)
+            {
+                GameManager.instance.choicesUpgradeList.Add(item);
+                GameManager.instance.choicesUpgradeList.Add(item);
+                GameManager.instance.choicesUpgradeList.Add(item);
+                print(item.ID + " =============================== " + item.actionName);
+                print("Cost : " + " GOLD " + GameManager.instance.GetGoldCostCarpenter(item.goldPrice));
+                print("New capacity : " + item.newCapacity);
+                break;
+            }
+        }
+        GameManager.instance.alliesUpgradeGift = true;
+    }
+
     public void UpgradePurchase()
     {
         upgradeBought++;

@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -150,6 +150,7 @@ public class GameManager : MonoBehaviour
     public List<Upgrade> choicesUpgradeList = new List<Upgrade>();
     public bool makeChoice;
     public bool atCarpenterWorkshop;
+    public bool alliesUpgradeGift;
 
     IslandsTable loadScript;
     CarpenterDataTable carpenterScript;
@@ -179,8 +180,7 @@ public class GameManager : MonoBehaviour
     {
         carpenterScript = GetComponent<CarpenterDataTable>();
         loadScript = GetComponent<IslandsTable>();
-        SceneManager.LoadScene("Pirates");
-        //loadScript.LoadRandomIsland();
+        loadScript.LoadRandomIsland();
     }
 
     private void Update()
@@ -269,12 +269,13 @@ public class GameManager : MonoBehaviour
             }
             if (Input.GetKeyDown(KeyCode.Alpha3))
             {
-                if (atCarpenterWorkshop)
+                if (atCarpenterWorkshop || alliesUpgradeGift)
                 {
                     if (SimulateCarpenterCost(choicesUpgradeList[2]))
                     {
                         print("You choose " + choicesUpgradeList[2].actionName);
                         atCarpenterWorkshop = false;
+                        alliesUpgradeGift = false;
                         goldStock -= GetGoldCostCarpenter(choicesUpgradeList[2].goldPrice);
                         ApplyUpgrade(choicesUpgradeList[2]);
                         ShowRessources();
