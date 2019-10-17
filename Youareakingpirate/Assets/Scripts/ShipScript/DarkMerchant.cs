@@ -45,7 +45,10 @@ public class DarkMerchant : MonoBehaviour
             print("Reward : " + "SAILOR " + item.sailorReward + " | " + " FOOD " + item.foodReward + " | " + " WOOD " + item.woodReward + " | " + " GOLD " + item.goldReward + " | " + " RELIC " + item.relicReward);
         }
         GameManager.Instance.makeChoice = true;
+        GameManager.instance.canSkip = true;
         GameManager.Instance.ShowRessources();
         print("Choose your action with 1 2 or 3.");
+        print("Or you can skip this encounter with 4.");
+
     }
 }

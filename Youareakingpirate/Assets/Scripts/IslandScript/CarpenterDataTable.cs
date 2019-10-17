@@ -98,8 +98,10 @@ public class CarpenterDataTable : MonoBehaviour
         }
         GameManager.Instance.makeChoice = true;
         GameManager.Instance.atCarpenterWorkshop = true;
+        GameManager.Instance.canSkip = true;
         GameManager.Instance.ShowRessources();
         print("Choose your action with 1 2 or 3.");
+        print("Or you can skip this encounter with 4.");
     }
 
     public void GetRandomUpgrade()

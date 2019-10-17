@@ -151,6 +151,7 @@ public class GameManager : MonoBehaviour
     public bool makeChoice;
     public bool atCarpenterWorkshop;
     public bool alliesUpgradeGift;
+    public bool canSkip;
 
     IslandsTable loadScript;
     CarpenterDataTable carpenterScript;
@@ -320,6 +321,13 @@ public class GameManager : MonoBehaviour
                     print("You cannot take this choice, you don't have enough ressources.");
                 }
             }
+            if(Input.GetKeyDown(KeyCode.Alpha4) && canSkip)
+            {
+                print("You choose to skip this encounter.");
+                makeChoice = false;
+                atCarpenterWorkshop = false;
+                StartCoroutine(LoadNextEncounter());
+            }
         }
         if (Input.GetKeyDown(KeyCode.R))
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
@@ -426,6 +434,7 @@ public class GameManager : MonoBehaviour
 
     public void FoodConsumption()
     {
+        GameManager.instance.canSkip = false;
         switch (currentLevel)
         {
             case GameLevel.lvl1:
