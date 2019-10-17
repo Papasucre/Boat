@@ -56,7 +56,7 @@ public class Merchant : MonoBehaviour
         GameManager.Instance.canSkip = true;
         GameManager.Instance.ShowRessources();
         print("Choose your action with 1 2 or 3.");
-        print("Or you can skip this encounter with 4.")
+        print("Or you can skip this encounter with 4.");
     }
 
     string GetChoiceID()
