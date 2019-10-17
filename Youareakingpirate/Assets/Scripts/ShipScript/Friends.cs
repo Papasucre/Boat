@@ -9,6 +9,8 @@ public class Friends : MonoBehaviour
 #pragma warning restore 0649
     List<GameManager.Action> list = new List<GameManager.Action>();
 
+    bool friendsUpgradeGift;
+
     void Start()
     {
         GameManager.instance.choicesList.Clear();
@@ -30,7 +32,7 @@ public class Friends : MonoBehaviour
                     switch (random)
                     {
                         case 0:
-                            GameManager.instance.gameObject.GetComponent<CarpenterDataTable>().GetRandomUpgrade();
+                            friendsUpgradeGift = true;
                             break;
                         case 1:
                             //relics
@@ -53,6 +55,9 @@ public class Friends : MonoBehaviour
                 " WOOD " + GameManager.instance.GetWoodCost(item.woodPrice) + " | " + " GOLD " + GameManager.instance.GetGoldCost(item.goldPrice) + " | " + " RELIC " + item.relicPrice);
             print("Reward : " + "SAILOR " + item.sailorReward + " | " + " FOOD " + item.foodReward + " | " + " WOOD " + item.woodReward + " | " + " GOLD " + item.goldReward + " | " + " RELIC " + item.relicReward);
         }
+        if(friendsUpgradeGift)
+            GameManager.instance.gameObject.GetComponent<CarpenterDataTable>().GetRandomUpgrade();
+        friendsUpgradeGift = false;
         GameManager.Instance.makeChoice = true;
         GameManager.Instance.ShowRessources();
         print("Choose your action with 1 2 or 3.");

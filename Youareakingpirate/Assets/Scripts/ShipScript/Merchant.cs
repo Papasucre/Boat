@@ -35,7 +35,7 @@ public class Merchant : MonoBehaviour
     {
         GameManager.instance.choicesList.Clear();
         GameManager.instance.FoodConsumption();
-        print("START ISLAND");
+        print("START MERCHANT");
         for (int i = 0; i < 3; i++)
         {
             string ID = GetChoiceID();

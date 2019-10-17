@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3836452765826376421}
   - component: {fileID: 5106184026394599058}
+  - component: {fileID: 1273261917566318468}
   - component: {fileID: 3332060135297979182}
   - component: {fileID: 394538626521987292}
   - component: {fileID: 724519719177920316}
@@ -181,6 +182,23 @@ MonoBehaviour:
   atCarpenterWorkshop: 0
   alliesUpgradeGift: 0
   canSkip: 0
+--- !u!114 &1273261917566318468
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8551236696909422262}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3acfd80c20168414d9b5e89fae711f0c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  probList:
+  - ID: Island
+    prob: 60
+  - ID: Ship
+    prob: 40
 --- !u!114 &3332060135297979182
 MonoBehaviour:
   m_ObjectHideFlags: 0

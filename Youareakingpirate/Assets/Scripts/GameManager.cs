@@ -153,7 +153,9 @@ public class GameManager : MonoBehaviour
     public bool alliesUpgradeGift;
     public bool canSkip;
 
-    IslandsTable loadScript;
+    RandomEncounter randomEncounterScript;
+    IslandsTable islandsTableScript;
+    ShipsTable shipsTableScript;
     CarpenterDataTable carpenterScript;
 
     public static GameManager instance;
@@ -179,9 +181,11 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+        randomEncounterScript = GetComponent<RandomEncounter>();
         carpenterScript = GetComponent<CarpenterDataTable>();
-        loadScript = GetComponent<IslandsTable>();
-        //loadScript.LoadRandomIsland();
+        islandsTableScript = GetComponent<IslandsTable>();
+        shipsTableScript = GetComponent<ShipsTable>();
+        randomEncounterScript.LoadRandomEncounter();
     }
 
     private void Update()
@@ -194,12 +198,7 @@ public class GameManager : MonoBehaviour
                 {
                     if (SimulateCarpenterCost(choicesUpgradeList[0]))
                     {
-                        print("You choose " + choicesUpgradeList[0].actionName);
-                        atCarpenterWorkshop = false;
-                        goldStock -= GetGoldCostCarpenter(choicesUpgradeList[0].goldPrice);
-                        ApplyUpgrade(choicesUpgradeList[0]);
-                        ShowRessources();
-                        StartCoroutine(LoadNextEncounter());
+                        ValidateCarpenterChoice(0);
                     }
                     else
                     {
@@ -208,42 +207,20 @@ public class GameManager : MonoBehaviour
                 }
                 else if (SimulateCost(choicesList[0]))
                 {
-                    print("You choose " + choicesList[0].actionName);
-                    makeChoice = false;
-                    switch (choicesList[0].ID)
-                    {
-                        case "Is_05":
-                            carpenterScript.AtCarpenter();
-                            break;
-                        case "Ignore":
-                            StartCoroutine(LoadNextEncounter());
-                            break;
-                        default:
-                            ApplyCost(choicesList[0]);
-                            GainReward(choicesList[0]);
-                            CheckStock();
-                            ShowRessources();
-                            StartCoroutine(LoadNextEncounter());
-                            break;
-                    }
+                    ValidateChoice(0);
                 }
                 else
                 {
                     print("You cannot take this choice, you don't have enough ressources.");
                 }
             }
-            if (Input.GetKeyDown(KeyCode.Alpha2) && (choicesList.Count == 3 || choicesUpgradeList.Count == 3))
+            if (Input.GetKeyDown(KeyCode.Alpha2))
             {
                 if (atCarpenterWorkshop)
                 {
                     if (SimulateCarpenterCost(choicesUpgradeList[1]))
                     {
-                        print("You choose " + choicesUpgradeList[1].actionName);
-                        atCarpenterWorkshop = false;
-                        goldStock -= GetGoldCostCarpenter(choicesUpgradeList[1].goldPrice);
-                        ApplyUpgrade(choicesUpgradeList[1]);
-                        ShowRessources();
-                        StartCoroutine(LoadNextEncounter());
+                        ValidateCarpenterChoice(1);
                     }
                     else
                     {
@@ -252,43 +229,20 @@ public class GameManager : MonoBehaviour
                 }
                 else if (SimulateCost(choicesList[1]))
                 {
-                    print("You choose " + choicesList[1].actionName);
-                    makeChoice = false;
-                    switch (choicesList[1].ID)
-                    {
-                        case "Is_05":
-                            carpenterScript.AtCarpenter();
-                            break;
-                        case "Ignore":
-                            StartCoroutine(LoadNextEncounter());
-                            break;
-                        default:
-                            ApplyCost(choicesList[1]);
-                            GainReward(choicesList[1]);
-                            CheckStock();
-                            ShowRessources();
-                            StartCoroutine(LoadNextEncounter());
-                            break;
-                    }
+                    ValidateChoice(1);
                 }
                 else
                 {
                     print("You cannot take this choice, you don't have enough ressources.");
                 }
             }
-            if (Input.GetKeyDown(KeyCode.Alpha3))
+            if (Input.GetKeyDown(KeyCode.Alpha3) && (choicesList.Count == 3 || choicesUpgradeList.Count == 3))
             {
                 if (atCarpenterWorkshop || alliesUpgradeGift)
                 {
-                    if (SimulateCarpenterCost(choicesUpgradeList[2]))
+                    if (SimulateCarpenterCost(choicesUpgradeList[2]) || alliesUpgradeGift)
                     {
-                        print("You choose " + choicesUpgradeList[2].actionName);
-                        atCarpenterWorkshop = false;
-                        alliesUpgradeGift = false;
-                        goldStock -= GetGoldCostCarpenter(choicesUpgradeList[2].goldPrice);
-                        ApplyUpgrade(choicesUpgradeList[2]);
-                        ShowRessources();
-                        StartCoroutine(LoadNextEncounter());
+                        ValidateCarpenterChoice(2);
                     }
                     else
                     {
@@ -297,24 +251,7 @@ public class GameManager : MonoBehaviour
                 }
                 else if (SimulateCost(choicesList[2]))
                 {
-                    print("You choose " + choicesList[2].actionName);
-                    makeChoice = false;
-                    switch (choicesList[2].ID)
-                    {
-                        case "Is_05":
-                            carpenterScript.AtCarpenter();
-                            break;
-                        case "Ignore":
-                            StartCoroutine(LoadNextEncounter());
-                            break;
-                        default:
-                            ApplyCost(choicesList[2]);
-                            GainReward(choicesList[2]);
-                            CheckStock();
-                            ShowRessources();
-                            StartCoroutine(LoadNextEncounter());
-                            break;
-                    }
+                    ValidateChoice(2);
                 }
                 else
                 {
@@ -329,14 +266,57 @@ public class GameManager : MonoBehaviour
                 StartCoroutine(LoadNextEncounter());
             }
         }
-        if (Input.GetKeyDown(KeyCode.R))
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    void ValidateChoice(int input)
+    {
+        print("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+        print("You choose " + choicesList[input].actionName);
+        makeChoice = false;
+        switch (choicesList[input].ID)
+        {
+            case "Is_05":
+                carpenterScript.AtCarpenter();
+                break;
+            case "Ignore":
+                StartCoroutine(LoadNextEncounter());
+                break;
+            case "UnknownDiscover":
+                shipsTableScript.UnknownDiscover();
+                ApplyCost(choicesList[input]);
+                GainReward(choicesList[input]);
+                CheckStock();
+                ShowRessources();
+                StartCoroutine(LoadNextEncounter());
+                break;
+            default:
+                ApplyCost(choicesList[input]);
+                GainReward(choicesList[input]);
+                CheckStock();
+                ShowRessources();
+                StartCoroutine(LoadNextEncounter());
+                break;
+        }
+    }
+
+    void ValidateCarpenterChoice(int input)
+    {
+        print("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+        print("You choose " + choicesUpgradeList[input].actionName);
+        atCarpenterWorkshop = false;
+        if (!alliesUpgradeGift)
+            goldStock -= GetGoldCostCarpenter(choicesUpgradeList[input].goldPrice);
+        alliesUpgradeGift = false;
+        ApplyUpgrade(choicesUpgradeList[input]);
+        ShowRessources();
+        StartCoroutine(LoadNextEncounter());
     }
 
     IEnumerator LoadNextEncounter()
     {
-        yield return new WaitForSeconds(4);
-        loadScript.LoadRandomIsland();
+        yield return new WaitForSeconds(3);
+        print("----------------------------------------");
+        randomEncounterScript.LoadRandomEncounter();
     }
 
     bool SimulateCarpenterCost(Upgrade item)
@@ -449,6 +429,10 @@ public class GameManager : MonoBehaviour
                     if(sailorsStock == 0)
                     {
                         Defeat("Food");
+                    }
+                    else
+                    {
+                        print("You have to eat one of your men to survive.");
                     }
                     if (sailorsStock < 0)
                         Debug.LogError("You shoudnl't be there.");
@@ -1025,6 +1009,12 @@ public class GameManager : MonoBehaviour
     {
         public string ID;
         [Range(0, 100)] public int prob;
+
+        public Prob(string newID, int newProb)
+        {
+            ID = newID;
+            prob = newProb;
+        }
     }
 
     [System.Serializable]

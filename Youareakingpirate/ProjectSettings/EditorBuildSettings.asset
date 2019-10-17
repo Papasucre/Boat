@@ -9,12 +9,33 @@ EditorBuildSettings:
     path: Assets/Scenes/Menu.unity
     guid: 3bf91abe2c9ca614798f578d9fde9176
   - enabled: 1
-    path: Assets/Scenes/Island 1.unity
+    path: Assets/Scenes/Islands/Island 1.unity
     guid: 03755ff6ecb352e44897287a6a4c1c1f
   - enabled: 1
-    path: Assets/Scenes/Island 2.unity
+    path: Assets/Scenes/Islands/Island 2.unity
     guid: 914e3e84a241f5148867639b2e468a02
   - enabled: 1
-    path: Assets/Scenes/Pirates.unity
+    path: Assets/Scenes/Ships/Pirates.unity
     guid: dc10e0dfd20a5f746acdddf73fdd66cd
+  - enabled: 1
+    path: Assets/Scenes/Ships/Allies.unity
+    guid: 8e473f3b4689707419f05c332ccdcf78
+  - enabled: 1
+    path: Assets/Scenes/Ships/DarkMerchant.unity
+    guid: d11af839f0f8b7346baecc8636a20755
+  - enabled: 1
+    path: Assets/Scenes/Ships/Enemies.unity
+    guid: b2a033def9d0d7649912d9c4c80cc7ac
+  - enabled: 1
+    path: Assets/Scenes/Ships/Kraken.unity
+    guid: e50594dfe727312448509a457d3e3a9b
+  - enabled: 1
+    path: Assets/Scenes/Ships/Merchant.unity
+    guid: eddd8f48ec2a22e499d6935dc5151670
+  - enabled: 1
+    path: Assets/Scenes/Ships/Unknown.unity
+    guid: 37a92a3aeca190a49bb1ef63f3d43360
+  - enabled: 1
+    path: Assets/Scenes/Ships/Wreck.unity
+    guid: 4ea7454861e91a14192bc1b1765a34f4
   m_configObjects: {}

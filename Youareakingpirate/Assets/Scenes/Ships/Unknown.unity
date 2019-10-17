@@ -578,7 +578,7 @@ MonoBehaviour:
     goldReward: 0
     relicReward: 0
   - actionName: Form an alliance
-    ID: 
+    ID: UnknownDiscover
     sailorPrice: 0
     foodPrice: 0
     woodPrice: 0
@@ -590,7 +590,7 @@ MonoBehaviour:
     goldReward: 0
     relicReward: 0
   - actionName: Attack them
-    ID: 
+    ID: UnknownDiscover
     sailorPrice: 2
     foodPrice: 0
     woodPrice: 2

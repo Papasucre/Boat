@@ -637,7 +637,6 @@ MonoBehaviour:
     woodReward: 0
     goldReward: 0
     relicReward: 0
-  list: []
 --- !u!4 &1877722556
 Transform:
   m_ObjectHideFlags: 0
