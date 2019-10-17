@@ -180,7 +180,7 @@ public class GameManager : MonoBehaviour
     {
         carpenterScript = GetComponent<CarpenterDataTable>();
         loadScript = GetComponent<IslandsTable>();
-        loadScript.LoadRandomIsland();
+        //loadScript.LoadRandomIsland();
     }
 
     private void Update()
@@ -209,17 +209,21 @@ public class GameManager : MonoBehaviour
                 {
                     print("You choose " + choicesList[0].actionName);
                     makeChoice = false;
-                    if(choicesList[0].ID == "Is_05")
+                    switch (choicesList[0].ID)
                     {
-                        carpenterScript.AtCarpenter();
-                    }
-                    else
-                    {
-                        ApplyCost(choicesList[0]);
-                        GainReward(choicesList[0]);
-                        CheckStock();
-                        ShowRessources();
-                        StartCoroutine(LoadNextEncounter());
+                        case "Is_05":
+                            carpenterScript.AtCarpenter();
+                            break;
+                        case "Ignore":
+                            StartCoroutine(LoadNextEncounter());
+                            break;
+                        default:
+                            ApplyCost(choicesList[0]);
+                            GainReward(choicesList[0]);
+                            CheckStock();
+                            ShowRessources();
+                            StartCoroutine(LoadNextEncounter());
+                            break;
                     }
                 }
                 else
@@ -249,17 +253,21 @@ public class GameManager : MonoBehaviour
                 {
                     print("You choose " + choicesList[1].actionName);
                     makeChoice = false;
-                    if (choicesList[1].ID == "Is_05")
+                    switch (choicesList[1].ID)
                     {
-                        carpenterScript.AtCarpenter();
-                    }
-                    else
-                    {
-                        ApplyCost(choicesList[1]);
-                        GainReward(choicesList[1]);
-                        CheckStock();
-                        ShowRessources();
-                        StartCoroutine(LoadNextEncounter());
+                        case "Is_05":
+                            carpenterScript.AtCarpenter();
+                            break;
+                        case "Ignore":
+                            StartCoroutine(LoadNextEncounter());
+                            break;
+                        default:
+                            ApplyCost(choicesList[1]);
+                            GainReward(choicesList[1]);
+                            CheckStock();
+                            ShowRessources();
+                            StartCoroutine(LoadNextEncounter());
+                            break;
                     }
                 }
                 else
@@ -290,17 +298,21 @@ public class GameManager : MonoBehaviour
                 {
                     print("You choose " + choicesList[2].actionName);
                     makeChoice = false;
-                    if (choicesList[2].ID == "Is_05")
+                    switch (choicesList[2].ID)
                     {
-                        carpenterScript.AtCarpenter();
-                    }
-                    else
-                    {
-                        ApplyCost(choicesList[2]);
-                        GainReward(choicesList[2]);
-                        CheckStock();
-                        ShowRessources();
-                        StartCoroutine(LoadNextEncounter());
+                        case "Is_05":
+                            carpenterScript.AtCarpenter();
+                            break;
+                        case "Ignore":
+                            StartCoroutine(LoadNextEncounter());
+                            break;
+                        default:
+                            ApplyCost(choicesList[2]);
+                            GainReward(choicesList[2]);
+                            CheckStock();
+                            ShowRessources();
+                            StartCoroutine(LoadNextEncounter());
+                            break;
                     }
                 }
                 else

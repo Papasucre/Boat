@@ -590,7 +590,7 @@ MonoBehaviour:
     goldReward: 0
     relicReward: 0
   - actionName: Ignore it
-    ID: 
+    ID: Ignore
     sailorPrice: 0
     foodPrice: 0
     woodPrice: 0

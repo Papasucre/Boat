@@ -1,14 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-public class IslandEncounterDataTable : MonoBehaviour
+
+public class Merchant : MonoBehaviour
 {
 #pragma warning disable 0649
     [SerializeField] List<GameManager.Action> actionsList;
     [SerializeField] List<GameManager.Prob> probList;
 #pragma warning restore 0649
-    HelpVillagersDataTable helpVillagersScript;
-    List<string> IDList = new List<string>();
+    public List<string> IDList = new List<string>();
     List<string> copyIDList = new List<string>();
 
     int totalProb;
@@ -35,7 +35,6 @@ public class IslandEncounterDataTable : MonoBehaviour
     {
         GameManager.instance.choicesList.Clear();
         GameManager.instance.FoodConsumption();
-        helpVillagersScript = GetComponent<HelpVillagersDataTable>();
         print("START ISLAND");
         for (int i = 0; i < 3; i++)
         {
@@ -44,19 +43,12 @@ public class IslandEncounterDataTable : MonoBehaviour
             {
                 if (item.ID == ID)
                 {
-                    if(item.ID == "Is_06")
-                    {
-                        GameManager.instance.choicesList.Add(helpVillagersScript.RandomHelpVillagers());
-                    }
-                    else
-                    {
-                        GameManager.instance.choicesList.Add(item);
-                        print(item.ID + " =============================== " + item.actionName);
-                        print("Cost : " + "SAILOR " + GameManager.instance.GetSailorCost(item.sailorPrice) + " | " + " FOOD " + GameManager.instance.GetFoodCost(item.foodPrice) + " | " +
-                            " WOOD " + GameManager.instance.GetWoodCost(item.woodPrice) + " | " + " GOLD " + GameManager.instance.GetGoldCost(item.goldPrice) + " | " + " RELIC " + item.relicPrice);
-                        print("Reward : " + "SAILOR " + item.sailorReward + " | " + " FOOD " + item.foodReward + " | " + " WOOD " + item.woodReward + " | " + " GOLD " + item.goldReward + " | " + " RELIC " + item.relicReward);
-                        break;
-                    }
+                    GameManager.instance.choicesList.Add(item);
+                    print(item.ID + " =============================== " + item.actionName);
+                    print("Cost : " + "SAILOR " + GameManager.instance.GetSailorCost(item.sailorPrice) + " | " + " FOOD " + GameManager.instance.GetFoodCost(item.foodPrice) + " | " +
+                        " WOOD " + GameManager.instance.GetWoodCost(item.woodPrice) + " | " + " GOLD " + GameManager.instance.GetGoldCost(item.goldPrice) + " | " + " RELIC " + item.relicPrice);
+                    print("Reward : " + "SAILOR " + item.sailorReward + " | " + " FOOD " + item.foodReward + " | " + " WOOD " + item.woodReward + " | " + " GOLD " + item.goldReward + " | " + " RELIC " + item.relicReward);
+                    break;
                 }
             }
         }

@@ -59,7 +59,7 @@ MonoBehaviour:
   foodMaxStock: 15
   woodStock: 6
   woodMaxStock: 10
-  goldStock: 50
+  goldStock: 0
   goldMaxStock: 50
   lvl1_lowSailorCost: 1
   lvl1_mediumSailorCost: 2
@@ -178,6 +178,7 @@ MonoBehaviour:
   choicesUpgradeList: []
   makeChoice: 0
   atCarpenterWorkshop: 0
+  alliesUpgradeGift: 0
 --- !u!114 &3332060135297979182
 MonoBehaviour:
   m_ObjectHideFlags: 0

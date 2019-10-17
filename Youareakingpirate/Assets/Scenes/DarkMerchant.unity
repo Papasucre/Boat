@@ -535,86 +535,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
---- !u!1 &1756828691
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1756828693}
-  - component: {fileID: 1756828692}
-  m_Layer: 0
-  m_Name: Unknown
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1756828692
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1756828691}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a675a22dcb338324c95e2e62ae5a5013, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  actionsList:
-  - actionName: Ignore them
-    ID: Ignore
-    sailorPrice: 0
-    foodPrice: 0
-    woodPrice: 0
-    goldPrice: 0
-    relicPrice: 0
-    sailorReward: 0
-    foodReward: 0
-    woodReward: 0
-    goldReward: 0
-    relicReward: 0
-  - actionName: Form an alliance
-    ID: 
-    sailorPrice: 0
-    foodPrice: 0
-    woodPrice: 0
-    goldPrice: 0
-    relicPrice: 0
-    sailorReward: 0
-    foodReward: 0
-    woodReward: 0
-    goldReward: 0
-    relicReward: 0
-  - actionName: Attack them
-    ID: 
-    sailorPrice: 2
-    foodPrice: 0
-    woodPrice: 2
-    goldPrice: 0
-    relicPrice: 0
-    sailorReward: 0
-    foodReward: 2
-    woodReward: 1
-    goldReward: 2
-    relicReward: 1
---- !u!4 &1756828693
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1756828691}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 113.30681, y: 161.28455, z: 55.723675}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 4
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1945075841
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -692,3 +612,96 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c1f03fd4e96302841adf5646cd8a98cd, type: 3}
+--- !u!1 &1986487939
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1986487941}
+  - component: {fileID: 1986487940}
+  m_Layer: 0
+  m_Name: DarkMerchant
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1986487940
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1986487939}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a60eb1a6a5cae4643aae37df86a51330, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  actionsList:
+  - actionName: Remove random curse
+    ID: 
+    sailorPrice: 0
+    foodPrice: 0
+    woodPrice: 0
+    goldPrice: 3
+    relicPrice: 0
+    sailorReward: 0
+    foodReward: 0
+    woodReward: 0
+    goldReward: 0
+    relicReward: 0
+  - actionName: Buy random relic
+    ID: 
+    sailorPrice: 0
+    foodPrice: 0
+    woodPrice: 0
+    goldPrice: 3
+    relicPrice: 0
+    sailorReward: 0
+    foodReward: 0
+    woodReward: 0
+    goldReward: 0
+    relicReward: 3
+  - actionName: Trade ressources (Food for wood)
+    ID: 
+    sailorPrice: 0
+    foodPrice: 2
+    woodPrice: 0
+    goldPrice: 0
+    relicPrice: 0
+    sailorReward: 0
+    foodReward: 0
+    woodReward: 2
+    goldReward: 0
+    relicReward: 0
+  - actionName: Trade ressources (Wood for food)
+    ID: 
+    sailorPrice: 0
+    foodPrice: 0
+    woodPrice: 2
+    goldPrice: 0
+    relicPrice: 0
+    sailorReward: 0
+    foodReward: 2
+    woodReward: 0
+    goldReward: 0
+    relicReward: 0
+  list: []
+--- !u!4 &1986487941
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1986487939}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 113.30681, y: 161.28455, z: 55.723675}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
