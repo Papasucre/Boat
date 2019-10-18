@@ -145,13 +145,26 @@ public class GameManager : MonoBehaviour
     public GameLevel currentLevel;
     public BoatLevel currentBoat;
 #pragma warning restore 0649
-
     public List<Action> choicesList = new List<Action>();
     public List<Upgrade> choicesUpgradeList = new List<Upgrade>();
     public bool makeChoice;
     public bool atCarpenterWorkshop;
     public bool alliesUpgradeGift;
     public bool canSkip;
+
+    [Header("RELICS VALUE")]
+    public int relicSailorCost;
+    public int relicFoodCost;
+    public int relicWoodCost;
+    public int relicGoldCost;
+    public int relicSailorReward;
+    public int relicFoodReward;
+    public int relicWoodReward;
+    public int relicGoldReward;
+    public int relicFoodConsumption;
+
+    [Header("RELICS VARIABLES")]
+    public int swifterSailsValue;
 
     RandomEncounter randomEncounterScript;
     IslandsTable islandsTableScript;
@@ -185,7 +198,7 @@ public class GameManager : MonoBehaviour
         carpenterScript = GetComponent<CarpenterDataTable>();
         islandsTableScript = GetComponent<IslandsTable>();
         shipsTableScript = GetComponent<ShipsTable>();
-        randomEncounterScript.LoadRandomEncounter();
+        //randomEncounterScript.LoadRandomEncounter();
     }
 
     private void Update()
@@ -275,6 +288,16 @@ public class GameManager : MonoBehaviour
         makeChoice = false;
         switch (choicesList[input].ID)
         {
+            case "RunningAway":
+                int tmpRelicWoodCost = relicWoodCost;
+                relicWoodCost += swifterSailsValue;
+                ApplyCost(choicesList[input]);
+                relicWoodCost = tmpRelicWoodCost;
+                GainReward(choicesList[input]);
+                CheckStock();
+                ShowRessources();
+                StartCoroutine(LoadNextEncounter());
+                break;
             case "Is_05":
                 carpenterScript.AtCarpenter();
                 break;
@@ -305,7 +328,7 @@ public class GameManager : MonoBehaviour
         print("You choose " + choicesUpgradeList[input].actionName);
         atCarpenterWorkshop = false;
         if (!alliesUpgradeGift)
-            goldStock -= GetGoldCostCarpenter(choicesUpgradeList[input].goldPrice);
+            goldStock -= (GetGoldCostCarpenter(choicesUpgradeList[input].goldPrice) + relicGoldCost );
         alliesUpgradeGift = false;
         ApplyUpgrade(choicesUpgradeList[input]);
         ShowRessources();
@@ -321,38 +344,55 @@ public class GameManager : MonoBehaviour
 
     bool SimulateCarpenterCost(Upgrade item)
     {
-        if (goldStock - GetGoldCostCarpenter(item.goldPrice) >= 0)
+        if (goldStock - (GetGoldCostCarpenter(item.goldPrice) + relicGoldCost) >= 0)
             return true;
         return false;
     }
 
     bool SimulateCost(Action item)
     {
-        if (sailorsStock - GetSailorCost(item.sailorPrice) <= 0)
+        //SAILOR
+        if (sailorsStock - (GetSailorCost(item.sailorPrice) + relicSailorCost) <= 0)
             return false;
-        if (foodStock - GetFoodCost(item.foodPrice) < 0)
+        //FOOD
+        if (foodStock - (GetFoodCost(item.foodPrice) + relicFoodCost) < 0)
             return false;
-        if (woodStock - GetWoodCost(item.woodPrice) < 0)
-            return false;
-        if (goldStock - GetGoldCost(item.goldPrice) < 0)
+        //WOOD
+        switch (item.ID)
+        {
+            case "RunningAway":
+                int tmpRelicWoodCost = relicWoodCost;
+                relicWoodCost += swifterSailsValue;
+                int result = woodStock - (GetWoodCost(item.woodPrice) + relicWoodCost);
+                relicWoodCost = tmpRelicWoodCost;
+                if ((woodStock - result) < 0)
+                    return false;
+                break;
+            default:
+                if (woodStock - (GetWoodCost(item.woodPrice) + relicWoodCost) < 0)
+                    return false;
+                break;
+        }
+        //GOLD
+        if (goldStock - (GetGoldCost(item.goldPrice) + relicGoldCost) < 0)
             return false;
         return true;
     }
 
     void ApplyCost(Action item)
     {
-        sailorsStock -= GetSailorCost(item.sailorPrice);
-        foodStock -= GetFoodCost(item.foodPrice);
-        woodStock -= GetWoodCost(item.woodPrice);
-        goldStock -= GetGoldCost(item.goldPrice);
+        sailorsStock -= (GetSailorCost(item.sailorPrice) + relicSailorCost);
+        foodStock -= (GetFoodCost(item.foodPrice) + relicFoodCost);
+        woodStock -= (GetWoodCost(item.woodPrice) + relicWoodCost);
+        goldStock -= (GetGoldCost(item.goldPrice) + relicGoldCost);
     }
 
     void GainReward(Action item)
     {
-        sailorsStock += GetSailorReward(item.sailorReward);
-        foodStock += GetFoodReward(item.foodReward);
-        woodStock += GetWoodReward(item.woodReward);
-        goldStock += GetGoldReward(item.goldReward);
+        sailorsStock += (GetSailorReward(item.sailorReward) + relicSailorReward);
+        foodStock += (GetFoodReward(item.foodReward) + relicFoodReward);
+        woodStock += (GetWoodReward(item.woodReward) + relicWoodReward);
+        goldStock += (GetGoldReward(item.goldReward) + relicGoldReward);
         if (sailorsStock > sailorsMaxStock)
             sailorsStock = sailorsMaxStock;
         if (foodStock > foodMaxStock)
@@ -418,11 +458,11 @@ public class GameManager : MonoBehaviour
         switch (currentLevel)
         {
             case GameLevel.lvl1:
-                if(foodStock - lvl1_foodConsumption == 0)
+                if(foodStock - (lvl1_foodConsumption + relicFoodConsumption) == 0)
                 {
                     foodStock = 0;
                     print("You ate your last rations when you got here.");
-                }else if(foodStock - lvl1_foodConsumption < 0)
+                }else if(foodStock - (lvl1_foodConsumption + relicFoodConsumption) < 0)
                 {
                     foodStock = 0;
                     sailorsStock--;
@@ -439,16 +479,16 @@ public class GameManager : MonoBehaviour
                 }
                 else
                 {
-                    foodStock -= lvl1_foodConsumption;
+                    foodStock -= (lvl1_foodConsumption + relicFoodConsumption);
                 }
                 break;
             case GameLevel.lvl2:
-                if (foodStock - lvl2_foodConsumption == 0)
+                if (foodStock - (lvl2_foodConsumption + relicFoodConsumption) == 0)
                 {
                     foodStock = 0;
                     print("You ate your last rations when you got here.");
                 }
-                else if (foodStock - lvl2_foodConsumption < 0)
+                else if (foodStock - (lvl2_foodConsumption + relicFoodConsumption) < 0)
                 {
                     foodStock = 0;
                     sailorsStock--;
@@ -461,16 +501,16 @@ public class GameManager : MonoBehaviour
                 }
                 else
                 {
-                    foodStock -= lvl2_foodConsumption;
+                    foodStock -= (lvl2_foodConsumption + relicFoodConsumption);
                 }
                 break;
             case GameLevel.lvl3:
-                if (foodStock - lvl3_foodConsumption == 0)
+                if (foodStock - (lvl3_foodConsumption + relicFoodConsumption) == 0)
                 {
                     foodStock = 0;
                     print("You ate your last rations when you got here.");
                 }
-                else if (foodStock - lvl3_foodConsumption < 0)
+                else if (foodStock - (lvl3_foodConsumption + relicFoodConsumption) < 0)
                 {
                     foodStock = 0;
                     sailorsStock--;
@@ -483,7 +523,7 @@ public class GameManager : MonoBehaviour
                 }
                 else
                 {
-                    foodStock -= lvl3_foodConsumption;
+                    foodStock -= (lvl3_foodConsumption + relicFoodConsumption);
                 }
                 break;
             default:
@@ -1002,6 +1042,11 @@ public class GameManager : MonoBehaviour
     public enum BoatLevel
     {
         little, normal, big
+    }
+
+    public enum RelicType
+    {
+        none, all, merchant, carpenter, ship, ruin, kraken, villagerHelp,
     }
 
     [System.Serializable]

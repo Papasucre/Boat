@@ -22,13 +22,19 @@ public class DarkMerchant : MonoBehaviour
             }
             else
             {
-                switch (Random.Range(0,2))
+                switch (Random.Range(0,4))
                 {
                     case 0:
                         list.Add(actionsList[2]);
                         break;
                     case 1:
                         list.Add(actionsList[3]);
+                        break;
+                    case 2:
+                        list.Add(actionsList[4]);
+                        break;
+                    case 3:
+                        list.Add(actionsList[5]);
                         break;
                     default:
                         break;

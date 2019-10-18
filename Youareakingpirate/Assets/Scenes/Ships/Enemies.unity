@@ -163,10 +163,10 @@ MonoBehaviour:
     goldReward: 2
     relicReward: 1
   - actionName: Run away
-    ID: 
-    sailorPrice: 1
+    ID: RunningAway
+    sailorPrice: 0
     foodPrice: 0
-    woodPrice: 2
+    woodPrice: 3
     goldPrice: 0
     relicPrice: 0
     sailorReward: 0

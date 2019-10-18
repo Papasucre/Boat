@@ -690,6 +690,30 @@ MonoBehaviour:
     woodReward: 0
     goldReward: 0
     relicReward: 0
+  - actionName: Trade ressources (Food for gold)
+    ID: 
+    sailorPrice: 0
+    foodPrice: 2
+    woodPrice: 0
+    goldPrice: 0
+    relicPrice: 0
+    sailorReward: 0
+    foodReward: 0
+    woodReward: 0
+    goldReward: 2
+    relicReward: 0
+  - actionName: Trade ressources (Wood for gold)
+    ID: 
+    sailorPrice: 0
+    foodPrice: 0
+    woodPrice: 2
+    goldPrice: 0
+    relicPrice: 0
+    sailorReward: 0
+    foodReward: 0
+    woodReward: 0
+    goldReward: 3
+    relicReward: 0
   list: []
 --- !u!4 &1986487941
 Transform:

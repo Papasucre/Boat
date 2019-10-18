@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 1273261917566318468}
   - component: {fileID: 3332060135297979182}
   - component: {fileID: 394538626521987292}
+  - component: {fileID: 5583028194621008475}
   - component: {fileID: 724519719177920316}
   - component: {fileID: 1762078727}
   - component: {fileID: 1762078728}
@@ -182,6 +183,16 @@ MonoBehaviour:
   atCarpenterWorkshop: 0
   alliesUpgradeGift: 0
   canSkip: 0
+  relicSailorCost: 0
+  relicFoodCost: 0
+  relicWoodCost: 0
+  relicGoldCost: 0
+  relicSailorReward: 0
+  relicFoodReward: 0
+  relicWoodReward: 0
+  relicGoldReward: 0
+  relicFoodConsumption: 0
+  swifterSailsValue: 0
 --- !u!114 &1273261917566318468
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -245,6 +256,21 @@ MonoBehaviour:
     prob: 5
   - ID: Wreck
     prob: 12
+--- !u!114 &5583028194621008475
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8551236696909422262}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a6652035a76a09468ff2af5ccf67696, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  relicsList:
+  - {fileID: 602186179533711047, guid: 5b479830d2376ac45a54087a4b66ad79, type: 3}
+  - {fileID: 3656437438120146681, guid: 83837f18ce1aeae46909ea27fdbec79a, type: 3}
 --- !u!114 &724519719177920316
 MonoBehaviour:
   m_ObjectHideFlags: 0
