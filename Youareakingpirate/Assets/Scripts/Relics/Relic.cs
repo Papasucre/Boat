@@ -10,6 +10,8 @@ public abstract class Relic : MonoBehaviour
     public GameManager.RelicType type1;
     public GameManager.RelicType type2;
     public GameManager.RelicType type3;
+    public bool curse;
+    public int goldPrice;
 
     public abstract void Equip();
     public abstract void Unequip();

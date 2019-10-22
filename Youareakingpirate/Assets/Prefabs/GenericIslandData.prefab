@@ -57,6 +57,8 @@ MonoBehaviour:
     woodReward: 0
     goldReward: 0
     relicReward: 0
+    relicType: 0
+    includeCurse: 0
   - actionName: Harvest wood
     ID: Is_02
     sailorPrice: 0
@@ -69,6 +71,8 @@ MonoBehaviour:
     woodReward: 3
     goldReward: 0
     relicReward: 0
+    relicType: 0
+    includeCurse: 0
   - actionName: Harvest gold
     ID: Is_03
     sailorPrice: 0
@@ -81,6 +85,8 @@ MonoBehaviour:
     woodReward: 0
     goldReward: 3
     relicReward: 0
+    relicType: 0
+    includeCurse: 0
   - actionName: Engage sailors
     ID: Is_04
     sailorPrice: 0
@@ -93,6 +99,8 @@ MonoBehaviour:
     woodReward: 0
     goldReward: 0
     relicReward: 0
+    relicType: 0
+    includeCurse: 0
   - actionName: Carpenter workshop
     ID: Is_05
     sailorPrice: 0
@@ -105,6 +113,8 @@ MonoBehaviour:
     woodReward: 0
     goldReward: 0
     relicReward: 1
+    relicType: 0
+    includeCurse: 0
   - actionName: Help villagers
     ID: Is_06
     sailorPrice: 0
@@ -117,6 +127,8 @@ MonoBehaviour:
     woodReward: 0
     goldReward: 0
     relicReward: 0
+    relicType: 0
+    includeCurse: 0
   - actionName: Explore ruins
     ID: Is_07
     sailorPrice: 1
@@ -129,6 +141,8 @@ MonoBehaviour:
     woodReward: 0
     goldReward: 2
     relicReward: 2
+    relicType: 5
+    includeCurse: 1
   probList:
   - ID: Is_01
     prob: 17
@@ -169,6 +183,8 @@ MonoBehaviour:
     woodReward: 2
     goldReward: 0
     relicReward: 0
+    relicType: 0
+    includeCurse: 0
   - actionName: Help villagers (Sailors)
     ID: Hv_02
     sailorPrice: 2
@@ -181,6 +197,8 @@ MonoBehaviour:
     woodReward: 0
     goldReward: 2
     relicReward: 0
+    relicType: 0
+    includeCurse: 0
   - actionName: Help villagers (Sailors)
     ID: Hv_03
     sailorPrice: 2
@@ -193,6 +211,8 @@ MonoBehaviour:
     woodReward: 2
     goldReward: 2
     relicReward: 0
+    relicType: 0
+    includeCurse: 0
   - actionName: Help villagers (Sailors)
     ID: Hv_04
     sailorPrice: 2
@@ -205,6 +225,8 @@ MonoBehaviour:
     woodReward: 0
     goldReward: 0
     relicReward: 3
+    relicType: 7
+    includeCurse: 0
   - actionName: Help villagers (Food)
     ID: Hv_05
     sailorPrice: 0
@@ -217,6 +239,8 @@ MonoBehaviour:
     woodReward: 2
     goldReward: 2
     relicReward: 0
+    relicType: 0
+    includeCurse: 0
   - actionName: Help villagers (Food)
     ID: Hv_06
     sailorPrice: 0
@@ -229,6 +253,8 @@ MonoBehaviour:
     woodReward: 2
     goldReward: 0
     relicReward: 0
+    relicType: 0
+    includeCurse: 0
   - actionName: Help villagers (Food)
     ID: Hv_07
     sailorPrice: 0
@@ -241,6 +267,8 @@ MonoBehaviour:
     woodReward: 0
     goldReward: 2
     relicReward: 0
+    relicType: 0
+    includeCurse: 0
   - actionName: Help villagers (Food)
     ID: Hv_08
     sailorPrice: 0
@@ -253,6 +281,8 @@ MonoBehaviour:
     woodReward: 0
     goldReward: 0
     relicReward: 3
+    relicType: 7
+    includeCurse: 0
   - actionName: Help villagers (Wood)
     ID: Hv_09
     sailorPrice: 0
@@ -265,6 +295,8 @@ MonoBehaviour:
     woodReward: 0
     goldReward: 0
     relicReward: 0
+    relicType: 0
+    includeCurse: 0
   - actionName: Help villagers (Wood)
     ID: Hv_10
     sailorPrice: 0
@@ -277,6 +309,8 @@ MonoBehaviour:
     woodReward: 0
     goldReward: 2
     relicReward: 0
+    relicType: 0
+    includeCurse: 0
   - actionName: Help villagers (Wood)
     ID: Hv_11
     sailorPrice: 0
@@ -289,6 +323,8 @@ MonoBehaviour:
     woodReward: 0
     goldReward: 2
     relicReward: 0
+    relicType: 0
+    includeCurse: 0
   - actionName: Help villagers (Wood)
     ID: Hv_12
     sailorPrice: 0
@@ -301,6 +337,8 @@ MonoBehaviour:
     woodReward: 0
     goldReward: 0
     relicReward: 3
+    relicType: 7
+    includeCurse: 0
   - actionName: Help villagers (Gold)
     ID: Hv_13
     sailorPrice: 0
@@ -313,6 +351,8 @@ MonoBehaviour:
     woodReward: 2
     goldReward: 0
     relicReward: 0
+    relicType: 0
+    includeCurse: 0
   - actionName: Help villagers (Gold)
     ID: Hv_14
     sailorPrice: 0
@@ -325,6 +365,8 @@ MonoBehaviour:
     woodReward: 2
     goldReward: 0
     relicReward: 0
+    relicType: 0
+    includeCurse: 0
   - actionName: Help villagers (Gold)
     ID: Hv_15
     sailorPrice: 0
@@ -337,6 +379,8 @@ MonoBehaviour:
     woodReward: 0
     goldReward: 0
     relicReward: 0
+    relicType: 0
+    includeCurse: 0
   - actionName: Help villagers (Gold)
     ID: Hv_16
     sailorPrice: 0
@@ -349,6 +393,8 @@ MonoBehaviour:
     woodReward: 0
     goldReward: 0
     relicReward: 3
+    relicType: 7
+    includeCurse: 0
   probList:
   - ID: Hv_01
     prob: 8

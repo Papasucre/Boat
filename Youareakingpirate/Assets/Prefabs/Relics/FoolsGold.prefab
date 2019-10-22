@@ -44,9 +44,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   relicName: FoolsGold
-  description: Curse, you will pay 15 gold more every time you use your treasure.
+  description: You will pay 15 gold more every time you use your treasure.
   levelRequiered: 1
   type1: 4
   type2: 5
   type3: 0
+  curse: 1
+  goldPrice: 0
   goldCost: 15

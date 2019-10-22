@@ -8,12 +8,12 @@ public class SwifterSails : Relic
 
     public override void Equip()
     {
-        GameManager.instance.swifterSailsValue += woodCost;
+        GameManager.instance.runAwayWoodCost += woodCost;
     }
 
     public override void Unequip()
     {
-        GameManager.instance.swifterSailsValue -= woodCost;
+        GameManager.instance.runAwayWoodCost -= woodCost;
     }
 
     public override void Use()

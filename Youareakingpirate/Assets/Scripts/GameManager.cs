@@ -146,11 +146,14 @@ public class GameManager : MonoBehaviour
     public BoatLevel currentBoat;
 #pragma warning restore 0649
     public List<Action> choicesList = new List<Action>();
-    public List<Upgrade> choicesUpgradeList = new List<Upgrade>();
+    public Upgrade[] choicesUpgradeArray = new Upgrade[3];
     public bool makeChoice;
     public bool atCarpenterWorkshop;
-    public bool alliesUpgradeGift;
+    public bool alliesGift;
     public bool canSkip;
+    public List<GameObject> relicsEquipped = new List<GameObject>();
+    public List<GameObject> cursesEquipped = new List<GameObject>();
+    public GameObject[] carpenterRelics = new GameObject[3];
 
     [Header("RELICS VALUE")]
     public int relicSailorCost;
@@ -163,9 +166,10 @@ public class GameManager : MonoBehaviour
     public int relicGoldReward;
     public int relicFoodConsumption;
 
-    [Header("RELICS VARIABLES")]
-    public int swifterSailsValue;
+    [Header("SPECIFIC RELICS VARIABLES")]
+    public int runAwayWoodCost;
 
+    RelicsTable relicsScript;
     RandomEncounter randomEncounterScript;
     IslandsTable islandsTableScript;
     ShipsTable shipsTableScript;
@@ -189,11 +193,11 @@ public class GameManager : MonoBehaviour
         ShowRessources();
         if (GameManager.instance != this)
             Destroy(gameObject);
-        
     }
 
     private void Start()
     {
+        relicsScript = GetComponent<RelicsTable>();
         randomEncounterScript = GetComponent<RandomEncounter>();
         carpenterScript = GetComponent<CarpenterDataTable>();
         islandsTableScript = GetComponent<IslandsTable>();
@@ -209,18 +213,48 @@ public class GameManager : MonoBehaviour
             {
                 if (atCarpenterWorkshop)
                 {
-                    if (SimulateCarpenterCost(choicesUpgradeList[0]))
+                    if(choicesUpgradeArray[0] != null)
                     {
-                        ValidateCarpenterChoice(0);
+                        if (SimulateCarpenterCost(choicesUpgradeArray[0]))
+                        {
+                            ValidateCarpenterChoice(0);
+                        }
+                        else
+                        {
+                            print("You cannot take this choice, you don't have enough gold.");
+                        }
+                    }else if (carpenterRelics[0] != null)
+                    {
+                        if(goldStock - carpenterRelics[0].GetComponent<Relic>().goldPrice >= 0)
+                        {
+                            ApplyRelic(0,true);
+                        }
+                        else
+                        {
+                            print("You don't have enough gold to buy this relic.");
+                        }
+                        
                     }
                     else
                     {
-                        print("You cannot take this choice, you don't have enough gold.");
+                        Debug.LogError("How do you came here ?!");
                     }
                 }
                 else if (SimulateCost(choicesList[0]))
                 {
-                    ValidateChoice(0);
+                    if(choicesList[0].ID == "RemoveCurse")
+                    {
+                        if(cursesEquipped.Count != 0)
+                        {
+                            ValidateChoice(0);
+                        }
+                        else
+                        {
+                            print("You have no curse to remove.");
+                        }
+                    }
+                    else
+                        ValidateChoice(0);
                 }
                 else
                 {
@@ -231,13 +265,31 @@ public class GameManager : MonoBehaviour
             {
                 if (atCarpenterWorkshop)
                 {
-                    if (SimulateCarpenterCost(choicesUpgradeList[1]))
+                    if (choicesUpgradeArray[1] != null)
                     {
-                        ValidateCarpenterChoice(1);
+                        if (SimulateCarpenterCost(choicesUpgradeArray[1]))
+                        {
+                            ValidateCarpenterChoice(1);
+                        }
+                        else
+                        {
+                            print("You cannot take this choice, you don't have enough gold.");
+                        }
+                    }
+                    else if (carpenterRelics[1] != null)
+                    {
+                        if (goldStock - carpenterRelics[1].GetComponent<Relic>().goldPrice >= 0)
+                        {
+                            ApplyRelic(1, true);
+                        }
+                        else
+                        {
+                            print("You don't have enough gold to buy this relic.");
+                        }
                     }
                     else
                     {
-                        print("You cannot take this choice, you don't have enough gold.");
+                        Debug.LogError("How do you came here ?!");
                     }
                 }
                 else if (SimulateCost(choicesList[1]))
@@ -249,17 +301,35 @@ public class GameManager : MonoBehaviour
                     print("You cannot take this choice, you don't have enough ressources.");
                 }
             }
-            if (Input.GetKeyDown(KeyCode.Alpha3) && (choicesList.Count == 3 || choicesUpgradeList.Count == 3))
+            if (Input.GetKeyDown(KeyCode.Alpha3) && (choicesList.Count == 3 || choicesUpgradeArray.Length == 3))
             {
-                if (atCarpenterWorkshop || alliesUpgradeGift)
+                if (atCarpenterWorkshop || alliesGift)
                 {
-                    if (SimulateCarpenterCost(choicesUpgradeList[2]) || alliesUpgradeGift)
+                    if (choicesUpgradeArray[2] != null)
                     {
-                        ValidateCarpenterChoice(2);
+                        if (SimulateCarpenterCost(choicesUpgradeArray[2]) || alliesGift)
+                        {
+                            ValidateCarpenterChoice(2);
+                        }
+                        else
+                        {
+                            print("You cannot take this choice, you don't have enough gold.");
+                        }
+                    }
+                    else if (carpenterRelics[2] != null)
+                    {
+                        if (goldStock - carpenterRelics[2].GetComponent<Relic>().goldPrice >= 0 || alliesGift)
+                        {
+                            ApplyRelic(2, !alliesGift);
+                        }
+                        else
+                        {
+                            print("You don't have enough gold to buy this relic.");
+                        }
                     }
                     else
                     {
-                        print("You cannot take this choice, you don't have enough gold.");
+                        Debug.LogError("How do you came here ?!");
                     }
                 }
                 else if (SimulateCost(choicesList[2]))
@@ -279,6 +349,22 @@ public class GameManager : MonoBehaviour
                 StartCoroutine(LoadNextEncounter());
             }
         }
+        if (Input.GetKeyDown(KeyCode.R))
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    void ApplyRelic(int input, bool pay)
+    {
+        if (pay)
+            goldStock -= carpenterRelics[input].GetComponent<Relic>().goldPrice;
+        alliesGift = false;
+        relicsEquipped.Add(carpenterRelics[input]);
+        relicsScript.RemoveGainedRelic(carpenterRelics[input]);
+        carpenterRelics[input].GetComponent<Relic>().Equip();
+        print("You have a new " + (carpenterRelics[input].GetComponent<Relic>().curse ? "curse :" : "relic :"));
+        print(carpenterRelics[input].GetComponent<Relic>().description);
+        ShowRessources();
+        StartCoroutine(LoadNextEncounter());
     }
 
     void ValidateChoice(int input)
@@ -288,9 +374,23 @@ public class GameManager : MonoBehaviour
         makeChoice = false;
         switch (choicesList[input].ID)
         {
+            case "RemoveCurse":
+                int index = Random.Range(0, cursesEquipped.Count);
+                GameObject tmp = cursesEquipped[index];
+                cursesEquipped.Remove(tmp);
+                relicsEquipped.Remove(tmp);
+                relicsScript.AddLostRelic(tmp);
+                tmp.GetComponent<Relic>().Unequip();
+                print(tmp.name + " got removed.");
+                ApplyCost(choicesList[input]);
+                GainReward(choicesList[input]);
+                CheckStock();
+                ShowRessources();
+                StartCoroutine(LoadNextEncounter());
+                break;
             case "RunningAway":
                 int tmpRelicWoodCost = relicWoodCost;
-                relicWoodCost += swifterSailsValue;
+                relicWoodCost += runAwayWoodCost;
                 ApplyCost(choicesList[input]);
                 relicWoodCost = tmpRelicWoodCost;
                 GainReward(choicesList[input]);
@@ -325,18 +425,19 @@ public class GameManager : MonoBehaviour
     void ValidateCarpenterChoice(int input)
     {
         print("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
-        print("You choose " + choicesUpgradeList[input].actionName);
+        print("You choose " + choicesUpgradeArray[input].actionName);
         atCarpenterWorkshop = false;
-        if (!alliesUpgradeGift)
-            goldStock -= (GetGoldCostCarpenter(choicesUpgradeList[input].goldPrice) + relicGoldCost );
-        alliesUpgradeGift = false;
-        ApplyUpgrade(choicesUpgradeList[input]);
+        if (!alliesGift)
+            goldStock -= (GetGoldCostCarpenter(choicesUpgradeArray[input].goldPrice) + relicGoldCost );
+        alliesGift = false;
+        ApplyUpgrade(choicesUpgradeArray[input]);
         ShowRessources();
         StartCoroutine(LoadNextEncounter());
     }
 
     IEnumerator LoadNextEncounter()
     {
+        alliesGift = false;
         yield return new WaitForSeconds(3);
         print("----------------------------------------");
         randomEncounterScript.LoadRandomEncounter();
@@ -362,7 +463,7 @@ public class GameManager : MonoBehaviour
         {
             case "RunningAway":
                 int tmpRelicWoodCost = relicWoodCost;
-                relicWoodCost += swifterSailsValue;
+                relicWoodCost += runAwayWoodCost;
                 int result = woodStock - (GetWoodCost(item.woodPrice) + relicWoodCost);
                 relicWoodCost = tmpRelicWoodCost;
                 if ((woodStock - result) < 0)
@@ -401,6 +502,22 @@ public class GameManager : MonoBehaviour
             woodStock = woodMaxStock;
         if (goldStock > goldMaxStock)
             goldStock = goldMaxStock;
+        if(item.relicReward != Cost.none)
+        {
+            GameObject relic = GetRelicReward(item.relicReward, item.relicType, item.includeCurse);
+            if (relic == null)
+            {
+                print("Sorry you should have won a " + (item.includeCurse ? "relic (or a curse)" : "relic") + " but there are no more here.");
+            }
+            else
+            {
+                relicsEquipped.Add(relic);
+                relicsScript.RemoveGainedRelic(relic);
+                relic.GetComponent<Relic>().Equip();
+                print("You have a new " + (relic.GetComponent<Relic>().curse ? "curse :" : "relic :"));
+                print(relic.GetComponent<Relic>().description);
+            }
+        }
     }
 
     void CheckStock()
@@ -450,6 +567,16 @@ public class GameManager : MonoBehaviour
                 print("You loose.");
                 break;
         }
+    }
+
+    GameObject GetRelicReward(Cost cost, RelicType type, bool includeCurse)
+    {
+        if (relicsScript.ProbGetRelic(cost))
+        {
+            return relicsScript.GetRandomRelic(type, includeCurse);
+        }
+        else
+            return null;
     }
 
     public void FoodConsumption()
@@ -982,6 +1109,22 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public void CleanCarpenterRelics()
+    {
+        for (int i = 0; i < carpenterRelics.Length; i++)
+        {
+            carpenterRelics[i] = null;
+        }
+    }
+
+    public void CleanUpgradeArray()
+    {
+        for (int i = 0; i < choicesUpgradeArray.Length; i++)
+        {
+            choicesUpgradeArray[i] = null;
+        }
+    }
+
     void ApplyUpgrade(Upgrade upgrade)
     {
         carpenterScript.UpgradePurchase();
@@ -1079,6 +1222,9 @@ public class GameManager : MonoBehaviour
         public GameManager.Cost woodReward;
         public GameManager.Cost goldReward;
         public GameManager.Cost relicReward;
+        [Header("Relic")]
+        public GameManager.RelicType relicType;
+        public bool includeCurse;
     }
 
     [System.Serializable]

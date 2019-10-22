@@ -271,6 +271,9 @@ MonoBehaviour:
   relicsList:
   - {fileID: 602186179533711047, guid: 5b479830d2376ac45a54087a4b66ad79, type: 3}
   - {fileID: 3656437438120146681, guid: 83837f18ce1aeae46909ea27fdbec79a, type: 3}
+  low: 25
+  medium: 50
+  high: 100
 --- !u!114 &724519719177920316
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -311,7 +314,7 @@ MonoBehaviour:
     levelUpgrade: 1
   - ID: Relic
     prob: 4
-    levelUpgrade: 1
+    levelUpgrade: 0
 --- !u!114 &1762078727
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -10,11 +10,14 @@ public class Friends : MonoBehaviour
     List<GameManager.Action> list = new List<GameManager.Action>();
 
     bool friendsUpgradeGift;
+    bool friendsRelicGift;
 
     void Start()
     {
         GameManager.instance.choicesList.Clear();
         GameManager.instance.FoodConsumption();
+        friendsRelicGift = false;
+        friendsUpgradeGift = false;
         print("START ALLIES");
         for (int i = 0; i < actionsList.Count; i++)
         {
@@ -28,14 +31,14 @@ public class Friends : MonoBehaviour
                     i = 4;
                     break;
                 case 5:
-                    int random = Random.Range(0, 1);//Replace by 0,2 when relics add
+                    int random = Random.Range(0, 2);
                     switch (random)
                     {
                         case 0:
                             friendsUpgradeGift = true;
                             break;
                         case 1:
-                            //relics
+                            friendsRelicGift = true;
                             break;
                         default:
                             print("You shouldn't be there.");
@@ -56,8 +59,11 @@ public class Friends : MonoBehaviour
             print("Reward : " + "SAILOR " + item.sailorReward + " | " + " FOOD " + item.foodReward + " | " + " WOOD " + item.woodReward + " | " + " GOLD " + item.goldReward + " | " + " RELIC " + item.relicReward);
         }
         if(friendsUpgradeGift)
-            GameManager.instance.gameObject.GetComponent<CarpenterDataTable>().GetRandomUpgrade();
+            GameManager.instance.gameObject.GetComponent<CarpenterDataTable>().GetFriendsRandomUpgrade();
+        if (friendsRelicGift)
+            GameManager.instance.gameObject.GetComponent<RelicsTable>().GetFriendsRandomRelic(GameManager.RelicType.all,false);
         friendsUpgradeGift = false;
+        friendsRelicGift = false;
         GameManager.Instance.makeChoice = true;
         GameManager.Instance.ShowRessources();
         print("Choose your action with 1 2 or 3.");

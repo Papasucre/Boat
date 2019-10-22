@@ -577,6 +577,8 @@ MonoBehaviour:
     woodReward: 0
     goldReward: 2
     relicReward: 2
+    relicType: 6
+    includeCurse: 1
   - actionName: Run away
     ID: RunningAway
     sailorPrice: 0
@@ -589,6 +591,8 @@ MonoBehaviour:
     woodReward: 0
     goldReward: 0
     relicReward: 0
+    relicType: 0
+    includeCurse: 0
   - actionName: Human sacrifice
     ID: 
     sailorPrice: 2
@@ -601,6 +605,8 @@ MonoBehaviour:
     woodReward: 0
     goldReward: 0
     relicReward: 1
+    relicType: 6
+    includeCurse: 1
 --- !u!4 &1877722556
 Transform:
   m_ObjectHideFlags: 0

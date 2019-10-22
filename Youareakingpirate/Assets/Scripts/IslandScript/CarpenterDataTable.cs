@@ -10,11 +10,14 @@ public class CarpenterDataTable : MonoBehaviour
 #pragma warning restore 0649
     List<string> IDList = new List<string>();
 
+    RelicsTable relicsScript;
+
     int totalProb;
     int upgradeBought = 0;
 
     private void Start()
     {
+        relicsScript = GetComponent<RelicsTable>();
         for (int i = 0; i < GetComponents<Upgrade>().Length; i++)
         {
             upgradesList.Add(GetComponents<Upgrade>()[i]);
@@ -72,23 +75,34 @@ public class CarpenterDataTable : MonoBehaviour
     public void AtCarpenter()
     {
         FullProbList();
-        GameManager.instance.choicesUpgradeList.Clear();
+        GameManager.instance.CleanUpgradeArray();
+        GameManager.instance.CleanCarpenterRelics();
         print("CARPENTER WORKSHOP");
         for (int i = 0; i < 3; i++)
         {
             if (IDList.Count == 0)
                 break;
             string ID = GetChoiceID();
+            if (ID == "Relic")
+            {
+                GameObject relic = relicsScript.GetRandomRelic(GameManager.RelicType.carpenter, false);
+                if(relic == null)
+                {
+                    i--;
+                    continue;
+                }
+                GameManager.instance.carpenterRelics[i] = relic;
+                Relic relicScript = relic.GetComponent<Relic>();
+                print(ID + " =============================== " + relicScript.name);
+                print("Cost : GOLD " + relicScript.goldPrice);
+                print(relicScript.description);
+                continue;                
+            }
             foreach (Upgrade item in upgradesList)
             {
-                if(ID == "Relic")
-                {
-                    //Handle relics
-                    break;
-                }
                 if (item.ID == ID)
                 {
-                    GameManager.instance.choicesUpgradeList.Add(item);
+                    GameManager.instance.choicesUpgradeArray[i] = item;
                     print(item.ID + " =============================== " + item.actionName);
                     print("Cost : " + " GOLD " +GameManager.instance.GetGoldCostCarpenter(item.goldPrice));
                     print("New capacity : " +item.newCapacity);
@@ -104,11 +118,11 @@ public class CarpenterDataTable : MonoBehaviour
         print("Or you can skip this encounter with 4.");
     }
 
-    public void GetRandomUpgrade()
+    public void GetFriendsRandomUpgrade()
     {
         FullProbList();
         RemoveItem("Relic");
-        GameManager.instance.choicesUpgradeList.Clear();
+        GameManager.instance.CleanUpgradeArray();
         if (IDList.Count == 0)
             return;
         string ID = GetChoiceID();
@@ -116,16 +130,14 @@ public class CarpenterDataTable : MonoBehaviour
         {
             if (item.ID == ID)
             {
-                GameManager.instance.choicesUpgradeList.Add(item);
-                GameManager.instance.choicesUpgradeList.Add(item);
-                GameManager.instance.choicesUpgradeList.Add(item);
+                GameManager.instance.choicesUpgradeArray[2] = item;
                 print(item.ID + " =============================== " + item.actionName);
-                print("Cost : " + " GOLD " + GameManager.instance.GetGoldCostCarpenter(item.goldPrice));
+                print("Original price : GOLD " + GameManager.instance.GetGoldCostCarpenter(item.goldPrice) + " but it's a gift, so you can get it for free.");
                 print("New capacity : " + item.newCapacity);
                 break;
             }
         }
-        GameManager.instance.alliesUpgradeGift = true;
+        GameManager.instance.alliesGift = true;
     }
 
     public void UpgradePurchase()
@@ -166,8 +178,7 @@ public class CarpenterDataTable : MonoBehaviour
         }
         if(ID == "Relic")
         {
-            //A changer une fois les reliques implémentées
-            return true;
+            return false;
         }
         Debug.LogError("You shoudln't be there. " + ID);
         return true;

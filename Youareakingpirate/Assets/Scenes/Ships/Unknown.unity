@@ -577,6 +577,8 @@ MonoBehaviour:
     woodReward: 0
     goldReward: 0
     relicReward: 0
+    relicType: 0
+    includeCurse: 0
   - actionName: Form an alliance
     ID: UnknownDiscover
     sailorPrice: 0
@@ -589,6 +591,8 @@ MonoBehaviour:
     woodReward: 0
     goldReward: 0
     relicReward: 0
+    relicType: 0
+    includeCurse: 0
   - actionName: Attack them
     ID: UnknownDiscover
     sailorPrice: 2
@@ -601,6 +605,8 @@ MonoBehaviour:
     woodReward: 1
     goldReward: 2
     relicReward: 1
+    relicType: 4
+    includeCurse: 1
 --- !u!4 &1756828693
 Transform:
   m_ObjectHideFlags: 0

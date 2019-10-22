@@ -162,6 +162,8 @@ MonoBehaviour:
     woodReward: 1
     goldReward: 2
     relicReward: 1
+    relicType: 4
+    includeCurse: 1
   - actionName: Run away
     ID: RunningAway
     sailorPrice: 0
@@ -174,6 +176,8 @@ MonoBehaviour:
     woodReward: 0
     goldReward: 0
     relicReward: 0
+    relicType: 0
+    includeCurse: 0
   - actionName: Bribe them
     ID: 
     sailorPrice: 0
@@ -186,6 +190,8 @@ MonoBehaviour:
     woodReward: 0
     goldReward: 0
     relicReward: 0
+    relicType: 0
+    includeCurse: 0
 --- !u!4 &230100110
 Transform:
   m_ObjectHideFlags: 0

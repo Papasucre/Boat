@@ -50,4 +50,6 @@ MonoBehaviour:
   type1: 3
   type2: 0
   type3: 0
+  curse: 0
+  goldPrice: 35
   woodCost: -2

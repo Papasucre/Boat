@@ -577,6 +577,8 @@ MonoBehaviour:
     woodReward: 1
     goldReward: 2
     relicReward: 1
+    relicType: 0
+    includeCurse: 0
   - actionName: Take gift (sailors)
     ID: 
     sailorPrice: 0
@@ -589,6 +591,8 @@ MonoBehaviour:
     woodReward: 0
     goldReward: 0
     relicReward: 0
+    relicType: 0
+    includeCurse: 0
   - actionName: Take gift (food)
     ID: 
     sailorPrice: 0
@@ -601,6 +605,8 @@ MonoBehaviour:
     woodReward: 0
     goldReward: 0
     relicReward: 0
+    relicType: 0
+    includeCurse: 0
   - actionName: Take gift (wood)
     ID: 
     sailorPrice: 0
@@ -613,6 +619,8 @@ MonoBehaviour:
     woodReward: 2
     goldReward: 0
     relicReward: 0
+    relicType: 0
+    includeCurse: 0
   - actionName: Take gift (gold)
     ID: 
     sailorPrice: 0
@@ -625,6 +633,8 @@ MonoBehaviour:
     woodReward: 0
     goldReward: 2
     relicReward: 0
+    relicType: 0
+    includeCurse: 0
   - actionName: Take gift (relic or upgrade)
     ID: 
     sailorPrice: 0
@@ -637,6 +647,8 @@ MonoBehaviour:
     woodReward: 0
     goldReward: 0
     relicReward: 0
+    relicType: 0
+    includeCurse: 0
 --- !u!4 &1877722556
 Transform:
   m_ObjectHideFlags: 0
