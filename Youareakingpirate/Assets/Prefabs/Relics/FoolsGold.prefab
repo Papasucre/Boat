@@ -43,12 +43,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fc80ccf59a8386248a6861f812a3dc36, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  relicName: FoolsGold
-  description: You will pay 15 gold more every time you use your treasure.
+  relicName: Fool's Gold
+  description: Curse on your treasure, you will pay extra cold each time you use it.
   levelRequiered: 1
   type1: 4
   type2: 5
   type3: 0
   curse: 1
   goldPrice: 0
-  goldCost: 15
+  goldCost: 25

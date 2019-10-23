@@ -44,12 +44,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   relicName: SwifterSails
-  description: You got swifter sails, your ship go faster, you will take less damage
-    when you run away from fight.
+  description: Swifter sails, your ship go faster, you will take less damage when
+    you run away from fight
   levelRequiered: 0
   type1: 3
-  type2: 0
+  type2: 7
   type3: 0
   curse: 0
-  goldPrice: 35
+  goldPrice: 100
   woodCost: -2

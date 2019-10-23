@@ -29,6 +29,11 @@ public class RelicsTable : MonoBehaviour
                     Debug.LogError("Please configure atleast one relic type for this relic " + item);
                     continue;
                 }
+                if(tempScript.type1 == GameManager.RelicType.all && type != GameManager.RelicType.carpenter)
+                {
+                    tempRelicsList.Add(item);
+                    continue;
+                }
                 if ((tempScript.type1 == type) || (tempScript.type2 == type) || (tempScript.type3 == type))
                 {
                     tempRelicsList.Add(item);

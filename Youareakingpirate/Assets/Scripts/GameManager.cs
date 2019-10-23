@@ -142,6 +142,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] int lvl3_foodConsumption;
 
     [Header("GAME INFORMATION")]
+    public int encounterCounter = 1;
     public GameLevel currentLevel;
     public BoatLevel currentBoat;
 #pragma warning restore 0649
@@ -155,7 +156,7 @@ public class GameManager : MonoBehaviour
     public List<GameObject> cursesEquipped = new List<GameObject>();
     public GameObject[] carpenterRelics = new GameObject[3];
 
-    [Header("RELICS VALUE")]
+    [Header("GENERAL RELICS VARIABLES")]
     public int relicSailorCost;
     public int relicFoodCost;
     public int relicWoodCost;
@@ -439,6 +440,7 @@ public class GameManager : MonoBehaviour
     {
         alliesGift = false;
         yield return new WaitForSeconds(3);
+        encounterCounter++;
         print("----------------------------------------");
         randomEncounterScript.LoadRandomEncounter();
     }
@@ -482,9 +484,24 @@ public class GameManager : MonoBehaviour
 
     void ApplyCost(Action item)
     {
+        //SAILOR
         sailorsStock -= (GetSailorCost(item.sailorPrice) + relicSailorCost);
+        //FOOD
         foodStock -= (GetFoodCost(item.foodPrice) + relicFoodCost);
-        woodStock -= (GetWoodCost(item.woodPrice) + relicWoodCost);
+        //WOOD
+        switch (item.ID)
+        {
+            case "RunningAway":
+                int tmpRelicWoodCost = relicWoodCost;
+                relicWoodCost += runAwayWoodCost;
+                woodStock -= (GetWoodCost(item.woodPrice) + relicWoodCost);
+                relicWoodCost = tmpRelicWoodCost;
+                break;
+            default:
+                woodStock -= (GetWoodCost(item.woodPrice) + relicWoodCost);
+                break;
+        }
+        //GOLD
         goldStock -= (GetGoldCost(item.goldPrice) + relicGoldCost);
     }
 
@@ -606,7 +623,8 @@ public class GameManager : MonoBehaviour
                 }
                 else
                 {
-                    foodStock -= (lvl1_foodConsumption + relicFoodConsumption);
+                    if(!(foodStock - (lvl1_foodConsumption + relicFoodConsumption) > foodStock))
+                        foodStock -= (lvl1_foodConsumption + relicFoodConsumption);
                 }
                 break;
             case GameLevel.lvl2:
@@ -628,7 +646,8 @@ public class GameManager : MonoBehaviour
                 }
                 else
                 {
-                    foodStock -= (lvl2_foodConsumption + relicFoodConsumption);
+                    if (!(foodStock - (lvl2_foodConsumption + relicFoodConsumption) > foodStock))
+                        foodStock -= (lvl2_foodConsumption + relicFoodConsumption);
                 }
                 break;
             case GameLevel.lvl3:
@@ -650,7 +669,8 @@ public class GameManager : MonoBehaviour
                 }
                 else
                 {
-                    foodStock -= (lvl3_foodConsumption + relicFoodConsumption);
+                    if (!(foodStock - (lvl3_foodConsumption + relicFoodConsumption) > foodStock))
+                        foodStock -= (lvl3_foodConsumption + relicFoodConsumption);
                 }
                 break;
             default:
