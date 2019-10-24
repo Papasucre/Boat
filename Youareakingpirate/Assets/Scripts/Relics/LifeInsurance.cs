@@ -2,21 +2,23 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DiamondPickaxe : Relic
+public class LifeInsurance : Relic
 {
     [Header("SPECIFICS PARAMETERS")]
 #pragma warning disable 0649
-    [SerializeField] int harvestGoldExtra;
+    [SerializeField] int revenueLifeInsurance;
 #pragma warning restore 0649
 
     public override void Equip()
     {
-        GameManager.instance.harvestGoldReward += harvestGoldExtra;
+        GameManager.instance.lifeInsurance = true;
+        GameManager.instance.lifeInsuranceRevenue += revenueLifeInsurance;
     }
 
     public override void Unequip()
     {
-        GameManager.instance.harvestGoldReward -= harvestGoldExtra;
+        GameManager.instance.lifeInsurance = false;
+        GameManager.instance.lifeInsuranceRevenue -= revenueLifeInsurance;
     }
 
     public override void Use()

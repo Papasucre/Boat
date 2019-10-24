@@ -166,11 +166,29 @@ public class GameManager : MonoBehaviour
     public int relicWoodReward;
     public int relicGoldReward;
     public int relicFoodConsumption;
+    public int relicWoodConsumption;
 
     [Header("SPECIFIC RELICS VARIABLES")]
     public int runAwayWoodCost;
     public int harvestGoldReward;
     public int fightSailorsCost;
+    public int fightFoodReward;
+    public int fightWoodReward;
+    public int fightGoldReward;
+    public int famousExplorerReward;
+    public int famousExplorerCounter;
+    public int luckyCloverSailor;
+    public int luckyCloverFood;
+    public int luckyCloverWood;
+    public int luckyCloverGold;
+    public int lifeInsuranceRevenue;
+
+    [Header("BOOLEAN RELICS")]
+    public bool bloodHunter;
+    public bool ghuunLegacy;
+    public bool famousExplorer;
+    public bool luckyClover;
+    public bool lifeInsurance;
 
     RelicsTable relicsScript;
     RandomEncounter randomEncounterScript;
@@ -261,7 +279,20 @@ public class GameManager : MonoBehaviour
                 }
                 else
                 {
-                    print("You cannot take this choice, you don't have enough ressources.");
+                    switch (choicesList[0].ID)
+                    {
+                        case "RunningAway":
+                            if (bloodHunter)
+                                print("You cannot run away because of Blood Hunter relic.");
+                            else if (ghuunLegacy)
+                                print("You cannot run away because of G'huun curse !");
+                            else
+                                print("You cannot take this choice, you don't have enough ressources.");
+                            break;
+                        default:
+                            print("You cannot take this choice, you don't have enough ressources.");
+                            break;
+                    }
                 }
             }
             if (Input.GetKeyDown(KeyCode.Alpha2))
@@ -301,7 +332,20 @@ public class GameManager : MonoBehaviour
                 }
                 else
                 {
-                    print("You cannot take this choice, you don't have enough ressources.");
+                    switch (choicesList[1].ID)
+                    {
+                        case "RunningAway":
+                            if (bloodHunter)
+                                print("You cannot run away because of Blood Hunter relic.");
+                            else if (ghuunLegacy)
+                                print("You cannot run away because of G'huun curse !");
+                            else
+                                print("You cannot take this choice, you don't have enough ressources.");
+                            break;
+                        default:
+                            print("You cannot take this choice, you don't have enough ressources.");
+                            break;
+                    }
                 }
             }
             if (Input.GetKeyDown(KeyCode.Alpha3) && (choicesList.Count == 3 || choicesUpgradeArray.Length == 3))
@@ -341,7 +385,20 @@ public class GameManager : MonoBehaviour
                 }
                 else
                 {
-                    print("You cannot take this choice, you don't have enough ressources.");
+                    switch (choicesList[0].ID)
+                    {
+                        case "RunningAway":
+                            if (bloodHunter)
+                                print("You cannot run away because of Blood Hunter relic.");
+                            else if (ghuunLegacy)
+                                print("You cannot run away because of G'huun curse !");
+                            else
+                                print("You cannot take this choice, you don't have enough ressources.");
+                            break;
+                        default:
+                            print("You cannot take this choice, you don't have enough ressources.");
+                            break;
+                    }
                 }
             }
             if(Input.GetKeyDown(KeyCode.Alpha4) && canSkip)
@@ -359,13 +416,17 @@ public class GameManager : MonoBehaviour
     void ApplyCarpenterRelic(int input, bool pay)
     {
         if (pay)
-            goldStock -= carpenterRelics[input].GetComponent<Relic>().goldPrice;
+        {
+            goldStock -= carpenterRelics[input].GetComponent<Relic>().goldPrice + relicGoldCost;
+        }
         alliesGift = false;
         relicsEquipped.Add(carpenterRelics[input]);
         relicsScript.RemoveGainedRelic(carpenterRelics[input]);
         carpenterRelics[input].GetComponent<Relic>().Equip();
         print("You have a new " + (carpenterRelics[input].GetComponent<Relic>().curse ? "curse :" : "relic :"));
         print(carpenterRelics[input].GetComponent<Relic>().description);
+        if (luckyClover)
+            LuckyClover();
         ShowRessources();
         StartCoroutine(LoadNextEncounter());
     }
@@ -382,14 +443,23 @@ public class GameManager : MonoBehaviour
                 relicSailorCost += fightSailorsCost;
                 ApplyCost(choicesList[input]);
                 relicSailorCost = tmpRelicSailorsCost;
-                GainReward(choicesList[input]);
+                int tmpRelicFoodReward = relicFoodReward;
+                int tmpRelicWoodReward = relicWoodReward;
+                int tmpRelicGoldReward = relicGoldReward;
+                relicFoodReward += fightFoodReward;
+                relicWoodReward += fightWoodReward;
+                relicGoldReward += fightGoldReward;
+                ApplyReward(choicesList[input]);
+                relicFoodReward = tmpRelicFoodReward;
+                relicWoodReward = tmpRelicWoodReward;
+                relicGoldReward = tmpRelicGoldReward;
                 break;
             case "Is_03":
                 ApplyCost(choicesList[input]);
-                int tmpRelicGoldReward = relicGoldReward;
+                int tmpRelicGoldRewardHarvest = relicGoldReward;
                 relicGoldReward += harvestGoldReward;
-                GainReward(choicesList[input]);
-                relicGoldReward = tmpRelicGoldReward;
+                ApplyReward(choicesList[input]);
+                relicGoldReward = tmpRelicGoldRewardHarvest;
                 break;
             case "RemoveCurse":
                 int index = Random.Range(0, cursesEquipped.Count);
@@ -400,14 +470,14 @@ public class GameManager : MonoBehaviour
                 tmp.GetComponent<Relic>().Unequip();
                 print(tmp.GetComponent<Relic>().relicName + " got removed.");
                 ApplyCost(choicesList[input]);
-                GainReward(choicesList[input]);
+                ApplyReward(choicesList[input]);
                 break;
             case "RunningAway":
                 int tmpRelicWoodCost = relicWoodCost;
                 relicWoodCost += runAwayWoodCost;
                 ApplyCost(choicesList[input]);
                 relicWoodCost = tmpRelicWoodCost;
-                GainReward(choicesList[input]);
+                ApplyReward(choicesList[input]);
                 break;
             case "Is_05"://CARPENTER WORKSHOP
                 carpenterScript.AtCarpenter();
@@ -424,17 +494,26 @@ public class GameManager : MonoBehaviour
                         relicSailorCost += fightSailorsCost;
                         ApplyCost(choicesList[input]);
                         relicSailorCost = tmpRelicSailorsCostUK;
-                        GainReward(choicesList[input]);
+                        int tmpRelicFoodRewardUK = relicFoodReward;
+                        int tmpRelicWoodRewardUK = relicWoodReward;
+                        int tmpRelicGoldRewardUK = relicGoldReward;
+                        relicFoodReward += fightFoodReward;
+                        relicWoodReward += fightWoodReward;
+                        relicGoldReward += fightGoldReward;
+                        ApplyReward(choicesList[input]);
+                        relicFoodReward = tmpRelicFoodRewardUK;
+                        relicWoodReward = tmpRelicWoodRewardUK;
+                        relicGoldReward = tmpRelicGoldRewardUK;
                         break;
                     default:
                         ApplyCost(choicesList[input]);
-                        GainReward(choicesList[input]);
+                        ApplyReward(choicesList[input]);
                         break;
                 }
                 break;
             default:
                 ApplyCost(choicesList[input]);
-                GainReward(choicesList[input]);
+                ApplyReward(choicesList[input]);
                 break;
         }
         CheckStock();
@@ -448,7 +527,9 @@ public class GameManager : MonoBehaviour
         print("You choose " + choicesUpgradeArray[input].actionName);
         atCarpenterWorkshop = false;
         if (!alliesGift)
-            goldStock -= (GetGoldCostCarpenter(choicesUpgradeArray[input].goldPrice) + relicGoldCost );
+        {
+            goldStock -= (GetGoldCostCarpenter(choicesUpgradeArray[input].goldPrice) + relicGoldCost);
+        } 
         alliesGift = false;
         ApplyUpgrade(choicesUpgradeArray[input]);
         ShowRessources();
@@ -457,6 +538,15 @@ public class GameManager : MonoBehaviour
 
     bool SimulateCost(Action item)
     {
+        switch (item.ID)
+        {
+            case "RunningAway":
+                if (bloodHunter || ghuunLegacy)
+                    return false;
+                break;
+            default:
+                break;
+        }
         //SAILOR
         switch (item.ID)
         {
@@ -524,13 +614,53 @@ public class GameManager : MonoBehaviour
 
     void ApplyCost(Action item)
     {
-        sailorsStock -= (GetSailorCost(item.sailorPrice) + relicSailorCost);
-        foodStock -= (GetFoodCost(item.foodPrice) + relicFoodCost);
-        woodStock -= (GetWoodCost(item.woodPrice) + relicWoodCost);
-        goldStock -= (GetGoldCost(item.goldPrice) + relicGoldCost);
+        int sailorsCost = GetSailorCost(item.sailorPrice);
+        if(sailorsCost != 0)
+        {
+            int sailorsRes = sailorsCost + relicSailorCost;
+            if(sailorsRes > 0)
+            {
+                sailorsStock -= sailorsRes;
+                if (lifeInsurance)
+                {
+                    int result = sailorsRes * lifeInsuranceRevenue;
+                    goldStock += result;
+                    if (goldStock > goldMaxStock)
+                        goldStock = goldMaxStock;
+                    print("You earn the insurance from " + sailorsRes + " sailor(s), deep condolences");
+                }
+            }
+        }  
+        int foodCost = GetFoodCost(item.foodPrice);
+        if(foodCost != 0)
+        {
+            int foodRes = foodCost + relicFoodCost;
+            if(foodRes > 0)
+            {
+                foodStock -= foodRes;
+            }
+        }
+        int woodCost = GetWoodCost(item.woodPrice);
+        if(woodCost != 0)
+        {
+            int woodRes = woodCost + relicWoodCost;
+            if (woodRes > 0)
+            {
+                woodStock -= woodRes;
+            }
+        }
+        int goldCost = GetGoldCost(item.goldPrice);
+        if(goldCost != 0)
+        {
+            int goldRes = goldCost + relicGoldCost;
+            if (goldRes > 0)
+            {
+                goldStock -= goldRes;
+            }
+        }
     }
 
-    void GainReward(Action item)
+    void ApplyReward(Action item)
     {
         sailorsStock += (GetSailorReward(item.sailorReward) + relicSailorReward);
         foodStock += (GetFoodReward(item.foodReward) + relicFoodReward);
@@ -559,6 +689,8 @@ public class GameManager : MonoBehaviour
                 print("You have a new " + (relic.GetComponent<Relic>().curse ? "curse :" : "relic :"));
                 print(relic.GetComponent<Relic>().relicName);
                 print(relic.GetComponent<Relic>().description);
+                if (luckyClover)
+                    LuckyClover();
             }
         }
     }
@@ -680,7 +812,7 @@ public class GameManager : MonoBehaviour
                 if (foodStock - (lvl3_foodConsumption + relicFoodConsumption) == 0)
                 {
                     foodStock = 0;
-                    print("You ate your last rations when you got here.");
+                    print("You have eaten your last rations to come up here.");
                 }
                 else if (foodStock - (lvl3_foodConsumption + relicFoodConsumption) < 0)
                 {
@@ -703,6 +835,18 @@ public class GameManager : MonoBehaviour
                 Debug.LogError("You shoudln't be there.");
                 break;
         }
+        if ((woodStock - relicWoodConsumption == 0) && woodStock != 0)
+        {
+            woodStock = 0;
+            print("You have used your last wood to come up here.");
+        }
+        else if (woodStock - relicWoodConsumption < 0)
+        {
+            woodStock = 0;
+            Defeat("Wood");
+        }
+        else
+            woodStock -= relicWoodConsumption;     
     }
 
     public int GetSailorCost(Cost cost)
@@ -1210,12 +1354,70 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    void LuckyClover()
+    {
+        if(Random.Range(0,2) == 1)
+        {
+            switch (Random.Range(0,4))
+            {
+                case 0:
+                    if (sailorsStock + luckyCloverSailor <= sailorsMaxStock)
+                        sailorsStock += luckyCloverSailor;
+                    else
+                        sailorsStock = sailorsMaxStock;
+                    print("You have won " + luckyCloverSailor + " sailor thanks to your Lucky Clover (don't ask from where he came from).");
+                    break;
+                case 1:
+                    if (foodStock + luckyCloverFood <= foodMaxStock)
+                        foodStock += luckyCloverFood;
+                    else
+                        foodStock = foodMaxStock;
+                    print("You have won " + luckyCloverFood + " food thanks to your Lucky Clover.");
+                    break;
+                case 2:
+                    if (woodStock + luckyCloverWood <= woodMaxStock)
+                        woodStock += luckyCloverWood;
+                    else
+                        woodStock = woodMaxStock;
+                    print("You have won " + luckyCloverWood + " wood thanks to your Lucky Clover.");
+                    break;
+                case 3:
+                    if (goldStock + luckyCloverGold <= goldMaxStock)
+                        goldStock += luckyCloverGold;
+                    else
+                        goldStock = goldMaxStock;
+                    print("You have won " + luckyCloverGold + " gold thanks to your Lucky Clover.");
+                    break;
+                default:
+                    Debug.LogError("You shoudln't be there.");
+                    break;
+            }
+        }
+    }
+
     IEnumerator LoadNextEncounter()
     {
         alliesGift = false;
         yield return new WaitForSeconds(3);
         encounterCounter++;
         print("----------------------------------------");
+        if (famousExplorer)
+        {
+            famousExplorerCounter++;
+            if(famousExplorerCounter == 3)
+            {
+                famousExplorerCounter = 0;
+                if(sailorsStock < sailorsMaxStock)
+                {
+                    sailorsStock += famousExplorerReward;
+                    print("A sailor has heard of your journey and wants to rejoin you. You gain a new sailor.");
+                }
+                else
+                {
+                    print("A sailor has heard of your journey and wants to rejoin you. But you don't have any place on your boat...");
+                }
+            }
+        }
         randomEncounterScript.LoadRandomEncounter();
     }
 
