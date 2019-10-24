@@ -4,7 +4,10 @@ using UnityEngine;
 
 public class SwifterSails : Relic
 {
-    public int woodCost;
+    [Header("SPECIFICS PARAMETERS")]
+#pragma warning disable 0649
+    [SerializeField] int woodCost;
+#pragma warning restore 0649
 
     public override void Equip()
     {

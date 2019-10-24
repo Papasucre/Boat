@@ -151,7 +151,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   actionsList:
   - actionName: Fight
-    ID: 
+    ID: Fight
     sailorPrice: 2
     foodPrice: 0
     woodPrice: 2

@@ -566,7 +566,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   actionsList:
   - actionName: Break the alliance
-    ID: 
+    ID: Fight
     sailorPrice: 1
     foodPrice: 0
     woodPrice: 2
@@ -577,8 +577,8 @@ MonoBehaviour:
     woodReward: 1
     goldReward: 2
     relicReward: 1
-    relicType: 0
-    includeCurse: 0
+    relicType: 4
+    includeCurse: 1
   - actionName: Take gift (sailors)
     ID: 
     sailorPrice: 0

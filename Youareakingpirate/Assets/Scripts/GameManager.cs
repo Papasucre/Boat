@@ -169,6 +169,8 @@ public class GameManager : MonoBehaviour
 
     [Header("SPECIFIC RELICS VARIABLES")]
     public int runAwayWoodCost;
+    public int harvestGoldReward;
+    public int fightSailorsCost;
 
     RelicsTable relicsScript;
     RandomEncounter randomEncounterScript;
@@ -228,7 +230,7 @@ public class GameManager : MonoBehaviour
                     {
                         if(goldStock - carpenterRelics[0].GetComponent<Relic>().goldPrice >= 0)
                         {
-                            ApplyRelic(0,true);
+                            ApplyCarpenterRelic(0,true);
                         }
                         else
                         {
@@ -281,7 +283,7 @@ public class GameManager : MonoBehaviour
                     {
                         if (goldStock - carpenterRelics[1].GetComponent<Relic>().goldPrice >= 0)
                         {
-                            ApplyRelic(1, true);
+                            ApplyCarpenterRelic(1, true);
                         }
                         else
                         {
@@ -321,7 +323,7 @@ public class GameManager : MonoBehaviour
                     {
                         if (goldStock - carpenterRelics[2].GetComponent<Relic>().goldPrice >= 0 || alliesGift)
                         {
-                            ApplyRelic(2, !alliesGift);
+                            ApplyCarpenterRelic(2, !alliesGift);
                         }
                         else
                         {
@@ -354,7 +356,7 @@ public class GameManager : MonoBehaviour
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
-    void ApplyRelic(int input, bool pay)
+    void ApplyCarpenterRelic(int input, bool pay)
     {
         if (pay)
             goldStock -= carpenterRelics[input].GetComponent<Relic>().goldPrice;
@@ -375,6 +377,20 @@ public class GameManager : MonoBehaviour
         makeChoice = false;
         switch (choicesList[input].ID)
         {
+            case "Fight":
+                int tmpRelicSailorsCost = relicSailorCost;
+                relicSailorCost += fightSailorsCost;
+                ApplyCost(choicesList[input]);
+                relicSailorCost = tmpRelicSailorsCost;
+                GainReward(choicesList[input]);
+                break;
+            case "Is_03":
+                ApplyCost(choicesList[input]);
+                int tmpRelicGoldReward = relicGoldReward;
+                relicGoldReward += harvestGoldReward;
+                GainReward(choicesList[input]);
+                relicGoldReward = tmpRelicGoldReward;
+                break;
             case "RemoveCurse":
                 int index = Random.Range(0, cursesEquipped.Count);
                 GameObject tmp = cursesEquipped[index];
@@ -382,12 +398,9 @@ public class GameManager : MonoBehaviour
                 relicsEquipped.Remove(tmp);
                 relicsScript.AddLostRelic(tmp);
                 tmp.GetComponent<Relic>().Unequip();
-                print(tmp.name + " got removed.");
+                print(tmp.GetComponent<Relic>().relicName + " got removed.");
                 ApplyCost(choicesList[input]);
                 GainReward(choicesList[input]);
-                CheckStock();
-                ShowRessources();
-                StartCoroutine(LoadNextEncounter());
                 break;
             case "RunningAway":
                 int tmpRelicWoodCost = relicWoodCost;
@@ -395,32 +408,38 @@ public class GameManager : MonoBehaviour
                 ApplyCost(choicesList[input]);
                 relicWoodCost = tmpRelicWoodCost;
                 GainReward(choicesList[input]);
-                CheckStock();
-                ShowRessources();
-                StartCoroutine(LoadNextEncounter());
                 break;
-            case "Is_05":
+            case "Is_05"://CARPENTER WORKSHOP
                 carpenterScript.AtCarpenter();
-                break;
+                return;
             case "Ignore":
                 StartCoroutine(LoadNextEncounter());
                 break;
             case "UnknownDiscover":
                 shipsTableScript.UnknownDiscover();
-                ApplyCost(choicesList[input]);
-                GainReward(choicesList[input]);
-                CheckStock();
-                ShowRessources();
-                StartCoroutine(LoadNextEncounter());
+                switch (choicesList[input].ID2)
+                {
+                    case "Fight":
+                        int tmpRelicSailorsCostUK = relicSailorCost;
+                        relicSailorCost += fightSailorsCost;
+                        ApplyCost(choicesList[input]);
+                        relicSailorCost = tmpRelicSailorsCostUK;
+                        GainReward(choicesList[input]);
+                        break;
+                    default:
+                        ApplyCost(choicesList[input]);
+                        GainReward(choicesList[input]);
+                        break;
+                }
                 break;
             default:
                 ApplyCost(choicesList[input]);
                 GainReward(choicesList[input]);
-                CheckStock();
-                ShowRessources();
-                StartCoroutine(LoadNextEncounter());
                 break;
         }
+        CheckStock();
+        ShowRessources();
+        StartCoroutine(LoadNextEncounter());
     }
 
     void ValidateCarpenterChoice(int input)
@@ -436,27 +455,41 @@ public class GameManager : MonoBehaviour
         StartCoroutine(LoadNextEncounter());
     }
 
-    IEnumerator LoadNextEncounter()
-    {
-        alliesGift = false;
-        yield return new WaitForSeconds(3);
-        encounterCounter++;
-        print("----------------------------------------");
-        randomEncounterScript.LoadRandomEncounter();
-    }
-
-    bool SimulateCarpenterCost(Upgrade item)
-    {
-        if (goldStock - (GetGoldCostCarpenter(item.goldPrice) + relicGoldCost) >= 0)
-            return true;
-        return false;
-    }
-
     bool SimulateCost(Action item)
     {
         //SAILOR
-        if (sailorsStock - (GetSailorCost(item.sailorPrice) + relicSailorCost) <= 0)
-            return false;
+        switch (item.ID)
+        {
+            case "Fight":
+                int tmpRelicSailorCost = relicSailorCost;
+                relicSailorCost += fightSailorsCost;
+                int result = sailorsStock - (GetSailorCost(item.sailorPrice) + relicSailorCost);
+                relicSailorCost = tmpRelicSailorCost;
+                if ((sailorsStock - result) <= 0)
+                    return false;
+                break;
+            case "UnknownDiscover":
+                switch (item.ID2)
+                {
+                    case "Fight":
+                        int tmpRelicSailorCostUK = relicSailorCost;
+                        relicSailorCost += fightSailorsCost;
+                        int resultUK = sailorsStock - (GetSailorCost(item.sailorPrice) + relicSailorCost);
+                        relicSailorCost = tmpRelicSailorCostUK;
+                        if ((sailorsStock - resultUK) <= 0)
+                            return false;
+                        break;
+                    default:
+                        if (sailorsStock - (GetSailorCost(item.sailorPrice) + relicSailorCost) <= 0)
+                            return false;
+                        break;
+                }
+                break;
+            default:
+                if (sailorsStock - (GetSailorCost(item.sailorPrice) + relicSailorCost) <= 0)
+                    return false;
+                break;
+        }
         //FOOD
         if (foodStock - (GetFoodCost(item.foodPrice) + relicFoodCost) < 0)
             return false;
@@ -482,26 +515,18 @@ public class GameManager : MonoBehaviour
         return true;
     }
 
+    bool SimulateCarpenterCost(Upgrade item)
+    {
+        if (goldStock - (GetGoldCostCarpenter(item.goldPrice) + relicGoldCost) >= 0)
+            return true;
+        return false;
+    }
+
     void ApplyCost(Action item)
     {
-        //SAILOR
         sailorsStock -= (GetSailorCost(item.sailorPrice) + relicSailorCost);
-        //FOOD
         foodStock -= (GetFoodCost(item.foodPrice) + relicFoodCost);
-        //WOOD
-        switch (item.ID)
-        {
-            case "RunningAway":
-                int tmpRelicWoodCost = relicWoodCost;
-                relicWoodCost += runAwayWoodCost;
-                woodStock -= (GetWoodCost(item.woodPrice) + relicWoodCost);
-                relicWoodCost = tmpRelicWoodCost;
-                break;
-            default:
-                woodStock -= (GetWoodCost(item.woodPrice) + relicWoodCost);
-                break;
-        }
-        //GOLD
+        woodStock -= (GetWoodCost(item.woodPrice) + relicWoodCost);
         goldStock -= (GetGoldCost(item.goldPrice) + relicGoldCost);
     }
 
@@ -532,6 +557,7 @@ public class GameManager : MonoBehaviour
                 relicsScript.RemoveGainedRelic(relic);
                 relic.GetComponent<Relic>().Equip();
                 print("You have a new " + (relic.GetComponent<Relic>().curse ? "curse :" : "relic :"));
+                print(relic.GetComponent<Relic>().relicName);
                 print(relic.GetComponent<Relic>().description);
             }
         }
@@ -1184,6 +1210,15 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    IEnumerator LoadNextEncounter()
+    {
+        alliesGift = false;
+        yield return new WaitForSeconds(3);
+        encounterCounter++;
+        print("----------------------------------------");
+        randomEncounterScript.LoadRandomEncounter();
+    }
+
     public void ShowRessources()
     {
         print("Ship supplies :");
@@ -1230,6 +1265,7 @@ public class GameManager : MonoBehaviour
     {
         public string actionName;
         public string ID;
+        public string ID2;
         [Header("Price")]
         public GameManager.Cost sailorPrice;
         public GameManager.Cost foodPrice;

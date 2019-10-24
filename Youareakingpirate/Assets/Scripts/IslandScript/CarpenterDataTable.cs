@@ -93,8 +93,10 @@ public class CarpenterDataTable : MonoBehaviour
                 }
                 GameManager.instance.carpenterRelics[i] = relic;
                 Relic relicScript = relic.GetComponent<Relic>();
-                print(ID + " =============================== " + relicScript.name);
+                print(ID + " =============================== " + relicScript.relicName);
                 print("Cost : GOLD " + relicScript.goldPrice);
+                if (relicScript.goldPrice == 0)
+                    Debug.LogError("ERROR NO FREE RELIC AT CARPENTER WORKSHOP " + relicScript.relicName);
                 print(relicScript.description);
                 continue;                
             }

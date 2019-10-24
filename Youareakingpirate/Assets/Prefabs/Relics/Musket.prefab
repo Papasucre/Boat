@@ -9,9 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5344480761029885794}
-  - component: {fileID: 6221008537091220096}
+  - component: {fileID: 8081760475736323023}
   m_Layer: 0
-  m_Name: SwifterSails
+  m_Name: Musket
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -31,7 +31,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6221008537091220096
+--- !u!114 &8081760475736323023
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -40,16 +40,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 3656437438120146681}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 109dfa0386ae93b428f1a5c4986ab654, type: 3}
+  m_Script: {fileID: 11500000, guid: 1876102f5bff4204cb4d3c18f088fed7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  relicName: Swifter Sails
-  description: Swifter sails, your ship go faster, you will take less damage when
-    you run away from fight
+  relicName: Musket
+  description: 'A fancy musket which reduce sailors loss during battle. (Advice :
+    aim for the enemy''s head)'
   levelRequiered: 0
-  type1: 3
-  type2: 7
+  type1: 2
+  type2: 4
   type3: 0
   curse: 0
-  goldPrice: 100
-  woodCost: -2
+  goldPrice: 0
+  fightSailorCost: -1

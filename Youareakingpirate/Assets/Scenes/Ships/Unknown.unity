@@ -567,6 +567,7 @@ MonoBehaviour:
   actionsList:
   - actionName: Ignore them
     ID: Ignore
+    ID2: 
     sailorPrice: 0
     foodPrice: 0
     woodPrice: 0
@@ -581,6 +582,7 @@ MonoBehaviour:
     includeCurse: 0
   - actionName: Form an alliance
     ID: UnknownDiscover
+    ID2: 
     sailorPrice: 0
     foodPrice: 0
     woodPrice: 0
@@ -595,6 +597,7 @@ MonoBehaviour:
     includeCurse: 0
   - actionName: Attack them
     ID: UnknownDiscover
+    ID2: Fight
     sailorPrice: 2
     foodPrice: 0
     woodPrice: 2

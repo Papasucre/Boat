@@ -2,24 +2,25 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FoolsGold : Relic
+public class Musket : Relic
 {
     [Header("SPECIFICS PARAMETERS")]
 #pragma warning disable 0649
-    [SerializeField] int goldCost;
+    [SerializeField] int fightSailorCost;
 #pragma warning restore 0649
 
     public override void Equip()
     {
-        GameManager.instance.relicGoldCost += goldCost;
+        GameManager.instance.fightSailorsCost += fightSailorCost;
     }
 
     public override void Unequip()
     {
-        GameManager.instance.relicGoldCost -= goldCost;
+        GameManager.instance.fightSailorsCost -= fightSailorCost;
     }
 
     public override void Use()
     {
+        throw new System.NotImplementedException();
     }
 }

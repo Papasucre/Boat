@@ -4,6 +4,7 @@ using UnityEngine;
 
 public abstract class Relic : MonoBehaviour
 {
+    [Header("GENERICS PARAMETERS")]
     public string relicName;
     public string description;
     public GameManager.GameLevel levelRequiered;
