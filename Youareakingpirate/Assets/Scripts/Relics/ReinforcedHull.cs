@@ -2,21 +2,24 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Scurvy : Relic
+public class ReinforcedHull : Relic
 {
     [Header("SPECIFICS PARAMETERS")]
 #pragma warning disable 0649
-    [SerializeField] int foodConsumptionExtra;
+    [SerializeField] int fightWoodCost;
+    [SerializeField] int runAwayWoodCost;
 #pragma warning restore 0649
 
     public override void Equip()
     {
-        GameManager.instance.relicFoodConsumption += foodConsumptionExtra;
+        GameManager.instance.fightWoodCost += fightWoodCost;
+        GameManager.instance.runAwayWoodCost += runAwayWoodCost;
     }
 
     public override void Unequip()
     {
-        GameManager.instance.relicFoodConsumption -= foodConsumptionExtra;
+        GameManager.instance.fightWoodCost -= fightWoodCost;
+        GameManager.instance.runAwayWoodCost += runAwayWoodCost;
     }
 
     public override void Use()

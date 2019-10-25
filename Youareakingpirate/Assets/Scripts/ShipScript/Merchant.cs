@@ -8,7 +8,7 @@ public class Merchant : MonoBehaviour
     [SerializeField] List<GameManager.Action> actionsList;
     [SerializeField] List<GameManager.Prob> probList;
 #pragma warning restore 0649
-    public List<string> IDList = new List<string>();
+    List<string> IDList = new List<string>();
     List<string> copyIDList = new List<string>();
 
     int totalProb;
@@ -41,10 +41,10 @@ public class Merchant : MonoBehaviour
             string ID = GetChoiceID();
             foreach (GameManager.Action item in actionsList)
             {
-                if (item.ID == ID)
+                if (item.ID2 == ID)
                 {
                     GameManager.instance.choicesList.Add(item);
-                    print(item.ID + " =============================== " + item.actionName);
+                    print(item.ID2 + " =============================== " + item.actionName);
                     print("Cost : " + "SAILOR " + GameManager.instance.GetSailorCost(item.sailorPrice) + " | " + " FOOD " + GameManager.instance.GetFoodCost(item.foodPrice) + " | " +
                         " WOOD " + GameManager.instance.GetWoodCost(item.woodPrice) + " | " + " GOLD " + GameManager.instance.GetGoldCost(item.goldPrice) + " | " + " RELIC " + item.relicPrice);
                     print("Reward : " + "SAILOR " + item.sailorReward + " | " + " FOOD " + item.foodReward + " | " + " WOOD " + item.woodReward + " | " + " GOLD " + item.goldReward + " | " + " RELIC " + item.relicReward);

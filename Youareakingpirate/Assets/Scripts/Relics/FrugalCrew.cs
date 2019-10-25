@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Scurvy : Relic
+public class FrugalCrew : Relic
 {
     [Header("SPECIFICS PARAMETERS")]
 #pragma warning disable 0649

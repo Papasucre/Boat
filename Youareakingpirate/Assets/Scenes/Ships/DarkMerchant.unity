@@ -644,6 +644,7 @@ MonoBehaviour:
   actionsList:
   - actionName: Remove random curse
     ID: RemoveCurse
+    ID2: 
     sailorPrice: 0
     foodPrice: 0
     woodPrice: 0
@@ -657,7 +658,8 @@ MonoBehaviour:
     relicType: 0
     includeCurse: 0
   - actionName: Buy random relic
-    ID: 
+    ID: Merchant
+    ID2: 
     sailorPrice: 0
     foodPrice: 0
     woodPrice: 0
@@ -671,7 +673,8 @@ MonoBehaviour:
     relicType: 2
     includeCurse: 0
   - actionName: Trade ressources (Food for wood)
-    ID: 
+    ID: Merchant
+    ID2: 
     sailorPrice: 0
     foodPrice: 2
     woodPrice: 0
@@ -685,7 +688,8 @@ MonoBehaviour:
     relicType: 0
     includeCurse: 0
   - actionName: Trade ressources (Wood for food)
-    ID: 
+    ID: Merchant
+    ID2: 
     sailorPrice: 0
     foodPrice: 0
     woodPrice: 2
@@ -699,7 +703,8 @@ MonoBehaviour:
     relicType: 0
     includeCurse: 0
   - actionName: Trade ressources (Food for gold)
-    ID: 
+    ID: Merchant
+    ID2: 
     sailorPrice: 0
     foodPrice: 2
     woodPrice: 0
@@ -713,7 +718,8 @@ MonoBehaviour:
     relicType: 0
     includeCurse: 0
   - actionName: Trade ressources (Wood for gold)
-    ID: 
+    ID: Merchant
+    ID2: 
     sailorPrice: 0
     foodPrice: 0
     woodPrice: 2
