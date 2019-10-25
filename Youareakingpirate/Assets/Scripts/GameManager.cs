@@ -417,7 +417,17 @@ public class GameManager : MonoBehaviour
     {
         if (pay)
         {
-            goldStock -= carpenterRelics[input].GetComponent<Relic>().goldPrice + relicGoldCost;
+            int goldCost = carpenterRelics[input].GetComponent<Relic>().goldPrice;
+            if (goldCost != 0)
+            {
+                int goldRes = goldCost + relicGoldCost;
+                if (goldRes > 0)
+                {
+                    goldStock -= goldRes;
+                }
+            }
+            else
+                Debug.LogError("You shoudln't have to pay a free relic, there is an error somewhere.");
         }
         alliesGift = false;
         relicsEquipped.Add(carpenterRelics[input]);
@@ -528,7 +538,15 @@ public class GameManager : MonoBehaviour
         atCarpenterWorkshop = false;
         if (!alliesGift)
         {
-            goldStock -= (GetGoldCostCarpenter(choicesUpgradeArray[input].goldPrice) + relicGoldCost);
+            int goldCost = GetGoldCostCarpenter(choicesUpgradeArray[input].goldPrice);
+            if (goldCost != 0)
+            {
+                int goldRes = goldCost + relicGoldCost;
+                if (goldRes > 0)
+                {
+                    goldStock -= goldRes;
+                }
+            }
         } 
         alliesGift = false;
         ApplyUpgrade(choicesUpgradeArray[input]);
@@ -551,65 +569,134 @@ public class GameManager : MonoBehaviour
         switch (item.ID)
         {
             case "Fight":
-                int tmpRelicSailorCost = relicSailorCost;
-                relicSailorCost += fightSailorsCost;
-                int result = sailorsStock - (GetSailorCost(item.sailorPrice) + relicSailorCost);
-                relicSailorCost = tmpRelicSailorCost;
-                if ((sailorsStock - result) <= 0)
-                    return false;
+                int fight_sailorsCost = GetSailorCost(item.sailorPrice);
+                if(fight_sailorsCost != 0)
+                {
+                    int fight_tmpRelicSailorCost = relicSailorCost;
+                    relicSailorCost += fightSailorsCost;
+                    int fight_sailorsRes = fight_sailorsCost + relicSailorCost;
+                    relicSailorCost = fight_tmpRelicSailorCost;
+                    if(fight_sailorsRes > 0)
+                    {
+                        if ((sailorsStock - fight_sailorsRes) <= 0)
+                            return false;
+                    }
+                }                
                 break;
             case "UnknownDiscover":
                 switch (item.ID2)
                 {
                     case "Fight":
-                        int tmpRelicSailorCostUK = relicSailorCost;
-                        relicSailorCost += fightSailorsCost;
-                        int resultUK = sailorsStock - (GetSailorCost(item.sailorPrice) + relicSailorCost);
-                        relicSailorCost = tmpRelicSailorCostUK;
-                        if ((sailorsStock - resultUK) <= 0)
-                            return false;
+                        int unknown_sailorsCost = GetSailorCost(item.sailorPrice);
+                        if (unknown_sailorsCost != 0)
+                        {
+                            int unknown_tmpRelicSailorCost = relicSailorCost;
+                            relicSailorCost += fightSailorsCost;
+                            int unknown_sailorsRes = unknown_sailorsCost + relicSailorCost;
+                            relicSailorCost = unknown_tmpRelicSailorCost;
+                            if (unknown_sailorsRes > 0)
+                            {
+                                if ((sailorsStock - unknown_sailorsRes) <= 0)
+                                    return false;
+                            }
+                        }
                         break;
                     default:
-                        if (sailorsStock - (GetSailorCost(item.sailorPrice) + relicSailorCost) <= 0)
-                            return false;
+                        int unknownDef_sailorsCost = GetSailorCost(item.sailorPrice);
+                        if (unknownDef_sailorsCost != 0)
+                        {
+                            int unknownDef_sailorsRes = unknownDef_sailorsCost + relicSailorCost;
+                            if (unknownDef_sailorsRes > 0)
+                            {
+                                if ((sailorsStock - unknownDef_sailorsRes) <= 0)
+                                    return false;
+                            }
+                        }
                         break;
                 }
                 break;
             default:
-                if (sailorsStock - (GetSailorCost(item.sailorPrice) + relicSailorCost) <= 0)
-                    return false;
+                int sailorsCost = GetSailorCost(item.sailorPrice);
+                if (sailorsCost != 0)
+                {
+                    int sailorsRes = sailorsCost + relicSailorCost;
+                    if (sailorsRes > 0)
+                    {
+                        if ((sailorsStock - sailorsRes) <= 0)
+                            return false;
+                    }
+                }
                 break;
         }
         //FOOD
-        if (foodStock - (GetFoodCost(item.foodPrice) + relicFoodCost) < 0)
-            return false;
+        int foodCost = GetFoodCost(item.foodPrice);
+        if (foodCost != 0)
+        {
+            int foodRes = foodCost + relicFoodCost;
+            if (foodRes > 0)
+            {
+                if ((foodStock - foodRes) < 0)
+                    return false;
+            }
+        }
         //WOOD
         switch (item.ID)
         {
             case "RunningAway":
-                int tmpRelicWoodCost = relicWoodCost;
-                relicWoodCost += runAwayWoodCost;
-                int result = woodStock - (GetWoodCost(item.woodPrice) + relicWoodCost);
-                relicWoodCost = tmpRelicWoodCost;
-                if ((woodStock - result) < 0)
-                    return false;
+                int runningAway_woodCost = GetWoodCost(item.woodPrice);
+                if (runningAway_woodCost != 0)
+                {
+                    int runningAway_tmpRelicWoodCost = relicWoodCost;
+                    relicWoodCost += runAwayWoodCost;
+                    int runningAway_woodRes = runningAway_woodCost + relicWoodCost;
+                    relicWoodCost = runningAway_tmpRelicWoodCost;
+                    if (runningAway_woodRes > 0)
+                    {
+                        if ((woodStock - runningAway_woodRes) < 0)
+                            return false;
+                    }
+                }
                 break;
             default:
-                if (woodStock - (GetWoodCost(item.woodPrice) + relicWoodCost) < 0)
-                    return false;
+                int woodCost = GetWoodCost(item.woodPrice);
+                if (woodCost != 0)
+                {
+                    int woodRes = woodCost + relicWoodCost;
+                    if (woodRes > 0)
+                    {
+                        if ((woodStock - woodRes) < 0)
+                            return false;
+                    }
+                }
                 break;
         }
         //GOLD
-        if (goldStock - (GetGoldCost(item.goldPrice) + relicGoldCost) < 0)
-            return false;
+        int goldCost = GetGoldCost(item.goldPrice);
+        if (goldCost != 0)
+        {
+            int goldRes = goldCost + relicGoldCost;
+            if (goldRes > 0)
+            {
+                if ((goldStock - goldRes) < 0)
+                    return false;
+            }
+        }
         return true;
     }
 
     bool SimulateCarpenterCost(Upgrade item)
     {
-        if (goldStock - (GetGoldCostCarpenter(item.goldPrice) + relicGoldCost) >= 0)
-            return true;
-        return false;
+        int goldCost = GetGoldCostCarpenter(item.goldPrice);
+        if (goldCost != 0)
+        {
+            int goldRes = goldCost + relicGoldCost;
+            if (goldRes > 0)
+            {
+                if ((goldStock - goldRes) < 0)
+                    return false;
+            }
+        }
+        return true;
     }
 
     void ApplyCost(Action item)
@@ -662,10 +749,42 @@ public class GameManager : MonoBehaviour
 
     void ApplyReward(Action item)
     {
-        sailorsStock += (GetSailorReward(item.sailorReward) + relicSailorReward);
-        foodStock += (GetFoodReward(item.foodReward) + relicFoodReward);
-        woodStock += (GetWoodReward(item.woodReward) + relicWoodReward);
-        goldStock += (GetGoldReward(item.goldReward) + relicGoldReward);
+        int sailorsGain = GetSailorReward(item.sailorReward);
+        if(sailorsGain != 0)
+        {
+            int sailorsRes = sailorsGain + relicSailorReward;
+            if(sailorsRes > 0)
+            {
+                sailorsStock += sailorsRes;
+            }
+        }
+        int foodGain = GetFoodReward(item.foodReward);
+        if (foodGain != 0)
+        {
+            int foodRes = foodGain + relicFoodReward;
+            if (foodRes > 0)
+            {
+                foodStock += foodRes;
+            }
+        }
+        int woodGain = GetWoodReward(item.woodReward);
+        if (woodGain != 0)
+        {
+            int woodRes = woodGain + relicWoodReward;
+            if (woodRes > 0)
+            {
+                woodStock += woodRes;
+            }
+        }
+        int goldGain = GetGoldReward(item.goldReward);
+        if (goldGain != 0)
+        {
+            int goldRes = goldGain + relicGoldReward;
+            if (goldRes > 0)
+            {
+                goldStock += goldRes;
+            }
+        }
         if (sailorsStock > sailorsMaxStock)
             sailorsStock = sailorsMaxStock;
         if (foodStock > foodMaxStock)
@@ -760,6 +879,8 @@ public class GameManager : MonoBehaviour
         switch (currentLevel)
         {
             case GameLevel.lvl1:
+                if (lvl1_foodConsumption + relicFoodConsumption <= 0)
+                    break;
                 if(foodStock - (lvl1_foodConsumption + relicFoodConsumption) == 0)
                 {
                     foodStock = 0;
@@ -777,15 +898,16 @@ public class GameManager : MonoBehaviour
                         print("You have to eat one of your men to survive.");
                     }
                     if (sailorsStock < 0)
-                        Debug.LogError("You shoudnl't be there.");
+                        Debug.LogError("You shoudln't be there.");
                 }
                 else
                 {
-                    if(!(foodStock - (lvl1_foodConsumption + relicFoodConsumption) > foodStock))
-                        foodStock -= (lvl1_foodConsumption + relicFoodConsumption);
+                    foodStock -= (lvl1_foodConsumption + relicFoodConsumption);
                 }
                 break;
             case GameLevel.lvl2:
+                if (lvl2_foodConsumption + relicFoodConsumption <= 0)
+                    break;
                 if (foodStock - (lvl2_foodConsumption + relicFoodConsumption) == 0)
                 {
                     foodStock = 0;
@@ -804,11 +926,12 @@ public class GameManager : MonoBehaviour
                 }
                 else
                 {
-                    if (!(foodStock - (lvl2_foodConsumption + relicFoodConsumption) > foodStock))
-                        foodStock -= (lvl2_foodConsumption + relicFoodConsumption);
+                    foodStock -= (lvl2_foodConsumption + relicFoodConsumption);
                 }
                 break;
             case GameLevel.lvl3:
+                if (lvl3_foodConsumption + relicFoodConsumption <= 0)
+                    break;
                 if (foodStock - (lvl3_foodConsumption + relicFoodConsumption) == 0)
                 {
                     foodStock = 0;
@@ -827,8 +950,7 @@ public class GameManager : MonoBehaviour
                 }
                 else
                 {
-                    if (!(foodStock - (lvl3_foodConsumption + relicFoodConsumption) > foodStock))
-                        foodStock -= (lvl3_foodConsumption + relicFoodConsumption);
+                    foodStock -= (lvl3_foodConsumption + relicFoodConsumption);
                 }
                 break;
             default:
