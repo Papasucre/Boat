@@ -202,7 +202,31 @@ MonoBehaviour:
   relicWoodReward: 0
   relicGoldReward: 0
   relicFoodConsumption: 0
+  relicWoodConsumption: 0
   runAwayWoodCost: 0
+  harvestGoldReward: 0
+  harvestWoodReward: 0
+  harvestFoodReward: 0
+  fightSailorsCost: 0
+  fightWoodCost: 0
+  fightFoodReward: 0
+  fightWoodReward: 0
+  fightGoldReward: 0
+  famousExplorerReward: 0
+  famousExplorerCounter: 0
+  luckyCloverSailor: 0
+  luckyCloverFood: 0
+  luckyCloverWood: 0
+  luckyCloverGold: 0
+  lifeInsuranceRevenue: 0
+  merchantGoldCost: 0
+  bloodHunter: 0
+  ghuunLegacy: 0
+  famousExplorer: 0
+  luckyClover: 0
+  lifeInsurance: 0
+  carpenterHammer: 0
+  monkeysPaw: 0
 --- !u!114 &1273261917566318468
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -266,6 +290,8 @@ MonoBehaviour:
     prob: 5
   - ID: Wreck
     prob: 12
+  alliesProb: 12
+  enemiesProb: 12
 --- !u!114 &5583028194621008475
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -279,7 +305,26 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   relicsList:
+  - {fileID: 3656437438120146681, guid: 8cc595efe7a97f5448a8e8c98ac5830e, type: 3}
+  - {fileID: 3656437438120146681, guid: f502e9fe380ff4343bc7e4dc14edf507, type: 3}
+  - {fileID: 3656437438120146681, guid: 359216a7399b58a40bc545bdc4ca6f90, type: 3}
+  - {fileID: 3656437438120146681, guid: a862b1825da1ceb47acb22d0d18c73b8, type: 3}
+  - {fileID: 3656437438120146681, guid: 82153c887ab46dd4682d95b3ee76423e, type: 3}
   - {fileID: 602186179533711047, guid: 5b479830d2376ac45a54087a4b66ad79, type: 3}
+  - {fileID: 3656437438120146681, guid: 4945a8fcd54cba841bc0845d7ba34e7e, type: 3}
+  - {fileID: 3656437438120146681, guid: 85e1481c6725fd841afe9ed173d15c48, type: 3}
+  - {fileID: 3656437438120146681, guid: f505274daced5c34a95b2d225a456d8b, type: 3}
+  - {fileID: 3656437438120146681, guid: 4bc3c0f5fd26a054c8b404cbced5dab6, type: 3}
+  - {fileID: 3656437438120146681, guid: 567880cd140cc4c4ab7904adb4ab6fc1, type: 3}
+  - {fileID: 3656437438120146681, guid: 1871d25a990e0e54f803b9d29de5cc32, type: 3}
+  - {fileID: 3656437438120146681, guid: 47f7ee55a2a630a419c3782d98507edc, type: 3}
+  - {fileID: 3656437438120146681, guid: 38fbb682879407247a21b2712607c867, type: 3}
+  - {fileID: 3656437438120146681, guid: e5ff5ac9dd7585445815576494d18a03, type: 3}
+  - {fileID: 3656437438120146681, guid: b396e1198dcad94499216b388717cd69, type: 3}
+  - {fileID: 3656437438120146681, guid: 91bf21684b55cd34bb8a9ea62f748d77, type: 3}
+  - {fileID: 3656437438120146681, guid: 69fdd3d2d4eb76348935cfdbe540ee5b, type: 3}
+  - {fileID: 3656437438120146681, guid: f8f4cc1d3d54a2d4cb715f88bb8fa852, type: 3}
+  - {fileID: 3656437438120146681, guid: e5c07e08a4abe8d46bdf4443218e6e5a, type: 3}
   - {fileID: 3656437438120146681, guid: 83837f18ce1aeae46909ea27fdbec79a, type: 3}
   low: 20
   medium: 50
