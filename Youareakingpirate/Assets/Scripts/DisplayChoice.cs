@@ -78,25 +78,25 @@ public class DisplayChoice : MonoBehaviour
         if(item.sailorPrice != GameManager.Cost.none)
         {
             actionImgCost[i].sprite = sailor;
-            actionTxtCost[i].text = GameManager.instance.GetSailorCost(item.sailorPrice).ToString();
+            actionTxtCost[i].text = GameManager.instance.GetSailorsCostWithRelics(item, GameManager.instance.GetSailorCost(item.sailorPrice)).ToString();
             i++;
         }
         if (item.foodPrice != GameManager.Cost.none)
         {
             actionImgCost[i].sprite = food;
-            actionTxtCost[i].text = GameManager.instance.GetFoodCost(item.foodPrice).ToString();
+            actionTxtCost[i].text = GameManager.instance.GetFoodCostWithRelics(item, GameManager.instance.GetFoodCost(item.foodPrice)).ToString();
             i++;
         }
         if (item.woodPrice != GameManager.Cost.none)
         {
             actionImgCost[i].sprite = wood;
-            actionTxtCost[i].text = GameManager.instance.GetWoodCost(item.woodPrice).ToString();
+            actionTxtCost[i].text = GameManager.instance.GetWoodCostWithRelics(item, GameManager.instance.GetWoodCost(item.woodPrice)).ToString();
             i++;
         }
         if (item.goldPrice != GameManager.Cost.none)
         {
             actionImgCost[i].sprite = gold;
-            actionTxtCost[i].text = GameManager.instance.GetGoldCost(item.goldPrice).ToString();
+            actionTxtCost[i].text = GameManager.instance.GetGoldCostWithRelics(item, GameManager.instance.GetGoldCost(item.goldPrice)).ToString();
         }
         masterCanvas.enabled = true;
         actionCanvas.enabled = true;
@@ -106,7 +106,7 @@ public class DisplayChoice : MonoBehaviour
     {
         name.text = item.name;
         upgradeNewCapacity.text = item.newCapacity.ToString();
-        upgradeGoldCost.text = GameManager.instance.GetGoldCostCarpenter(item.goldPrice).ToString();
+        upgradeGoldCost.text = GameManager.instance.GetCarpenterGoldCostWithRelics(GameManager.instance.GetGoldCostCarpenter(item.goldPrice)).ToString();
         masterCanvas.enabled = true;
         upgradeCanvas.enabled = true;
     }
@@ -140,7 +140,7 @@ public class DisplayChoice : MonoBehaviour
             }
             relicTxt[i].text = data[i].value;
         }
-        relicGoldCost.text = relicScript.goldPrice.ToString();
+        relicGoldCost.text = GameManager.instance.GetCarpenterGoldCostWithRelics(relicScript.goldPrice).ToString();
         masterCanvas.enabled = true;
         relicCanvas.enabled = true;
     }
