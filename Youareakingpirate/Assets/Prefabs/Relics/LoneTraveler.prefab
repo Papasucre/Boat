@@ -43,7 +43,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bbe752f757bf38c41b85eb11ca274efb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  relicName: Lone Traveler
+  name: Lone traveler
   description: You can no longer meet Merchant and Dark Merchant, but it increases
     all your gains.
   levelRequiered: 1
@@ -56,3 +56,12 @@ MonoBehaviour:
   extraFoodReward: 2
   extraWoodReward: 2
   extraGoldReward: 25
+  relicData:
+  - resource: 1
+    value: +1
+  - resource: 2
+    value: +2
+  - resource: 3
+    value: +2
+  - resource: 4
+    value: +25

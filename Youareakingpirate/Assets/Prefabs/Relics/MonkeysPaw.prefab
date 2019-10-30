@@ -43,7 +43,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 66f83f8c8eb37c749bae33879e809974, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  relicName: The Monkey's Paw
+  name: The Monkey's Paw
   description: Every time you win a resource you have 1% chance to win a random relic/curse.
   levelRequiered: 1
   type1: 5

@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class CarpenterHammer : Relic
 {
+    RelicData[] relicData = new RelicData[1];
+
     public override void Equip()
     {
         GameManager.instance.carpenterHammer = true;
@@ -17,5 +19,9 @@ public class CarpenterHammer : Relic
     public override void Use()
     {
         throw new System.NotImplementedException();
+    }
+    public override RelicData[] GetData()
+    {
+        return relicData;
     }
 }

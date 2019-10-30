@@ -565,13 +565,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   actionsList:
-  - actionName: Break the alliance
+  - name: Fight !
     ID: Fight
+    ID2: 
     sailorPrice: 1
     foodPrice: 0
     woodPrice: 2
     goldPrice: 0
-    relicPrice: 0
     sailorReward: 0
     foodReward: 2
     woodReward: 1
@@ -579,13 +579,13 @@ MonoBehaviour:
     relicReward: 1
     relicType: 4
     includeCurse: 1
-  - actionName: Take gift (sailors)
+  - name: Take gift
     ID: 
+    ID2: 
     sailorPrice: 0
     foodPrice: 0
     woodPrice: 0
     goldPrice: 0
-    relicPrice: 0
     sailorReward: 2
     foodReward: 0
     woodReward: 0
@@ -593,13 +593,13 @@ MonoBehaviour:
     relicReward: 0
     relicType: 0
     includeCurse: 0
-  - actionName: Take gift (food)
+  - name: Take gift
     ID: 
+    ID2: 
     sailorPrice: 0
     foodPrice: 0
     woodPrice: 0
     goldPrice: 0
-    relicPrice: 0
     sailorReward: 0
     foodReward: 2
     woodReward: 0
@@ -607,13 +607,13 @@ MonoBehaviour:
     relicReward: 0
     relicType: 0
     includeCurse: 0
-  - actionName: Take gift (wood)
+  - name: Take gift
     ID: 
+    ID2: 
     sailorPrice: 0
     foodPrice: 0
     woodPrice: 0
     goldPrice: 0
-    relicPrice: 0
     sailorReward: 0
     foodReward: 0
     woodReward: 2
@@ -621,13 +621,13 @@ MonoBehaviour:
     relicReward: 0
     relicType: 0
     includeCurse: 0
-  - actionName: Take gift (gold)
+  - name: Take gift
     ID: 
+    ID2: 
     sailorPrice: 0
     foodPrice: 0
     woodPrice: 0
     goldPrice: 0
-    relicPrice: 0
     sailorReward: 0
     foodReward: 0
     woodReward: 0
@@ -635,13 +635,13 @@ MonoBehaviour:
     relicReward: 0
     relicType: 0
     includeCurse: 0
-  - actionName: Take gift (relic or upgrade)
+  - name: Upgrade or Relic
     ID: 
+    ID2: 
     sailorPrice: 0
     foodPrice: 0
     woodPrice: 0
     goldPrice: 0
-    relicPrice: 0
     sailorReward: 0
     foodReward: 0
     woodReward: 0

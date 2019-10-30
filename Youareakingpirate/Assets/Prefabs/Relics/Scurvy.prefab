@@ -43,7 +43,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77aaf4fb9f7d1a44fb4609675b992247, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  relicName: Scurvy
+  name: Scurvy
   description: The sailors consume more food when you travel
   levelRequiered: 0
   type1: 4
@@ -52,3 +52,6 @@ MonoBehaviour:
   curse: 1
   goldPrice: 0
   foodConsumptionExtra: 2
+  relicData:
+  - resource: 2
+    value: +2

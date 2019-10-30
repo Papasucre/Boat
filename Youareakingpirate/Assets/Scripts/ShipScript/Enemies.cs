@@ -16,9 +16,9 @@ public class Enemies : MonoBehaviour
         foreach (GameManager.Action item in actionsList)
         {
             GameManager.instance.choicesList.Add(item);
-            print(item.ID + " =============================== " + item.actionName);
+            print(item.ID + " =============================== " + item.name);
             print("Cost : " + "SAILOR " + GameManager.instance.GetSailorCost(item.sailorPrice) + " | " + " FOOD " + GameManager.instance.GetFoodCost(item.foodPrice) + " | " +
-                " WOOD " + GameManager.instance.GetWoodCost(item.woodPrice) + " | " + " GOLD " + GameManager.instance.GetGoldCost(item.goldPrice) + " | " + " RELIC " + item.relicPrice);
+                " WOOD " + GameManager.instance.GetWoodCost(item.woodPrice) + " | " + " GOLD " + GameManager.instance.GetGoldCost(item.goldPrice));
             print("Reward : " + "SAILOR " + item.sailorReward + " | " + " FOOD " + item.foodReward + " | " + " WOOD " + item.woodReward + " | " + " GOLD " + item.goldReward + " | " + " RELIC " + item.relicReward);
         }
         GameManager.Instance.makeChoice = true;

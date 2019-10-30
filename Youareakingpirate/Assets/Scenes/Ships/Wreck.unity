@@ -565,14 +565,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   actionsList:
-  - actionName: Loot
+  - name: Loot it
     ID: 
     ID2: 
     sailorPrice: 1
     foodPrice: 0
     woodPrice: 0
     goldPrice: 0
-    relicPrice: 0
     sailorReward: 0
     foodReward: 0
     woodReward: 1
@@ -580,14 +579,13 @@ MonoBehaviour:
     relicReward: 1
     relicType: 4
     includeCurse: 1
-  - actionName: Save the survivors
+  - name: Save the survivors
     ID: 
     ID2: 
     sailorPrice: 0
     foodPrice: 2
     woodPrice: 0
     goldPrice: 0
-    relicPrice: 0
     sailorReward: 2
     foodReward: 0
     woodReward: 0
@@ -595,14 +593,13 @@ MonoBehaviour:
     relicReward: 0
     relicType: 0
     includeCurse: 0
-  - actionName: Ignore it
+  - name: Ignore it
     ID: Ignore
     ID2: 
     sailorPrice: 0
     foodPrice: 0
     woodPrice: 0
     goldPrice: 0
-    relicPrice: 0
     sailorReward: 0
     foodReward: 0
     woodReward: 0

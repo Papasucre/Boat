@@ -43,8 +43,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ad2cc9e40b964b438c8b27e1266218f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  relicName: Lucky Clover
-  description: 
+  name: Lucky Clover
+  description: A beautiful seven-leaf clover. Every time you win a relic you have
+    50% chance to win one random resource.
   levelRequiered: 0
   type1: 1
   type2: 0
@@ -55,3 +56,12 @@ MonoBehaviour:
   luckyCloverFoodReward: 2
   luckyCloverWoodReward: 2
   luckyCloverGoldReward: 25
+  data:
+  - resource: 1
+    value: 1
+  - resource: 2
+    value: 2
+  - resource: 3
+    value: 2
+  - resource: 4
+    value: 25

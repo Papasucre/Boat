@@ -5,7 +5,7 @@ using UnityEngine;
 public abstract class Relic : MonoBehaviour
 {
     [Header("GENERICS PARAMETERS")]
-    public string relicName;
+    public new string name;
     public string description;
     public GameManager.GameLevel levelRequiered;
     public GameManager.RelicType type1;
@@ -17,4 +17,12 @@ public abstract class Relic : MonoBehaviour
     public abstract void Equip();
     public abstract void Unequip();
     public abstract void Use();
+    public abstract RelicData[] GetData();
+
+    [System.Serializable]
+    public class RelicData
+    {
+        public GameManager.ResourceType resource;
+        public string value;
+    }
 }

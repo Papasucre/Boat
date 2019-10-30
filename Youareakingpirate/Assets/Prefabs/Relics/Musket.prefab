@@ -43,7 +43,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1876102f5bff4204cb4d3c18f088fed7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  relicName: Musket
+  name: Musket
   description: 'A fancy musket which reduce sailors loss during battle. (Advice :
     aim for the enemy''s head)'
   levelRequiered: 0
@@ -53,3 +53,6 @@ MonoBehaviour:
   curse: 0
   goldPrice: 0
   fightSailorCost: -1
+  relicData:
+  - resource: 1
+    value: -1

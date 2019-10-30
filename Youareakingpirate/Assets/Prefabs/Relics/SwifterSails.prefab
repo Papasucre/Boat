@@ -43,9 +43,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 109dfa0386ae93b428f1a5c4986ab654, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  relicName: Swifter Sails
-  description: Swifter sails, your ship go faster, you will take less damage when
-    you run away from fight
+  name: Swifter Sails
+  description: Your ship go faster, you will take less damage when you run away from
+    fight
   levelRequiered: 0
   type1: 3
   type2: 7
@@ -53,3 +53,7 @@ MonoBehaviour:
   curse: 0
   goldPrice: 100
   woodCost: -2
+  relicData:
+  - rowActivate: 1
+    resource: 3
+    value: -2

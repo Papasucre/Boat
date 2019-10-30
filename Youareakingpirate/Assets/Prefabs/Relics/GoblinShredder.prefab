@@ -43,7 +43,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5db0d275a27316409ee5797396dd594, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  relicName: Goblin Shredder
+  name: Goblin shredder
   description: A strange machine, with a place for a pilot (pretty small). Seems good
     to harvest wood.
   levelRequiered: 1
@@ -53,3 +53,6 @@ MonoBehaviour:
   curse: 0
   goldPrice: 250
   harvestWoodExtra: 4
+  relicData:
+  - resource: 3
+    value: +4

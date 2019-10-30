@@ -5,6 +5,13 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
+    public DisplayChoice choice1;
+    public DisplayChoice choice2;
+    public DisplayChoice choice3;
+    public GameObject relic;
+    public Action action;
+    public Upgrade upgrade;
+
     #region STOCK VARIABLES
     [Header("STOCK")]
     public int sailorsStock;
@@ -246,6 +253,9 @@ public class GameManager : MonoBehaviour
         islandsTableScript = GetComponent<IslandsTable>();
         shipsTableScript = GetComponent<ShipsTable>();
         //randomEncounterScript.LoadRandomEncounter();
+        choice1.Display(relic);
+        choice2.Display(action);
+        choice3.Display(upgrade);
     }
 
     private void Update()
@@ -489,7 +499,7 @@ public class GameManager : MonoBehaviour
     void ValidateCarpenterUpgrade(int input)
     {
         print("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
-        print("You choose " + choicesUpgradeArray[input].actionName);
+        print("You choose " + choicesUpgradeArray[input].name);
         atCarpenterWorkshop = false;
         if (!alliesGift || !carpenterHammer)
         {
@@ -575,7 +585,7 @@ public class GameManager : MonoBehaviour
     void ValidateChoice(int input)
     {
         print("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
-        print("You choose " + choicesList[input].actionName);
+        print("You choose " + choicesList[input].name);
         makeChoice = false;
         switch (choicesList[input].ID)
         {
@@ -967,7 +977,7 @@ public class GameManager : MonoBehaviour
                 relicsScript.RemoveGainedRelic(relic);
                 relicScript.Equip();
                 print("You have a new " + (relicScript.curse ? "curse :" : "relic :"));
-                print(relicScript.relicName);
+                print(relicScript.name);
                 print(relicScript.description);
                 if (luckyClover)
                     LuckyClover();
@@ -1570,7 +1580,7 @@ public class GameManager : MonoBehaviour
         if (relootable)
             relicsScript.AddLostRelic(relic);
         relic.GetComponent<Relic>().Unequip();
-        print(relic.GetComponent<Relic>().relicName + " got removed.");
+        print(relic.GetComponent<Relic>().name + " got removed.");
     }
 
     void UnequipRelic(string relicName, bool relootable)
@@ -1578,7 +1588,7 @@ public class GameManager : MonoBehaviour
         GameObject relic = null;
         foreach (GameObject item in relicsEquipped)
         {
-            if (item.GetComponent<Relic>().relicName == relicName)
+            if (item.GetComponent<Relic>().name == relicName)
             {
                 relic = item;
                 break;
@@ -1592,7 +1602,7 @@ public class GameManager : MonoBehaviour
         if (relootable)
             relicsScript.AddLostRelic(relic);
         relic.GetComponent<Relic>().Unequip();
-        print(relic.GetComponent<Relic>().relicName + " got removed.");
+        print(relic.GetComponent<Relic>().name + " got removed.");
     }
 
     GameObject GetRelicReward(Cost cost, RelicType type, bool includeCurse)
@@ -1665,7 +1675,7 @@ public class GameManager : MonoBehaviour
                 relicsScript.RemoveGainedRelic(relic);
                 relicScript.Equip();
                 print("You have a new " + (relicScript.curse ? "curse " : "relic ")+"thanks to your Monkey's Paw !");
-                print(relicScript.relicName);
+                print(relicScript.name);
                 print(relicScript.description);
                 if (luckyClover)
                     LuckyClover();
@@ -1738,6 +1748,11 @@ public class GameManager : MonoBehaviour
     #endregion
 
     #region ENUM
+    public enum ResourceType
+    {
+        none, sailor, food, wood, gold
+    }
+
     public enum Cost
     {
         none, low, medium, high
@@ -1776,7 +1791,7 @@ public class GameManager : MonoBehaviour
     [System.Serializable]
     public struct Action
     {
-        public string actionName;
+        public string name;
         public string ID;
         public string ID2;
         [Header("Price")]
@@ -1784,7 +1799,6 @@ public class GameManager : MonoBehaviour
         public GameManager.Cost foodPrice;
         public GameManager.Cost woodPrice;
         public GameManager.Cost goldPrice;
-        public GameManager.Cost relicPrice;
         [Header("Reward")]
         public GameManager.Cost sailorReward;
         public GameManager.Cost foodReward;
