@@ -74,6 +74,10 @@ public class CarpenterDataTable : MonoBehaviour
 
     public void AtCarpenter()
     {
+        foreach (DisplayChoice item in GameManager.instance.UIChoices)
+        {
+            item.Undisplay();
+        }
         FullProbList();
         GameManager.instance.CleanUpgradeArray();
         GameManager.instance.CleanCarpenterRelics();
@@ -93,8 +97,7 @@ public class CarpenterDataTable : MonoBehaviour
                 }
                 GameManager.instance.carpenterRelics[i] = relic;
                 Relic relicScript = relic.GetComponent<Relic>();
-                print(ID + " =============================== " + relicScript.name);
-                print("Cost : GOLD " + relicScript.goldPrice);
+                GameManager.instance.UIChoices[i].Display(relic);
                 if (relicScript.goldPrice == 0)
                     Debug.LogError("ERROR NO FREE RELIC AT CARPENTER WORKSHOP " + relicScript.name);
                 print(relicScript.description);
@@ -105,9 +108,7 @@ public class CarpenterDataTable : MonoBehaviour
                 if (item.ID == ID)
                 {
                     GameManager.instance.choicesUpgradeArray[i] = item;
-                    print(item.ID + " =============================== " + item.name);
-                    print("Cost : " + " GOLD " +GameManager.instance.GetGoldCostCarpenter(item.goldPrice));
-                    print("New capacity : " +item.newCapacity);
+                    GameManager.instance.UIChoices[i].Display(item);
                     break;
                 }
             }
@@ -116,7 +117,6 @@ public class CarpenterDataTable : MonoBehaviour
         GameManager.Instance.atCarpenterWorkshop = true;
         GameManager.Instance.canSkip = true;
         GameManager.Instance.ShowRessources();
-        print("Choose your action with 1 2 or 3.");
         print("Or you can skip this encounter with 4.");
     }
 
@@ -133,9 +133,7 @@ public class CarpenterDataTable : MonoBehaviour
             if (item.ID == ID)
             {
                 GameManager.instance.choicesUpgradeArray[2] = item;
-                print(item.ID + " =============================== " + item.name);
-                print("Original price : GOLD " + GameManager.instance.GetGoldCostCarpenter(item.goldPrice) + " but it's a gift, so you can get it for free.");
-                print("New capacity : " + item.newCapacity);
+                GameManager.instance.UIChoices[2].Display(item);
                 break;
             }
         }

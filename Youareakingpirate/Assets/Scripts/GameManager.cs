@@ -5,11 +5,6 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    public DisplayChoice choice1;
-    public DisplayChoice choice2;
-    public DisplayChoice choice3;
-    public GameObject relic;
-
     #region STOCK VARIABLES
     [Header("STOCK")]
     public int sailorsStock;
@@ -156,7 +151,7 @@ public class GameManager : MonoBehaviour
     public int encounterCounter = 1;
     public GameLevel currentLevel;
     public BoatLevel currentBoat;
-    public List<Action> choicesList = new List<Action>();
+    public Action[] choicesArray = new Action[3];
     public Upgrade[] choicesUpgradeArray = new Upgrade[3];
     public bool makeChoice;
     public bool atCarpenterWorkshop;
@@ -165,6 +160,7 @@ public class GameManager : MonoBehaviour
     public List<GameObject> relicsEquipped = new List<GameObject>();
     public List<GameObject> cursesEquipped = new List<GameObject>();
     public GameObject[] carpenterRelics = new GameObject[3];
+    public DisplayChoice[] UIChoices = new DisplayChoice[3];
     #endregion
 
     #region RELICS VARIABLES
@@ -223,6 +219,12 @@ public class GameManager : MonoBehaviour
     CarpenterDataTable carpenterScript;
     #endregion
 
+    #region INPUTS VARIABLES
+    public bool input_choice1;
+    public bool input_choice2;
+    public bool input_choice3;
+    #endregion
+
     public static GameManager instance;
     public static GameManager Instance {
         get {
@@ -250,18 +252,16 @@ public class GameManager : MonoBehaviour
         carpenterScript = GetComponent<CarpenterDataTable>();
         islandsTableScript = GetComponent<IslandsTable>();
         shipsTableScript = GetComponent<ShipsTable>();
-        //randomEncounterScript.LoadRandomEncounter();
-        choice1.Display(relic);
-        choice2.Display(relic);
-        choice3.Display(relic);
+        randomEncounterScript.LoadRandomEncounter();
     }
 
     private void Update()
     {
         if (makeChoice)
         {
-            if (Input.GetKeyDown(KeyCode.Alpha1))
+            if (input_choice1)
             {
+                input_choice1 = false;
                 if (atCarpenterWorkshop)
                 {
                     if(choicesUpgradeArray[0] != null)
@@ -291,9 +291,9 @@ public class GameManager : MonoBehaviour
                         Debug.LogError("How do you came here ?!");
                     }
                 }
-                else if (SimulateCost(choicesList[0]))
+                else if (SimulateCost(choicesArray[0]))
                 {
-                    if(choicesList[0].ID == "RemoveCurse")
+                    if(choicesArray[0].ID == "RemoveCurse")
                     {
                         if(cursesEquipped.Count != 0)
                         {
@@ -309,7 +309,7 @@ public class GameManager : MonoBehaviour
                 }
                 else
                 {
-                    switch (choicesList[0].ID)
+                    switch (choicesArray[0].ID)
                     {
                         case "RunningAway":
                             if (bloodHunter)
@@ -325,8 +325,9 @@ public class GameManager : MonoBehaviour
                     }
                 }
             }
-            if (Input.GetKeyDown(KeyCode.Alpha2))
+            if (input_choice2)
             {
+                input_choice2 = false;
                 if (atCarpenterWorkshop)
                 {
                     if (choicesUpgradeArray[1] != null)
@@ -356,13 +357,13 @@ public class GameManager : MonoBehaviour
                         Debug.LogError("How do you came here ?!");
                     }
                 }
-                else if (SimulateCost(choicesList[1]))
+                else if (SimulateCost(choicesArray[1]))
                 {
                     ValidateChoice(1);
                 }
                 else
                 {
-                    switch (choicesList[1].ID)
+                    switch (choicesArray[1].ID)
                     {
                         case "RunningAway":
                             if (bloodHunter)
@@ -378,8 +379,9 @@ public class GameManager : MonoBehaviour
                     }
                 }
             }
-            if (Input.GetKeyDown(KeyCode.Alpha3) && (choicesList.Count == 3 || choicesUpgradeArray.Length == 3))
+            if (input_choice3 && (choicesArray[2].name != "" || choicesUpgradeArray[2] != null))
             {
+                input_choice3 = false;
                 if (atCarpenterWorkshop || alliesGift)
                 {
                     if (choicesUpgradeArray[2] != null)
@@ -409,13 +411,13 @@ public class GameManager : MonoBehaviour
                         Debug.LogError("How do you came here ?!");
                     }
                 }
-                else if (SimulateCost(choicesList[2]))
+                else if (SimulateCost(choicesArray[2]))
                 {
                     ValidateChoice(2);
                 }
                 else
                 {
-                    switch (choicesList[0].ID)
+                    switch (choicesArray[0].ID)
                     {
                         case "RunningAway":
                             if (bloodHunter)
@@ -439,8 +441,6 @@ public class GameManager : MonoBehaviour
                 StartCoroutine(LoadNextEncounter());
             }
         }
-        if (Input.GetKeyDown(KeyCode.R))
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     #region CARPENTER
@@ -579,9 +579,9 @@ public class GameManager : MonoBehaviour
     void ValidateChoice(int input)
     {
         print("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
-        print("You choose " + choicesList[input].name);
+        print("You choose " + choicesArray[input].name);
         makeChoice = false;
-        switch (choicesList[input].ID)
+        switch (choicesArray[input].ID)
         {
             case "Is_05"://CARPENTER WORKSHOP
                 carpenterScript.AtCarpenter();
@@ -589,20 +589,20 @@ public class GameManager : MonoBehaviour
             case "RemoveCurse":
                 GameObject curse = cursesEquipped[Random.Range(0, cursesEquipped.Count)];
                 UnequipRelic(curse, true);
-                ApplyCost(choicesList[input]);
-                ApplyReward(choicesList[input]);
+                ApplyCost(choicesArray[input]);
+                ApplyReward(choicesArray[input]);
                 break;
             case "Ignore":
                 StartCoroutine(LoadNextEncounter());
                 break;
             case "UnknownDiscover":
                 shipsTableScript.UnknownDiscover();
-                ApplyCost(choicesList[input]);
-                ApplyReward(choicesList[input]);
+                ApplyCost(choicesArray[input]);
+                ApplyReward(choicesArray[input]);
                 break;
             default:
-                ApplyCost(choicesList[input]);
-                ApplyReward(choicesList[input]);
+                ApplyCost(choicesArray[input]);
+                ApplyReward(choicesArray[input]);
                 break;
         }
         CheckStock();
@@ -794,6 +794,14 @@ public class GameManager : MonoBehaviour
                         LuckyClover();
                 }
             }
+        }
+    }
+
+    public void CleanChoicesArray()
+    {
+        for (int i = 0; i < choicesArray.Length; i++)
+        {
+            choicesArray[i] = new Action();
         }
     }
     #endregion
@@ -1125,6 +1133,10 @@ public class GameManager : MonoBehaviour
 
     IEnumerator LoadNextEncounter()
     {
+        foreach (DisplayChoice item in UIChoices)
+        {
+            item.Undisplay();
+        }
         alliesGift = false;
         monkeysPawTried = false;
         yield return new WaitForSeconds(3);
@@ -1596,7 +1608,7 @@ public class GameManager : MonoBehaviour
             case GameLevel.lvl3:
                 return lvl3_highGoldCost;
             default:
-                print("You shouldn't be there.");
+                Debug.LogError("You shouldn't be there.");
                 return 0;
         }
     }

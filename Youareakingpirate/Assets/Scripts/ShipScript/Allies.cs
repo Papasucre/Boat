@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Friends : MonoBehaviour
+public class Allies : MonoBehaviour
 {
 #pragma warning disable 0649
     [SerializeField] List<GameManager.Action> actionsList;
@@ -14,7 +14,7 @@ public class Friends : MonoBehaviour
 
     void Start()
     {
-        GameManager.instance.choicesList.Clear();
+        GameManager.instance.CleanChoicesArray();
         GameManager.instance.FoodConsumption();
         friendsRelicGift = false;
         friendsUpgradeGift = false;
@@ -50,22 +50,22 @@ public class Friends : MonoBehaviour
                     break;
             }            
         }
-        foreach (GameManager.Action item in list)
+        for (int i = 0; i < 2; i++)
         {
-            GameManager.instance.choicesList.Add(item);
-            print(item.ID + " =============================== " + item.name);
-            print("Cost : " + "SAILOR " + GameManager.instance.GetSailorCost(item.sailorPrice) + " | " + " FOOD " + GameManager.instance.GetFoodCost(item.foodPrice) + " | " +
-                " WOOD " + GameManager.instance.GetWoodCost(item.woodPrice) + " | " + " GOLD " + GameManager.instance.GetGoldCost(item.goldPrice));
-            print("Reward : " + "SAILOR " + item.sailorReward + " | " + " FOOD " + item.foodReward + " | " + " WOOD " + item.woodReward + " | " + " GOLD " + item.goldReward + " | " + " RELIC " + item.relicReward);
+            GameManager.instance.choicesArray[i] = list[i];
+            GameManager.instance.UIChoices[i].Display(list[i]);
         }
-        if(friendsUpgradeGift)
+        if (friendsUpgradeGift)
+        {
             GameManager.instance.gameObject.GetComponent<CarpenterDataTable>().GetFriendsRandomUpgrade();
-        if (friendsRelicGift)
-            GameManager.instance.gameObject.GetComponent<RelicsTable>().GetFriendsRandomRelic(GameManager.RelicType.all,false);
+        }else if (friendsRelicGift)
+        {
+            GameManager.instance.gameObject.GetComponent<RelicsTable>().GetFriendsRandomRelic(GameManager.RelicType.all, false);
+        }
+            
         friendsUpgradeGift = false;
         friendsRelicGift = false;
         GameManager.Instance.makeChoice = true;
         GameManager.Instance.ShowRessources();
-        print("Choose your action with 1 2 or 3.");
     }
 }

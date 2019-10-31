@@ -33,7 +33,7 @@ public class IslandEncounterDataTable : MonoBehaviour
 
     private void Start()
     {
-        GameManager.instance.choicesList.Clear();
+        GameManager.instance.CleanChoicesArray();
         GameManager.instance.FoodConsumption();
         helpVillagersScript = GetComponent<HelpVillagersDataTable>();
         print("START ISLAND");
@@ -46,15 +46,14 @@ public class IslandEncounterDataTable : MonoBehaviour
                 {
                     if(item.ID == "Is_06")
                     {
-                        GameManager.instance.choicesList.Add(helpVillagersScript.RandomHelpVillagers());
+                        GameManager.Action villagersHelp = helpVillagersScript.RandomHelpVillagers();
+                        GameManager.instance.choicesArray[i] = villagersHelp;
+                        GameManager.instance.UIChoices[i].Display(villagersHelp);
                     }
                     else
                     {
-                        GameManager.instance.choicesList.Add(item);
-                        print(item.ID + " =============================== " + item.name);
-                        print("Cost : " + "SAILOR " + GameManager.instance.GetSailorCost(item.sailorPrice) + " | " + " FOOD " + GameManager.instance.GetFoodCost(item.foodPrice) + " | " +
-                            " WOOD " + GameManager.instance.GetWoodCost(item.woodPrice) + " | " + " GOLD " + GameManager.instance.GetGoldCost(item.goldPrice));
-                        print("Reward : " + "SAILOR " + item.sailorReward + " | " + " FOOD " + item.foodReward + " | " + " WOOD " + item.woodReward + " | " + " GOLD " + item.goldReward + " | " + " RELIC " + item.relicReward);
+                        GameManager.instance.choicesArray[i] = item;
+                        GameManager.instance.UIChoices[i].Display(item);
                         break;
                     }
                 }

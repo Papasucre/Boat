@@ -11,7 +11,7 @@ public class DarkMerchant : MonoBehaviour
 
     void Start()
     {
-        GameManager.instance.choicesList.Clear();
+        GameManager.instance.CleanChoicesArray();
         GameManager.instance.FoodConsumption();
         print("START DARK MERCHANT");
         for (int i = 0; i < actionsList.Count; i++)
@@ -42,18 +42,14 @@ public class DarkMerchant : MonoBehaviour
                 break;
             }
         }
-        foreach (GameManager.Action item in list)
+        for (int i = 0; i < 3; i++)
         {
-            GameManager.instance.choicesList.Add(item);
-            print(item.ID + " =============================== " + item.name);
-            print("Cost : " + "SAILOR " + GameManager.instance.GetSailorCost(item.sailorPrice) + " | " + " FOOD " + GameManager.instance.GetFoodCost(item.foodPrice) +
-                " | " + " WOOD " + GameManager.instance.GetWoodCost(item.woodPrice) + " | " + " GOLD " + GameManager.instance.GetGoldCost(item.goldPrice));
-            print("Reward : " + "SAILOR " + item.sailorReward + " | " + " FOOD " + item.foodReward + " | " + " WOOD " + item.woodReward + " | " + " GOLD " + item.goldReward + " | " + " RELIC " + item.relicReward);
+            GameManager.instance.choicesArray[i] = list[i];
+            GameManager.instance.UIChoices[i].Display(list[i]);
         }
         GameManager.Instance.makeChoice = true;
         GameManager.instance.canSkip = true;
         GameManager.Instance.ShowRessources();
-        print("Choose your action with 1 2 or 3.");
         print("Or you can skip this encounter with 4.");
 
     }

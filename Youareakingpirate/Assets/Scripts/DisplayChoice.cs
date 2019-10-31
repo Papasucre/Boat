@@ -8,6 +8,8 @@ using UnityEngine.EventSystems;
 public class DisplayChoice : MonoBehaviour
 {
 #pragma warning disable 0649
+    [SerializeField] int inputNumber;
+
     [Header("CANVAS")]
     [SerializeField] Canvas masterCanvas;
     [SerializeField] Canvas actionCanvas;
@@ -65,7 +67,21 @@ public class DisplayChoice : MonoBehaviour
             //For every result returned, output the name of the GameObject on the Canvas hit by the Ray
             foreach (RaycastResult result in results)
             {
-                Debug.Log("Hit " + result.gameObject.name);
+                switch (inputNumber)
+                {
+                    case 1:
+                        GameManager.instance.input_choice1 = true;
+                        return;
+                    case 2:
+                        GameManager.instance.input_choice2 = true;
+                        return;
+                    case 3:
+                        GameManager.instance.input_choice3 = true;
+                        return;
+                    default:
+                        Debug.LogError("Please configure a input number");
+                        break;
+                }
             }
         }
     }
