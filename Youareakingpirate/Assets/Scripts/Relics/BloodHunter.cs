@@ -9,6 +9,7 @@ public class BloodHunter : Relic
     [SerializeField] int fightFoodReward;
     [SerializeField] int fightWoodReward;
     [SerializeField] int fightGoldReward;
+    [SerializeField] RelicData[] relicData = new RelicData[3];
 #pragma warning restore 0649
 
     public override void Equip()
@@ -30,5 +31,10 @@ public class BloodHunter : Relic
     public override void Use()
     {
         throw new System.NotImplementedException();
+    }
+
+    public override RelicData[] GetData()
+    {
+        return relicData;
     }
 }

@@ -66,7 +66,7 @@ public class RelicsTable : MonoBehaviour
         GameManager.instance.carpenterRelics[2] = relic;
         Relic relicScript = relic.GetComponent<Relic>();
         print("++++++++++++++++++++++++++++++++++++++++++++++++");
-        print("Relic =============================== " + relicScript.relicName);
+        print("Relic =============================== " + relicScript.name);
         print(relicScript.description);
         GameManager.instance.alliesGift = true;
     }

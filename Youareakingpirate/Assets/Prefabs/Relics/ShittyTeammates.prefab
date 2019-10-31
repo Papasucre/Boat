@@ -43,7 +43,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13516d5ccac3849478dda5b1421f5e99, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  relicName: Shitty Teammates
+  name: Shitty teammates
   description: You lose one more sailor at each fight. (Damned matchmaking)
   levelRequiered: 0
   type1: 1
@@ -52,3 +52,6 @@ MonoBehaviour:
   curse: 1
   goldPrice: 0
   fightSailorCost: 1
+  relicData:
+  - resource: 1
+    value: +1

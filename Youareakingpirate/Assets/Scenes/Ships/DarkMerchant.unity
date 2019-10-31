@@ -642,14 +642,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   actionsList:
-  - actionName: Remove random curse
+  - name: Remove random curse
     ID: RemoveCurse
     ID2: 
     sailorPrice: 0
     foodPrice: 0
     woodPrice: 0
     goldPrice: 3
-    relicPrice: 0
     sailorReward: 0
     foodReward: 0
     woodReward: 0
@@ -657,14 +656,13 @@ MonoBehaviour:
     relicReward: 0
     relicType: 0
     includeCurse: 0
-  - actionName: Buy random relic
+  - name: Buy random relic
     ID: Merchant
     ID2: 
     sailorPrice: 0
     foodPrice: 0
     woodPrice: 0
     goldPrice: 3
-    relicPrice: 0
     sailorReward: 0
     foodReward: 0
     woodReward: 0
@@ -672,14 +670,13 @@ MonoBehaviour:
     relicReward: 3
     relicType: 2
     includeCurse: 0
-  - actionName: Trade ressources (Food for wood)
+  - name: Trade resources
     ID: Merchant
     ID2: 
     sailorPrice: 0
     foodPrice: 2
     woodPrice: 0
     goldPrice: 0
-    relicPrice: 0
     sailorReward: 0
     foodReward: 0
     woodReward: 2
@@ -687,14 +684,13 @@ MonoBehaviour:
     relicReward: 0
     relicType: 0
     includeCurse: 0
-  - actionName: Trade ressources (Wood for food)
+  - name: Trade resources
     ID: Merchant
     ID2: 
     sailorPrice: 0
     foodPrice: 0
     woodPrice: 2
     goldPrice: 0
-    relicPrice: 0
     sailorReward: 0
     foodReward: 2
     woodReward: 0
@@ -702,14 +698,13 @@ MonoBehaviour:
     relicReward: 0
     relicType: 0
     includeCurse: 0
-  - actionName: Trade ressources (Food for gold)
+  - name: Trade resources
     ID: Merchant
     ID2: 
     sailorPrice: 0
     foodPrice: 2
     woodPrice: 0
     goldPrice: 0
-    relicPrice: 0
     sailorReward: 0
     foodReward: 0
     woodReward: 0
@@ -717,14 +712,13 @@ MonoBehaviour:
     relicReward: 0
     relicType: 0
     includeCurse: 0
-  - actionName: Trade ressources (Wood for gold)
+  - name: Trade resources
     ID: Merchant
     ID2: 
     sailorPrice: 0
     foodPrice: 0
     woodPrice: 2
     goldPrice: 0
-    relicPrice: 0
     sailorReward: 0
     foodReward: 0
     woodReward: 0

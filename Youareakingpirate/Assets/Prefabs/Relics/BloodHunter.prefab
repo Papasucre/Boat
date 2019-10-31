@@ -43,7 +43,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 143d1e087ec3d304b94287fa87b50117, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  relicName: Blood Hunter
+  name: Blood hunter
   description: Increases the ressource a the end of a combat but all combat are now
     obligatory
   levelRequiered: 0
@@ -55,3 +55,10 @@ MonoBehaviour:
   fightFoodReward: 2
   fightWoodReward: 1
   fightGoldReward: 25
+  relicData:
+  - resource: 2
+    value: +2
+  - resource: 3
+    value: +1
+  - resource: 4
+    value: +25

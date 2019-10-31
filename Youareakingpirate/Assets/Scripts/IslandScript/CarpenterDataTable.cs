@@ -93,10 +93,10 @@ public class CarpenterDataTable : MonoBehaviour
                 }
                 GameManager.instance.carpenterRelics[i] = relic;
                 Relic relicScript = relic.GetComponent<Relic>();
-                print(ID + " =============================== " + relicScript.relicName);
+                print(ID + " =============================== " + relicScript.name);
                 print("Cost : GOLD " + relicScript.goldPrice);
                 if (relicScript.goldPrice == 0)
-                    Debug.LogError("ERROR NO FREE RELIC AT CARPENTER WORKSHOP " + relicScript.relicName);
+                    Debug.LogError("ERROR NO FREE RELIC AT CARPENTER WORKSHOP " + relicScript.name);
                 print(relicScript.description);
                 continue;                
             }
@@ -105,7 +105,7 @@ public class CarpenterDataTable : MonoBehaviour
                 if (item.ID == ID)
                 {
                     GameManager.instance.choicesUpgradeArray[i] = item;
-                    print(item.ID + " =============================== " + item.actionName);
+                    print(item.ID + " =============================== " + item.name);
                     print("Cost : " + " GOLD " +GameManager.instance.GetGoldCostCarpenter(item.goldPrice));
                     print("New capacity : " +item.newCapacity);
                     break;
@@ -133,7 +133,7 @@ public class CarpenterDataTable : MonoBehaviour
             if (item.ID == ID)
             {
                 GameManager.instance.choicesUpgradeArray[2] = item;
-                print(item.ID + " =============================== " + item.actionName);
+                print(item.ID + " =============================== " + item.name);
                 print("Original price : GOLD " + GameManager.instance.GetGoldCostCarpenter(item.goldPrice) + " but it's a gift, so you can get it for free.");
                 print("New capacity : " + item.newCapacity);
                 break;

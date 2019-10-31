@@ -43,7 +43,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 039797ca3dd7a8346bfddabe1204dc8e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  relicName: Famous Explorer
+  name: Famous explorer
   description: You have earned a good reputation as an explorer. Regulary sailors
     will join your crew for free.
   levelRequiered: 0
@@ -53,3 +53,6 @@ MonoBehaviour:
   curse: 0
   goldPrice: 0
   famousExplorerReward: 1
+  relicData:
+  - resource: 1
+    value: 1

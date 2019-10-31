@@ -547,14 +547,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   actionsList:
-  - actionName: Low food
+  - name: Buy food
     ID: Merchant
     ID2: LF
     sailorPrice: 0
     foodPrice: 0
     woodPrice: 0
     goldPrice: 1
-    relicPrice: 0
     sailorReward: 0
     foodReward: 1
     woodReward: 0
@@ -562,14 +561,13 @@ MonoBehaviour:
     relicReward: 0
     relicType: 0
     includeCurse: 0
-  - actionName: Low wood
+  - name: Buy wood
     ID: Merchant
     ID2: LW
     sailorPrice: 0
     foodPrice: 0
     woodPrice: 0
     goldPrice: 1
-    relicPrice: 0
     sailorReward: 0
     foodReward: 0
     woodReward: 1
@@ -577,14 +575,13 @@ MonoBehaviour:
     relicReward: 0
     relicType: 0
     includeCurse: 0
-  - actionName: Low food and wood
+  - name: Buy food & wood
     ID: Merchant
     ID2: LFW
     sailorPrice: 0
     foodPrice: 0
     woodPrice: 0
     goldPrice: 2
-    relicPrice: 0
     sailorReward: 0
     foodReward: 1
     woodReward: 1
@@ -592,14 +589,13 @@ MonoBehaviour:
     relicReward: 0
     relicType: 0
     includeCurse: 0
-  - actionName: Medium food
+  - name: Buy food
     ID: Merchant
     ID2: MF
     sailorPrice: 0
     foodPrice: 0
     woodPrice: 0
     goldPrice: 2
-    relicPrice: 0
     sailorReward: 0
     foodReward: 2
     woodReward: 0
@@ -607,14 +603,13 @@ MonoBehaviour:
     relicReward: 0
     relicType: 0
     includeCurse: 0
-  - actionName: Medium wood
+  - name: Buy wood
     ID: Merchant
     ID2: MW
     sailorPrice: 0
     foodPrice: 0
     woodPrice: 0
     goldPrice: 2
-    relicPrice: 0
     sailorReward: 0
     foodReward: 0
     woodReward: 2
@@ -622,14 +617,13 @@ MonoBehaviour:
     relicReward: 0
     relicType: 0
     includeCurse: 0
-  - actionName: Medium food and wood
+  - name: Buy food & wood
     ID: Merchant
     ID2: MFW
     sailorPrice: 0
     foodPrice: 0
     woodPrice: 0
     goldPrice: 3
-    relicPrice: 0
     sailorReward: 0
     foodReward: 2
     woodReward: 2
@@ -637,14 +631,13 @@ MonoBehaviour:
     relicReward: 0
     relicType: 0
     includeCurse: 0
-  - actionName: High food
+  - name: Buy food
     ID: Merchant
     ID2: HF
     sailorPrice: 0
     foodPrice: 0
     woodPrice: 0
     goldPrice: 3
-    relicPrice: 0
     sailorReward: 0
     foodReward: 3
     woodReward: 0
@@ -652,14 +645,13 @@ MonoBehaviour:
     relicReward: 0
     relicType: 0
     includeCurse: 0
-  - actionName: High wood
+  - name: Buy wood
     ID: Merchant
     ID2: HW
     sailorPrice: 0
     foodPrice: 0
     woodPrice: 0
     goldPrice: 3
-    relicPrice: 0
     sailorReward: 0
     foodReward: 0
     woodReward: 3

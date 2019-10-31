@@ -43,7 +43,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c81f717ec15caf4b9a790575eb9bba9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  relicName: Spyglass
+  name: Spyglass
   description: Reduces chance to encounter enemies & pirates
   levelRequiered: 1
   type1: 1
@@ -52,3 +52,6 @@ MonoBehaviour:
   curse: 0
   goldPrice: 0
   enemiesAndPiratesProbChange: -5
+  relicData:
+  - resource: 0
+    value: -5%

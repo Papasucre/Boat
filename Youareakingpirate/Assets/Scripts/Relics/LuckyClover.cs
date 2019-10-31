@@ -10,6 +10,7 @@ public class LuckyClover : Relic
     [SerializeField] int luckyCloverFoodReward;
     [SerializeField] int luckyCloverWoodReward;
     [SerializeField] int luckyCloverGoldReward;
+    [SerializeField] RelicData[] data = new RelicData[4];
 #pragma warning restore 0649
 
     public override void Equip()
@@ -33,5 +34,9 @@ public class LuckyClover : Relic
     public override void Use()
     {
         throw new System.NotImplementedException();
+    }
+    public override RelicData[] GetData()
+    {
+        return data;
     }
 }

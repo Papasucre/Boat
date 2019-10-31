@@ -5,7 +5,7 @@ using UnityEngine;
 [System.Serializable]
 public class Upgrade : MonoBehaviour
 {
-    public string actionName;
+    public new string name;
     public string ID;
     public GameManager.GameLevel goldPrice;
     public int newCapacity;

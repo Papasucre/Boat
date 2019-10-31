@@ -7,6 +7,7 @@ public class LeakyFloor : Relic
     [Header("SPECIFICS PARAMETERS")]
 #pragma warning disable 0649
     [SerializeField] int woodConsumption;
+    [SerializeField] RelicData[] relicData = new RelicData[1];
 #pragma warning restore 0649
 
     public override void Equip()
@@ -22,5 +23,9 @@ public class LeakyFloor : Relic
     public override void Use()
     {
         throw new System.NotImplementedException();
+    }
+    public override RelicData[] GetData()
+    {
+        return relicData;
     }
 }

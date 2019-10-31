@@ -565,13 +565,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   actionsList:
-  - actionName: Fight
+  - name: Fight !
     ID: Fight
+    ID2: 
     sailorPrice: 2
     foodPrice: 0
     woodPrice: 2
     goldPrice: 0
-    relicPrice: 0
     sailorReward: 0
     foodReward: 2
     woodReward: 0
@@ -579,13 +579,13 @@ MonoBehaviour:
     relicReward: 2
     relicType: 6
     includeCurse: 1
-  - actionName: Run away
+  - name: Run away
     ID: RunningAway
+    ID2: 
     sailorPrice: 0
     foodPrice: 0
     woodPrice: 3
     goldPrice: 0
-    relicPrice: 0
     sailorReward: 0
     foodReward: 0
     woodReward: 0
@@ -593,13 +593,13 @@ MonoBehaviour:
     relicReward: 0
     relicType: 0
     includeCurse: 0
-  - actionName: Human sacrifice
+  - name: Human sacrifice
     ID: 
+    ID2: 
     sailorPrice: 2
     foodPrice: 0
     woodPrice: 0
     goldPrice: 0
-    relicPrice: 0
     sailorReward: 0
     foodReward: 0
     woodReward: 0

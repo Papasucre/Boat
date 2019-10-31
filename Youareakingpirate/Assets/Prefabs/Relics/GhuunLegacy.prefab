@@ -43,7 +43,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de29bb92afc7f224496678216b9c81b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  relicName: G'huun Legacy
+  name: G'huun legacy
   description: You have inherited of the blood god's thirst, you can no longer flee
     from a fight.
   levelRequiered: 1

@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class GhuunLegacy : Relic
 {
+    RelicData[] relicData = new RelicData[0];
 
     public override void Equip()
     {
@@ -18,5 +19,9 @@ public class GhuunLegacy : Relic
     public override void Use()
     {
         throw new System.NotImplementedException();
+    }
+    public override RelicData[] GetData()
+    {
+        return relicData;
     }
 }

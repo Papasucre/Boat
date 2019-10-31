@@ -10,6 +10,7 @@ public class LoneTraveler : Relic
     [SerializeField] int extraFoodReward;
     [SerializeField] int extraWoodReward;
     [SerializeField] int extraGoldReward;
+    [SerializeField] RelicData[] relicData = new RelicData[4];
 #pragma warning restore 0649
 
     public override void Equip()
@@ -33,5 +34,9 @@ public class LoneTraveler : Relic
     public override void Use()
     {
         throw new System.NotImplementedException();
+    }
+    public override RelicData[] GetData()
+    {
+        return relicData;
     }
 }

@@ -5,6 +5,11 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
+    public DisplayChoice choice1;
+    public DisplayChoice choice2;
+    public DisplayChoice choice3;
+    public GameObject relic;
+
     #region STOCK VARIABLES
     [Header("STOCK")]
     public int sailorsStock;
@@ -246,6 +251,9 @@ public class GameManager : MonoBehaviour
         islandsTableScript = GetComponent<IslandsTable>();
         shipsTableScript = GetComponent<ShipsTable>();
         //randomEncounterScript.LoadRandomEncounter();
+        choice1.Display(relic);
+        choice2.Display(relic);
+        choice3.Display(relic);
     }
 
     private void Update()
@@ -443,9 +451,7 @@ public class GameManager : MonoBehaviour
             int goldCost = GetGoldCostCarpenter(item.goldPrice);
             if (goldCost != 0)
             {
-                relicGoldCost += merchantGoldCost;
-                int goldRes = goldCost + relicGoldCost;
-                relicGoldCost -= merchantGoldCost;
+                int goldRes = GetCarpenterGoldCostWithRelics(goldCost);
                 if (goldRes > 0)
                 {
                     if ((goldStock - goldRes) < 0)
@@ -463,7 +469,7 @@ public class GameManager : MonoBehaviour
             int goldCost = carpenterRelics[input].GetComponent<Relic>().goldPrice;
             if (goldCost != 0)
             {
-                int goldRes = goldCost + relicGoldCost;
+                int goldRes = GetCarpenterGoldCostWithRelics(goldCost);
                 if (goldRes > 0)
                 {
                     goldStock -= goldRes;
@@ -489,16 +495,14 @@ public class GameManager : MonoBehaviour
     void ValidateCarpenterUpgrade(int input)
     {
         print("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
-        print("You choose " + choicesUpgradeArray[input].actionName);
+        print("You choose " + choicesUpgradeArray[input].name);
         atCarpenterWorkshop = false;
         if (!alliesGift || !carpenterHammer)
         {
             int goldCost = GetGoldCostCarpenter(choicesUpgradeArray[input].goldPrice);
             if (goldCost != 0)
             {
-                relicGoldCost += merchantGoldCost;
-                int goldRes = goldCost + relicGoldCost;
-                relicGoldCost -= merchantGoldCost;
+                int goldRes = GetCarpenterGoldCostWithRelics(goldCost);
                 if (goldRes > 0)
                 {
                     goldStock -= goldRes;
@@ -575,63 +579,17 @@ public class GameManager : MonoBehaviour
     void ValidateChoice(int input)
     {
         print("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
-        print("You choose " + choicesList[input].actionName);
+        print("You choose " + choicesList[input].name);
         makeChoice = false;
         switch (choicesList[input].ID)
         {
-            case "Is_01"://HARVEST FOOD
-                ApplyCost(choicesList[input]);
-                relicFoodReward += harvestFoodReward;
-                ApplyReward(choicesList[input]);
-                relicFoodReward -= harvestFoodReward;
-                break;
-            case "Is_02"://HARVEST WOOD
-                ApplyCost(choicesList[input]);
-                relicWoodReward += harvestWoodReward;
-                ApplyReward(choicesList[input]);
-                relicWoodReward -= harvestWoodReward;
-                break;
-            case "Is_03"://HARVEST GOLD
-                ApplyCost(choicesList[input]);
-                relicGoldReward += harvestGoldReward;
-                ApplyReward(choicesList[input]);
-                relicGoldReward -= harvestGoldReward;
-                break;
             case "Is_05"://CARPENTER WORKSHOP
                 carpenterScript.AtCarpenter();
                 return;
-            case "Fight":
-                relicSailorCost += fightSailorsCost;
-                relicWoodCost += fightWoodCost;
-                ApplyCost(choicesList[input]);
-                relicSailorCost -= fightSailorsCost;
-                relicWoodCost -= fightWoodCost;
-                relicFoodReward += fightFoodReward;
-                relicWoodReward += fightWoodReward;
-                relicGoldReward += fightGoldReward;
-                ApplyReward(choicesList[input]);
-                relicFoodReward -= fightFoodReward;
-                relicWoodReward -= fightWoodReward;
-                relicGoldReward -= fightGoldReward;
-                break;
-            case "Merchant":
-                relicGoldCost += merchantGoldCost;
-                ApplyCost(choicesList[input]);
-                relicGoldCost -= merchantGoldCost;
-                ApplyReward(choicesList[input]);
-                break;
             case "RemoveCurse":
                 GameObject curse = cursesEquipped[Random.Range(0, cursesEquipped.Count)];
                 UnequipRelic(curse, true);
-                relicGoldCost += merchantGoldCost;
                 ApplyCost(choicesList[input]);
-                relicGoldCost -= merchantGoldCost;
-                ApplyReward(choicesList[input]);
-                break;
-            case "RunningAway":
-                relicWoodCost += runAwayWoodCost;
-                ApplyCost(choicesList[input]);
-                relicWoodCost -= runAwayWoodCost;
                 ApplyReward(choicesList[input]);
                 break;
             case "Ignore":
@@ -639,25 +597,8 @@ public class GameManager : MonoBehaviour
                 break;
             case "UnknownDiscover":
                 shipsTableScript.UnknownDiscover();
-                switch (choicesList[input].ID2)
-                {
-                    case "Fight":
-                        relicSailorCost += fightSailorsCost;
-                        ApplyCost(choicesList[input]);
-                        relicSailorCost -= fightSailorsCost;
-                        relicFoodReward += fightFoodReward;
-                        relicWoodReward += fightWoodReward;
-                        relicGoldReward += fightGoldReward;
-                        ApplyReward(choicesList[input]);
-                        relicFoodReward -= fightFoodReward;
-                        relicWoodReward -= fightWoodReward;
-                        relicGoldReward -= fightGoldReward;
-                        break;
-                    default:
-                        ApplyCost(choicesList[input]);
-                        ApplyReward(choicesList[input]);
-                        break;
-                }
+                ApplyCost(choicesList[input]);
+                ApplyReward(choicesList[input]);
                 break;
             default:
                 ApplyCost(choicesList[input]);
@@ -681,75 +622,21 @@ public class GameManager : MonoBehaviour
                 break;
         }
         //SAILOR
-        switch (item.ID)
+        int sailorsCost = GetSailorCost(item.sailorPrice);
+        if (sailorsCost != 0)
         {
-            case "Fight":
-                int fight_sailorsCost = GetSailorCost(item.sailorPrice);
-                if(fight_sailorsCost != 0)
-                {
-                    relicSailorCost += fightSailorsCost;
-                    relicWoodCost += fightWoodCost;
-                    int fight_sailorsRes = fight_sailorsCost + relicSailorCost;
-                    relicSailorCost -= fightSailorsCost;
-                    relicWoodCost -= fightWoodCost;
-                    if (fight_sailorsRes > 0)
-                    {
-                        if ((sailorsStock - fight_sailorsRes) <= 0)
-                            return false;
-                    }
-                }                
-                break;
-            case "UnknownDiscover":
-                switch (item.ID2)
-                {
-                    case "Fight":
-                        int unknown_sailorsCost = GetSailorCost(item.sailorPrice);
-                        if (unknown_sailorsCost != 0)
-                        {
-                            relicSailorCost += fightSailorsCost;
-                            relicWoodCost += fightWoodCost;
-                            int unknown_sailorsRes = unknown_sailorsCost + relicSailorCost;
-                            relicSailorCost -= fightSailorsCost;
-                            relicWoodCost -= fightWoodCost;
-                            if (unknown_sailorsRes > 0)
-                            {
-                                if ((sailorsStock - unknown_sailorsRes) <= 0)
-                                    return false;
-                            }
-                        }
-                        break;
-                    default:
-                        int unknownDef_sailorsCost = GetSailorCost(item.sailorPrice);
-                        if (unknownDef_sailorsCost != 0)
-                        {
-                            int unknownDef_sailorsRes = unknownDef_sailorsCost + relicSailorCost;
-                            if (unknownDef_sailorsRes > 0)
-                            {
-                                if ((sailorsStock - unknownDef_sailorsRes) <= 0)
-                                    return false;
-                            }
-                        }
-                        break;
-                }
-                break;
-            default:
-                int sailorsCost = GetSailorCost(item.sailorPrice);
-                if (sailorsCost != 0)
-                {
-                    int sailorsRes = sailorsCost + relicSailorCost;
-                    if (sailorsRes > 0)
-                    {
-                        if ((sailorsStock - sailorsRes) <= 0)
-                            return false;
-                    }
-                }
-                break;
+            int sailorsRes = GetSailorsCostWithRelics(item, sailorsCost);
+            if (sailorsRes > 0)
+            {
+                if ((sailorsStock - sailorsRes) <= 0)
+                    return false;
+            }
         }
         //FOOD
         int foodCost = GetFoodCost(item.foodPrice);
         if (foodCost != 0)
         {
-            int foodRes = foodCost + relicFoodCost;
+            int foodRes = GetFoodCostWithRelics(item, foodCost);
             if (foodRes > 0)
             {
                 if ((foodStock - foodRes) < 0)
@@ -757,94 +644,26 @@ public class GameManager : MonoBehaviour
             }
         }
         //WOOD
-        switch (item.ID)
+        int woodCost = GetWoodCost(item.woodPrice);
+        if (woodCost != 0)
         {
-            case "RunningAway":
-                int runningAway_woodCost = GetWoodCost(item.woodPrice);
-                if (runningAway_woodCost != 0)
-                {
-                    relicWoodCost += runAwayWoodCost;
-                    int runningAway_woodRes = runningAway_woodCost + relicWoodCost;
-                    relicWoodCost -= runAwayWoodCost;
-                    if (runningAway_woodRes > 0)
-                    {
-                        if ((woodStock - runningAway_woodRes) < 0)
-                            return false;
-                    }
-                }
-                break;
-            default:
-                int woodCost = GetWoodCost(item.woodPrice);
-                if (woodCost != 0)
-                {
-                    int woodRes = woodCost + relicWoodCost;
-                    if (woodRes > 0)
-                    {
-                        if ((woodStock - woodRes) < 0)
-                            return false;
-                    }
-                }
-                break;
+            int woodRes = GetWoodCostWithRelics(item, woodCost);
+            if (woodRes > 0)
+            {
+                if ((woodStock - woodRes) < 0)
+                    return false;
+            }
         }
         //GOLD
-        switch (item.ID)
+        int goldCost = GetGoldCost(item.goldPrice);
+        if (goldCost != 0)
         {
-            case "Is_05"://CARPENTER WORKSHOP
-                if (carpenterHammer)
-                    break;
-                int carpenter_goldCost = GetGoldCost(item.goldPrice);
-                if (carpenter_goldCost != 0)
-                {
-                    relicGoldCost += merchantGoldCost;
-                    int carpenter_goldRes = carpenter_goldCost + relicGoldCost;
-                    relicGoldCost -= merchantGoldCost;
-                    if (carpenter_goldRes > 0)
-                    {
-                        if ((goldStock - carpenter_goldRes) < 0)
-                            return false;
-                    }
-                }
-                break;
-            case "Merchant":
-                int merchant_goldCost = GetGoldCost(item.goldPrice);
-                if (merchant_goldCost != 0)
-                {
-                    relicGoldCost += merchantGoldCost;
-                    int merchant_goldRes = merchant_goldCost + relicGoldCost;
-                    relicGoldCost -= merchantGoldCost;
-                    if (merchant_goldRes > 0)
-                    {
-                        if ((goldStock - merchant_goldRes) < 0)
-                            return false;
-                    }
-                }
-                break;
-            case "RemoveCurse":
-                int removeCurse_goldCost = GetGoldCost(item.goldPrice);
-                if (removeCurse_goldCost != 0)
-                {
-                    relicGoldCost += merchantGoldCost;
-                    int removeCurse_goldRes = removeCurse_goldCost + relicGoldCost;
-                    relicGoldCost -= merchantGoldCost;
-                    if (removeCurse_goldRes > 0)
-                    {
-                        if ((goldStock - removeCurse_goldRes) < 0)
-                            return false;
-                    }
-                }
-                break;
-            default:
-                int goldCost = GetGoldCost(item.goldPrice);
-                if (goldCost != 0)
-                {
-                    int goldRes = goldCost + relicGoldCost;
-                    if (goldRes > 0)
-                    {
-                        if ((goldStock - goldRes) < 0)
-                            return false;
-                    }
-                }
-                break;
+            int goldRes = GetGoldCostWithRelics(item, goldCost);
+            if (goldRes > 0)
+            {
+                if ((goldStock - goldRes) < 0)
+                    return false;
+            }
         }
         return true;
     }
@@ -854,7 +673,7 @@ public class GameManager : MonoBehaviour
         int sailorsCost = GetSailorCost(item.sailorPrice);
         if(sailorsCost != 0)
         {
-            int sailorsRes = sailorsCost + relicSailorCost;
+            int sailorsRes = GetSailorsCostWithRelics(item, sailorsCost);
             if(sailorsRes > 0)
             {
                 sailorsStock -= sailorsRes;
@@ -871,7 +690,7 @@ public class GameManager : MonoBehaviour
         int foodCost = GetFoodCost(item.foodPrice);
         if(foodCost != 0)
         {
-            int foodRes = foodCost + relicFoodCost;
+            int foodRes = GetFoodCostWithRelics(item, foodCost);
             if(foodRes > 0)
             {
                 foodStock -= foodRes;
@@ -880,7 +699,7 @@ public class GameManager : MonoBehaviour
         int woodCost = GetWoodCost(item.woodPrice);
         if(woodCost != 0)
         {
-            int woodRes = woodCost + relicWoodCost;
+            int woodRes = GetWoodCostWithRelics(item, woodCost);
             if (woodRes > 0)
             {
                 woodStock -= woodRes;
@@ -889,7 +708,7 @@ public class GameManager : MonoBehaviour
         int goldCost = GetGoldCost(item.goldPrice);
         if(goldCost != 0)
         {
-            int goldRes = goldCost + relicGoldCost;
+            int goldRes = GetGoldCostWithRelics(item, goldCost);
             if (goldRes > 0)
             {
                 goldStock -= goldRes;
@@ -902,45 +721,45 @@ public class GameManager : MonoBehaviour
         int sailorsGain = GetSailorReward(item.sailorReward);
         if(sailorsGain != 0)
         {
-            if (monkeysPaw && !monkeysPawTried)
-                MonkeysPaw();
-            int sailorsRes = sailorsGain + relicSailorReward;
+            int sailorsRes =  GetSailorsRewardWithRelics(item, sailorsGain);
             if(sailorsRes > 0)
             {
                 sailorsStock += sailorsRes;
+                if (monkeysPaw && !monkeysPawTried)
+                    MonkeysPaw();
             }
         }
         int foodGain = GetFoodReward(item.foodReward);
         if (foodGain != 0)
         {
-            if (monkeysPaw && !monkeysPawTried)
-                MonkeysPaw();
-            int foodRes = foodGain + relicFoodReward;
+            int foodRes = GetFoodRewardWithRelics(item, foodGain);
             if (foodRes > 0)
             {
                 foodStock += foodRes;
+                if (monkeysPaw && !monkeysPawTried)
+                    MonkeysPaw();
             }
         }
         int woodGain = GetWoodReward(item.woodReward);
         if (woodGain != 0)
         {
-            if (monkeysPaw && !monkeysPawTried)
-                MonkeysPaw();
-            int woodRes = woodGain + relicWoodReward;
+            int woodRes = GetWoodRewardWithRelics(item, woodGain);
             if (woodRes > 0)
             {
                 woodStock += woodRes;
+                if (monkeysPaw && !monkeysPawTried)
+                    MonkeysPaw();
             }
         }
         int goldGain = GetGoldReward(item.goldReward);
         if (goldGain != 0)
         {
-            if (monkeysPaw && !monkeysPawTried)
-                MonkeysPaw();
-            int goldRes = goldGain + relicGoldReward;
+            int goldRes = GetGoldRewardWithRelics(item, goldGain);
             if (goldRes > 0)
             {
                 goldStock += goldRes;
+                if (monkeysPaw && !monkeysPawTried)
+                    MonkeysPaw();
             }
         }
         if (sailorsStock > sailorsMaxStock)
@@ -954,25 +773,247 @@ public class GameManager : MonoBehaviour
         if(item.relicReward != Cost.none)
         {
             GameObject relic = GetRelicReward(item.relicReward, item.relicType, item.includeCurse);
-            if (relic == null)
+            if(relic.name != "NOLUCK")
             {
-                print("Sorry you should have won a " + (item.includeCurse ? "relic (or a curse)" : "relic") + " but there are no more here.");
-            }
-            else
-            {
-                Relic relicScript = relic.GetComponent<Relic>();
-                relicsEquipped.Add(relic);
-                if (relicScript.curse)
-                    cursesEquipped.Add(relic);
-                relicsScript.RemoveGainedRelic(relic);
-                relicScript.Equip();
-                print("You have a new " + (relicScript.curse ? "curse :" : "relic :"));
-                print(relicScript.relicName);
-                print(relicScript.description);
-                if (luckyClover)
-                    LuckyClover();
+                if (relic == null)
+                {
+                    print("Sorry you should have won a " + (item.includeCurse ? "relic (or a curse)" : "relic") + " but there are no more here.");
+                }
+                else
+                {
+                    Relic relicScript = relic.GetComponent<Relic>();
+                    relicsEquipped.Add(relic);
+                    if (relicScript.curse)
+                        cursesEquipped.Add(relic);
+                    relicsScript.RemoveGainedRelic(relic);
+                    relicScript.Equip();
+                    print("You have a new " + (relicScript.curse ? "curse :" : "relic :"));
+                    print(relicScript.name);
+                    print(relicScript.description);
+                    if (luckyClover)
+                        LuckyClover();
+                }
             }
         }
+    }
+    #endregion
+
+    #region GET COST/REWARD WITH RELICS
+    public int GetCarpenterGoldCostWithRelics(int initialCost)//CARPENTER
+    {
+        relicGoldCost += merchantGoldCost;
+        int carpenter_goldRes = initialCost + relicGoldCost;
+        relicGoldCost -= merchantGoldCost;
+        return CheckValueIsPositive(carpenter_goldRes);
+    }
+    public int GetSailorsCostWithRelics(Action item, int initialCost)
+    {
+        switch (item.ID)
+        {
+            case "Fight":
+                relicSailorCost += fightSailorsCost;
+                int fight_sailorsRes = initialCost + relicSailorCost;
+                relicSailorCost -= fightSailorsCost;
+                return CheckValueIsPositive(fight_sailorsRes);
+            case "UnknownDiscover":
+                switch (item.ID2)
+                {
+                    case "Fight":
+                        relicSailorCost += fightSailorsCost;
+                        int unknown_sailorsRes = initialCost + relicSailorCost;
+                        relicSailorCost -= fightSailorsCost;
+                        return CheckValueIsPositive(unknown_sailorsRes);
+                    default:
+                        int unknownDef_sailorsRes = initialCost + relicSailorCost;
+                        return CheckValueIsPositive(unknownDef_sailorsRes);
+                }
+            default:
+                int sailorsRes = initialCost + relicSailorCost;
+                return CheckValueIsPositive(sailorsRes);
+        }
+    }
+
+    public int GetFoodCostWithRelics(Action item, int initialCost)
+    {
+        switch (item.ID)
+        {
+            default:
+                int foodRes = initialCost + relicFoodCost;
+                return CheckValueIsPositive(foodRes);
+        }
+    }
+
+    public int GetWoodCostWithRelics(Action item, int initialCost)
+    {
+        switch (item.ID)
+        {
+            case "RunningAway":
+                relicWoodCost += runAwayWoodCost;
+                int runningAway_woodRes = initialCost + relicWoodCost;
+                relicWoodCost -= runAwayWoodCost;
+                return CheckValueIsPositive(runningAway_woodRes);
+            case "Fight":
+                relicWoodCost += fightWoodCost;
+                int fight_woodRes = initialCost + relicWoodCost;
+                relicWoodCost -= fightWoodCost;
+                return CheckValueIsPositive(fight_woodRes);
+            case "UnknownDiscover":
+                switch (item.ID2)
+                {
+                    case "Fight":
+                        relicWoodCost += fightWoodCost;
+                        int unknown_woodRes = initialCost + relicWoodCost;
+                        relicWoodCost -= fightWoodCost;
+                        return CheckValueIsPositive(unknown_woodRes);
+                    default:
+                        int unknownDef_woodRes = initialCost + relicWoodCost;
+                        return CheckValueIsPositive(unknownDef_woodRes);
+                }
+            default:
+                int woodRes = initialCost + relicWoodCost;
+                return CheckValueIsPositive(woodRes);
+        }
+    }
+
+    public int GetGoldCostWithRelics(Action item, int initialCost)
+    {
+        switch (item.ID)
+        {
+            case "Is_05"://CARPENTER WORKSHOP
+                if (carpenterHammer)
+                    return 0;
+                relicGoldCost += merchantGoldCost;
+                int carpenter_goldRes = initialCost + relicGoldCost;
+                relicGoldCost -= merchantGoldCost;
+                return CheckValueIsPositive(carpenter_goldRes);
+            case "Merchant":
+                relicGoldCost += merchantGoldCost;
+                int merchant_goldRes = initialCost + relicGoldCost;
+                relicGoldCost -= merchantGoldCost;
+                return CheckValueIsPositive(merchant_goldRes);
+            case "RemoveCurse":
+                relicGoldCost += merchantGoldCost;
+                int removeCurse_goldRes = initialCost + relicGoldCost;
+                relicGoldCost -= merchantGoldCost;
+                return CheckValueIsPositive(removeCurse_goldRes);
+            default:
+                int goldRes = initialCost + relicGoldCost;
+                return CheckValueIsPositive(goldRes);
+        }
+    }
+
+    public int GetSailorsRewardWithRelics(Action item, int initialReward)
+    {
+        switch (item.ID)
+        {
+            default:
+                int sailorsRes = initialReward + relicSailorReward;
+                return CheckValueIsPositive(sailorsRes);
+        }
+    }
+
+    public int GetFoodRewardWithRelics(Action item, int initialReward)
+    {
+        switch (item.ID)
+        {
+            case "Fight":
+                relicFoodReward += fightFoodReward;
+                int fight_foodRes = initialReward + relicFoodReward;
+                relicFoodReward -= fightFoodReward;
+                return CheckValueIsPositive(fight_foodRes);
+            case "Is_01"://HARVEST FOOD
+                relicFoodReward += harvestFoodReward;
+                int Is01_foodRes = initialReward + relicFoodReward;
+                relicFoodReward -= harvestFoodReward;
+                return CheckValueIsPositive(Is01_foodRes);
+            case "UnknownDiscover":
+                switch (item.ID2)
+                {
+                    case "Fight":
+                        relicFoodReward += fightFoodReward;
+                        int ukfight_foodRes = initialReward + relicFoodReward;
+                        relicFoodReward -= fightFoodReward;
+                        return CheckValueIsPositive(ukfight_foodRes);
+                    default:
+                        int ukDef_foodRes = initialReward + relicFoodReward;
+                        return CheckValueIsPositive(ukDef_foodRes);
+                }
+            default:
+                int foodRes = initialReward + relicFoodReward;
+                return CheckValueIsPositive(foodRes);
+        }
+    }
+
+    public int GetWoodRewardWithRelics(Action item, int initialReward)
+    {
+        switch (item.ID)
+        {
+            case "Fight":
+                relicWoodReward += fightWoodReward;
+                int fight_woodRes = initialReward + relicWoodReward;
+                relicWoodReward -= fightWoodReward;
+                return CheckValueIsPositive(fight_woodRes);
+            case "Is_02"://HARVEST WOOD
+                relicWoodReward += harvestWoodReward;
+                int Is02_woodRes = initialReward + relicWoodReward;
+                relicWoodReward -= harvestWoodReward;
+                return CheckValueIsPositive(Is02_woodRes);
+            case "UnknownDiscover":
+                switch (item.ID2)
+                {
+                    case "Fight":
+                        relicWoodReward += fightWoodReward;
+                        int ukfight_woodRes = initialReward + relicWoodReward;
+                        relicWoodReward -= fightWoodReward;
+                        return CheckValueIsPositive(ukfight_woodRes);
+                    default:
+                        int ukDef_woodRes = initialReward + relicWoodReward;
+                        return CheckValueIsPositive(ukDef_woodRes);
+                }
+            default:
+                int woodRes = initialReward + relicWoodReward;
+                return CheckValueIsPositive(woodRes);
+        }
+    }
+
+    public int GetGoldRewardWithRelics(Action item, int initialReward)
+    {
+        switch (item.ID)
+        {
+            case "Fight":
+                relicGoldReward += fightGoldReward;
+                int fight_goldRes = initialReward + relicGoldReward;
+                relicGoldReward -= fightGoldReward;
+                return CheckValueIsPositive(fight_goldRes);
+            case "Is_03"://HARVEST GOLD
+                relicGoldReward += harvestGoldReward;
+                int Is03_goldRes = initialReward + relicGoldReward;
+                relicGoldReward -= harvestGoldReward;
+                return CheckValueIsPositive(Is03_goldRes);
+            case "UnknownDiscover":
+                switch (item.ID2)
+                {
+                    case "Fight":
+                        relicGoldReward += fightGoldReward;
+                        int ukfight_goldRes = initialReward + relicGoldReward;
+                        relicGoldReward -= fightGoldReward;
+                        return CheckValueIsPositive(ukfight_goldRes);
+                    default:
+                        int ukDef_goldRes = initialReward + relicGoldReward;
+                        return CheckValueIsPositive(ukDef_goldRes);
+                }
+            default:
+                int goldRes = initialReward + relicGoldReward;
+                return CheckValueIsPositive(goldRes);
+        }
+    }
+
+    int CheckValueIsPositive(int value)
+    {
+        if (value > 0)
+            return value;
+        else
+            return 0;
     }
     #endregion
 
@@ -1109,7 +1150,7 @@ public class GameManager : MonoBehaviour
         randomEncounterScript.LoadRandomEncounter();
     }
 
-    #region GETCOST
+    #region GET COST/REWARD GAME LEVEL
     public int GetSailorCost(Cost cost)
     {
         switch (currentLevel)
@@ -1570,7 +1611,7 @@ public class GameManager : MonoBehaviour
         if (relootable)
             relicsScript.AddLostRelic(relic);
         relic.GetComponent<Relic>().Unequip();
-        print(relic.GetComponent<Relic>().relicName + " got removed.");
+        print(relic.GetComponent<Relic>().name + " got removed.");
     }
 
     void UnequipRelic(string relicName, bool relootable)
@@ -1578,7 +1619,7 @@ public class GameManager : MonoBehaviour
         GameObject relic = null;
         foreach (GameObject item in relicsEquipped)
         {
-            if (item.GetComponent<Relic>().relicName == relicName)
+            if (item.GetComponent<Relic>().name == relicName)
             {
                 relic = item;
                 break;
@@ -1592,7 +1633,7 @@ public class GameManager : MonoBehaviour
         if (relootable)
             relicsScript.AddLostRelic(relic);
         relic.GetComponent<Relic>().Unequip();
-        print(relic.GetComponent<Relic>().relicName + " got removed.");
+        print(relic.GetComponent<Relic>().name + " got removed.");
     }
 
     GameObject GetRelicReward(Cost cost, RelicType type, bool includeCurse)
@@ -1602,7 +1643,7 @@ public class GameManager : MonoBehaviour
             return relicsScript.GetRandomRelic(type, includeCurse);
         }
         else
-            return null;
+            return new GameObject("NOLUCK");
     }
 
     void LuckyClover()
@@ -1665,7 +1706,7 @@ public class GameManager : MonoBehaviour
                 relicsScript.RemoveGainedRelic(relic);
                 relicScript.Equip();
                 print("You have a new " + (relicScript.curse ? "curse " : "relic ")+"thanks to your Monkey's Paw !");
-                print(relicScript.relicName);
+                print(relicScript.name);
                 print(relicScript.description);
                 if (luckyClover)
                     LuckyClover();
@@ -1738,6 +1779,11 @@ public class GameManager : MonoBehaviour
     #endregion
 
     #region ENUM
+    public enum ResourceType
+    {
+        none, sailor, food, wood, gold
+    }
+
     public enum Cost
     {
         none, low, medium, high
@@ -1776,7 +1822,7 @@ public class GameManager : MonoBehaviour
     [System.Serializable]
     public struct Action
     {
-        public string actionName;
+        public string name;
         public string ID;
         public string ID2;
         [Header("Price")]
@@ -1784,7 +1830,6 @@ public class GameManager : MonoBehaviour
         public GameManager.Cost foodPrice;
         public GameManager.Cost woodPrice;
         public GameManager.Cost goldPrice;
-        public GameManager.Cost relicPrice;
         [Header("Reward")]
         public GameManager.Cost sailorReward;
         public GameManager.Cost foodReward;

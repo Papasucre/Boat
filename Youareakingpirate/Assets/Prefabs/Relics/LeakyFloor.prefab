@@ -43,7 +43,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a80c0b4e4d8ff5d4faa304afbb23ad72, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  relicName: Leaky Floor
+  name: Leaky floor
   description: You got a strange curse, you boat looks porour. The boat consumes wood
     when you travel.
   levelRequiered: 0
@@ -53,3 +53,6 @@ MonoBehaviour:
   curse: 1
   goldPrice: 0
   woodConsumption: 2
+  relicData:
+  - resource: 3
+    value: +2
