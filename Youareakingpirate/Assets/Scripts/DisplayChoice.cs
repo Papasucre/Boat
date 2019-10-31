@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.EventSystems;
 
 public class DisplayChoice : MonoBehaviour
 {
@@ -40,6 +41,34 @@ public class DisplayChoice : MonoBehaviour
     [SerializeField] Sprite gold;
     [SerializeField] Sprite relic;
 #pragma warning restore 0649
+
+    GraphicRaycaster raycaster;
+
+    void Awake()
+    {
+        raycaster = GetComponent<GraphicRaycaster>();
+    }
+
+    void Update()
+    {
+        //Check if the left Mouse button is clicked
+        if (Input.GetKeyDown(KeyCode.Mouse0))
+        {
+            //Set up the new Pointer Event
+            PointerEventData pointerData = new PointerEventData(EventSystem.current);
+            List<RaycastResult> results = new List<RaycastResult>();
+
+            //Raycast using the Graphics Raycaster and mouse click position
+            pointerData.position = Input.mousePosition;
+            raycaster.Raycast(pointerData, results);
+
+            //For every result returned, output the name of the GameObject on the Canvas hit by the Ray
+            foreach (RaycastResult result in results)
+            {
+                Debug.Log("Hit " + result.gameObject.name);
+            }
+        }
+    }
 
     public void Display(GameManager.Action item)
     {

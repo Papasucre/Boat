@@ -9,8 +9,6 @@ public class GameManager : MonoBehaviour
     public DisplayChoice choice2;
     public DisplayChoice choice3;
     public GameObject relic;
-    public Action action;
-    public Upgrade upgrade;
 
     #region STOCK VARIABLES
     [Header("STOCK")]
@@ -254,8 +252,8 @@ public class GameManager : MonoBehaviour
         shipsTableScript = GetComponent<ShipsTable>();
         //randomEncounterScript.LoadRandomEncounter();
         choice1.Display(relic);
-        choice2.Display(action);
-        choice3.Display(upgrade);
+        choice2.Display(relic);
+        choice3.Display(relic);
     }
 
     private void Update()
