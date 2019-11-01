@@ -570,7 +570,7 @@ MonoBehaviour:
     ID2: 
     sailorPrice: 2
     foodPrice: 0
-    woodPrice: 2
+    woodPrice: 3
     goldPrice: 0
     sailorReward: 0
     foodReward: 2

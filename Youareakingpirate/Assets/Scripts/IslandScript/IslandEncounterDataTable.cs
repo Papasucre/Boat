@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 public class IslandEncounterDataTable : MonoBehaviour
 {
 #pragma warning disable 0649
@@ -36,7 +37,7 @@ public class IslandEncounterDataTable : MonoBehaviour
         GameManager.instance.CleanChoicesArray();
         GameManager.instance.FoodConsumption();
         helpVillagersScript = GetComponent<HelpVillagersDataTable>();
-        print("START ISLAND");
+        GameManager.instance.encounterNameTxt.text = SceneManager.GetActiveScene().name;
         for (int i = 0; i < 3; i++)
         {
             string ID = GetChoiceID();

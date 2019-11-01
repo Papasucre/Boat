@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Merchant : MonoBehaviour
 {
@@ -35,7 +36,7 @@ public class Merchant : MonoBehaviour
     {
         GameManager.instance.CleanChoicesArray();
         GameManager.instance.FoodConsumption();
-        print("START MERCHANT");
+        GameManager.instance.encounterNameTxt.text = SceneManager.GetActiveScene().name;
         for (int i = 0; i < 3; i++)
         {
             string ID = GetChoiceID();

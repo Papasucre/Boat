@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Kraken : MonoBehaviour
 {
@@ -12,7 +13,7 @@ public class Kraken : MonoBehaviour
     {
         GameManager.instance.CleanChoicesArray();
         GameManager.instance.FoodConsumption();
-        print("START KRAKEN");
+        GameManager.instance.encounterNameTxt.text = SceneManager.GetActiveScene().name;
         for (int i = 0; i < 3; i++)
         {
             GameManager.instance.choicesArray[i] = actionsList[i];

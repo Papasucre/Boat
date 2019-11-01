@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Allies : MonoBehaviour
 {
@@ -18,7 +19,7 @@ public class Allies : MonoBehaviour
         GameManager.instance.FoodConsumption();
         friendsRelicGift = false;
         friendsUpgradeGift = false;
-        print("START ALLIES");
+        GameManager.instance.encounterNameTxt.text = SceneManager.GetActiveScene().name;
         for (int i = 0; i < actionsList.Count; i++)
         {
             switch (i)

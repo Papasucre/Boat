@@ -167,7 +167,9 @@ public class GameManager : MonoBehaviour
     Image[] relicsIcons;
     public DisplayChoice[] UIChoices = new DisplayChoice[3];
     public Canvas skipButton;
+    public TextMeshProUGUI encounterNameTxt;
 #pragma warning disable 0649
+    [SerializeField] TextMeshProUGUI encounterNumberTxt;
     [SerializeField] TextMeshProUGUI sailorTxt;
     [SerializeField] TextMeshProUGUI foodTxt;
     [SerializeField] TextMeshProUGUI woodTxt;
@@ -272,6 +274,7 @@ public class GameManager : MonoBehaviour
         islandsTableScript = GetComponent<IslandsTable>();
         shipsTableScript = GetComponent<ShipsTable>();
         randomEncounterScript.LoadRandomEncounter();
+        encounterNumberTxt.text = encounterCounter.ToString();
     }
 
     private void Update()
@@ -1142,9 +1145,10 @@ public class GameManager : MonoBehaviour
         }
         alliesGift = false;
         monkeysPawTried = false;
-        yield return new WaitForSeconds(3);
+        skipButton.enabled = false;
+        yield return new WaitForSeconds(1);
         encounterCounter++;
-        print("----------------------------------------");
+        encounterNumberTxt.text = encounterCounter.ToString();
         if (famousExplorer)
         {
             famousExplorerCounter++;
