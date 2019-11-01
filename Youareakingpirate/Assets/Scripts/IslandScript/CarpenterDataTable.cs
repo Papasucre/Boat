@@ -116,7 +116,7 @@ public class CarpenterDataTable : MonoBehaviour
         GameManager.Instance.makeChoice = true;
         GameManager.Instance.atCarpenterWorkshop = true;
         GameManager.Instance.canSkip = true;
-        GameManager.Instance.ShowRessources();
+        GameManager.Instance.UpdateRessources();
         print("Or you can skip this encounter with 4.");
     }
 

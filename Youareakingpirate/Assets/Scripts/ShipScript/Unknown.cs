@@ -19,6 +19,6 @@ public class Unknown : MonoBehaviour
             GameManager.instance.UIChoices[i].Display(actionsList[i]);
         }
         GameManager.Instance.makeChoice = true;
-        GameManager.Instance.ShowRessources();
+        GameManager.Instance.UpdateRessources();
     }
 }

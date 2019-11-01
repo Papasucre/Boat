@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class GameManager : MonoBehaviour
 {
@@ -160,7 +161,16 @@ public class GameManager : MonoBehaviour
     public List<GameObject> relicsEquipped = new List<GameObject>();
     public List<GameObject> cursesEquipped = new List<GameObject>();
     public GameObject[] carpenterRelics = new GameObject[3];
+    #endregion
+
+    #region UI
     public DisplayChoice[] UIChoices = new DisplayChoice[3];
+#pragma warning disable 0649
+    [SerializeField] TextMeshProUGUI sailorTxt;
+    [SerializeField] TextMeshProUGUI foodTxt;
+    [SerializeField] TextMeshProUGUI woodTxt;
+    [SerializeField] TextMeshProUGUI goldTxt;
+#pragma warning restore 0649
     #endregion
 
     #region RELICS VARIABLES
@@ -240,7 +250,7 @@ public class GameManager : MonoBehaviour
     {
         DontDestroyOnLoad(gameObject);
         print(Instance);
-        ShowRessources();
+        UpdateRessources();
         if (GameManager.instance != this)
             Destroy(gameObject);
     }
@@ -252,7 +262,8 @@ public class GameManager : MonoBehaviour
         carpenterScript = GetComponent<CarpenterDataTable>();
         islandsTableScript = GetComponent<IslandsTable>();
         shipsTableScript = GetComponent<ShipsTable>();
-        randomEncounterScript.LoadRandomEncounter();
+        //randomEncounterScript.LoadRandomEncounter();
+        SceneManager.LoadScene("Island 2");
     }
 
     private void Update()
@@ -488,7 +499,7 @@ public class GameManager : MonoBehaviour
         print(carpenterRelics[input].GetComponent<Relic>().description);
         if (luckyClover)
             LuckyClover();
-        ShowRessources();
+        UpdateRessources();
         StartCoroutine(LoadNextEncounter());
     }
 
@@ -515,7 +526,7 @@ public class GameManager : MonoBehaviour
         }
         alliesGift = false;
         ApplyUpgrade(choicesUpgradeArray[input]);
-        ShowRessources();
+        UpdateRessources();
         StartCoroutine(LoadNextEncounter());
     }
 
@@ -606,7 +617,7 @@ public class GameManager : MonoBehaviour
                 break;
         }
         CheckStock();
-        ShowRessources();
+        UpdateRessources();
         StartCoroutine(LoadNextEncounter());
     }
 
@@ -1123,12 +1134,12 @@ public class GameManager : MonoBehaviour
             woodStock -= relicWoodConsumption;     
     }
 
-    public void ShowRessources()
+    public void UpdateRessources()
     {
-        print("Ship supplies :");
-        print("Sailor : " + GameManager.Instance.sailorsStock + "/" + GameManager.Instance.sailorsMaxStock + " | Food : " + GameManager.Instance.foodStock + "/" + GameManager.Instance.foodMaxStock
-            + "  | Wood : " + GameManager.Instance.woodStock + "/" + GameManager.Instance.woodMaxStock +
-            " | Gold : " + GameManager.Instance.goldStock + "/" + GameManager.Instance.goldMaxStock);
+        sailorTxt.text = sailorsStock + "/" + sailorsMaxStock;
+        foodTxt.text = foodStock + "/" + foodMaxStock;
+        woodTxt.text = woodStock + "/" + woodMaxStock;
+        goldTxt.text = goldStock + "/" + goldMaxStock;
     }
 
     IEnumerator LoadNextEncounter()
@@ -1731,9 +1742,9 @@ public class GameManager : MonoBehaviour
         shipsTableScript.Spyglass(value);
     }
 
-    public void LoneTraveler(bool value)
+    public void Outlaw(bool value)
     {
-        shipsTableScript.LoneTraveler(value);
+        shipsTableScript.Outlaw(value);
     }
     #endregion
 

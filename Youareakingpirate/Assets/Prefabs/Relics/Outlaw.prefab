@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5344480761029885794}
   - component: {fileID: 6582846715257916727}
   m_Layer: 0
-  m_Name: LoneTraveler
+  m_Name: Outlaw
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -43,7 +43,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bbe752f757bf38c41b85eb11ca274efb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  name: Lone traveler
+  name: Outlaw
   description: You can no longer meet Merchant and Dark Merchant, but it increases
     all your gains.
   levelRequiered: 1

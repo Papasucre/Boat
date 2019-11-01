@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LoneTraveler : Relic
+public class Outlaw : Relic
 {
     [Header("SPECIFICS PARAMETERS")]
 #pragma warning disable 0649
@@ -15,7 +15,7 @@ public class LoneTraveler : Relic
 
     public override void Equip()
     {
-        GameManager.instance.LoneTraveler(true);
+        GameManager.instance.Outlaw(true);
         GameManager.instance.relicSailorReward += extraSailorReward;
         GameManager.instance.relicFoodReward += extraFoodReward;
         GameManager.instance.relicWoodReward += extraWoodReward;
@@ -24,7 +24,7 @@ public class LoneTraveler : Relic
 
     public override void Unequip()
     {
-        GameManager.instance.LoneTraveler(false);
+        GameManager.instance.Outlaw(false);
         GameManager.instance.relicSailorReward -= extraSailorReward;
         GameManager.instance.relicFoodReward -= extraFoodReward;
         GameManager.instance.relicWoodReward -= extraWoodReward;

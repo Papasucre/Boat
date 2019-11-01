@@ -101,7 +101,7 @@ public class ShipsTable : MonoBehaviour
         }
     }
 
-    public void LoneTraveler(bool value)
+    public void Outlaw(bool value)
     {
         if (value)
         {

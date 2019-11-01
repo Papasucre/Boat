@@ -66,6 +66,6 @@ public class Allies : MonoBehaviour
         friendsUpgradeGift = false;
         friendsRelicGift = false;
         GameManager.Instance.makeChoice = true;
-        GameManager.Instance.ShowRessources();
+        GameManager.Instance.UpdateRessources();
     }
 }

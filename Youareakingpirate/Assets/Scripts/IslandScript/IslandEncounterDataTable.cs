@@ -61,7 +61,7 @@ public class IslandEncounterDataTable : MonoBehaviour
         }
         GameManager.Instance.makeChoice = true;
         GameManager.instance.canSkip = true;
-        GameManager.Instance.ShowRessources();
+        GameManager.Instance.UpdateRessources();
         print("Choose your action with 1 2 or 3.");
         print("Or you can skip this encounter with 4.");
     }

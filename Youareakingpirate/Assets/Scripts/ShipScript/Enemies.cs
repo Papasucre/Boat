@@ -19,7 +19,7 @@ public class Enemies : MonoBehaviour
             GameManager.instance.UIChoices[i].Display(actionsList[i]);
         }
         GameManager.Instance.makeChoice = true;
-        GameManager.Instance.ShowRessources();
+        GameManager.Instance.UpdateRessources();
         print("Choose your action with 1 2 or 3.");
     }
 }
