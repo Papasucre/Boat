@@ -9,6 +9,7 @@ TagManager:
   - Choice2
   - Choice3
   - UI
+  - TreasuresIcons
   layers:
   - Default
   - TransparentFX
@@ -18,7 +19,7 @@ TagManager:
   - UI
   - 
   - 
-  - UnderUI
+  - 
   - 
   - 
   - 

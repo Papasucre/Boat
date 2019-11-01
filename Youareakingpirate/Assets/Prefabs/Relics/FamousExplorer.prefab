@@ -52,6 +52,7 @@ MonoBehaviour:
   type3: 4
   curse: 0
   goldPrice: 0
+  icon: {fileID: 21300000, guid: f5912627e52855541abec2fd57935f55, type: 3}
   famousExplorerReward: 1
   relicData:
   - resource: 1

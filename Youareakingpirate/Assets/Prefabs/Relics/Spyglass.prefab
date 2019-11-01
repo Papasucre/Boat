@@ -51,6 +51,7 @@ MonoBehaviour:
   type3: 0
   curse: 0
   goldPrice: 0
+  icon: {fileID: 21300000, guid: 972cc9a54828c5b40900a2a5f2a75db2, type: 3}
   enemiesAndPiratesProbChange: -5
   relicData:
   - resource: 0

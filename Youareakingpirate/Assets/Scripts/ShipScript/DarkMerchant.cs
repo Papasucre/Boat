@@ -48,9 +48,7 @@ public class DarkMerchant : MonoBehaviour
             GameManager.instance.UIChoices[i].Display(list[i]);
         }
         GameManager.Instance.makeChoice = true;
-        GameManager.instance.canSkip = true;
+        GameManager.instance.skipButton.enabled = true;
         GameManager.Instance.UpdateRessources();
-        print("Or you can skip this encounter with 4.");
-
     }
 }

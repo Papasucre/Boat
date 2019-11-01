@@ -52,8 +52,8 @@ MonoBehaviour:
   type3: 0
   curse: 0
   goldPrice: 100
+  icon: {fileID: 21300000, guid: 465bf3d8fc20e0142b9b8ba9b6a4fb27, type: 3}
   woodCost: -2
   relicData:
-  - rowActivate: 1
-    resource: 3
+  - resource: 3
     value: -2

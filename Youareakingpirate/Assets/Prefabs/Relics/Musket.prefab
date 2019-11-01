@@ -52,6 +52,7 @@ MonoBehaviour:
   type3: 0
   curse: 0
   goldPrice: 0
+  icon: {fileID: 21300000, guid: ff3b94fbff315f44c864b62d9d505349, type: 3}
   fightSailorCost: -1
   relicData:
   - resource: 1

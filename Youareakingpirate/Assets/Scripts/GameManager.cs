@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -157,19 +158,21 @@ public class GameManager : MonoBehaviour
     public bool makeChoice;
     public bool atCarpenterWorkshop;
     public bool alliesGift;
-    public bool canSkip;
     public List<GameObject> relicsEquipped = new List<GameObject>();
     public List<GameObject> cursesEquipped = new List<GameObject>();
     public GameObject[] carpenterRelics = new GameObject[3];
     #endregion
 
     #region UI
+    Image[] relicsIcons;
     public DisplayChoice[] UIChoices = new DisplayChoice[3];
+    public Canvas skipButton;
 #pragma warning disable 0649
     [SerializeField] TextMeshProUGUI sailorTxt;
     [SerializeField] TextMeshProUGUI foodTxt;
     [SerializeField] TextMeshProUGUI woodTxt;
     [SerializeField] TextMeshProUGUI goldTxt;
+    [SerializeField] Sprite empty;
 #pragma warning restore 0649
     #endregion
 
@@ -257,13 +260,18 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+        GameObject[] tmp = GameObject.FindGameObjectsWithTag("TreasuresIcons");
+        relicsIcons = new Image[tmp.Length];
+        for (int i = 0; i < tmp.Length; i++)
+        {
+            relicsIcons[i] = tmp[i].GetComponent<Image>();
+        }
         relicsScript = GetComponent<RelicsTable>();
         randomEncounterScript = GetComponent<RandomEncounter>();
         carpenterScript = GetComponent<CarpenterDataTable>();
         islandsTableScript = GetComponent<IslandsTable>();
         shipsTableScript = GetComponent<ShipsTable>();
-        //randomEncounterScript.LoadRandomEncounter();
-        SceneManager.LoadScene("Island 2");
+        randomEncounterScript.LoadRandomEncounter();
     }
 
     private void Update()
@@ -444,15 +452,9 @@ public class GameManager : MonoBehaviour
                     }
                 }
             }
-            if(Input.GetKeyDown(KeyCode.Alpha4) && canSkip)
-            {
-                print("You choose to skip this encounter.");
-                makeChoice = false;
-                atCarpenterWorkshop = false;
-                StartCoroutine(LoadNextEncounter());
-            }
         }
     }
+
 
     #region CARPENTER
     bool SimulateCarpenterCost(Upgrade item)
@@ -490,15 +492,7 @@ public class GameManager : MonoBehaviour
                 Debug.LogError("You shoudln't have to pay a free relic, there is an error somewhere.");
         }
         alliesGift = false;
-        relicsEquipped.Add(carpenterRelics[input]);
-        if(carpenterRelics[input].GetComponent<Relic>().curse)
-            cursesEquipped.Add(carpenterRelics[input]);
-        relicsScript.RemoveGainedRelic(carpenterRelics[input]);
-        carpenterRelics[input].GetComponent<Relic>().Equip();
-        print("You have a new " + (carpenterRelics[input].GetComponent<Relic>().curse ? "curse :" : "relic :"));
-        print(carpenterRelics[input].GetComponent<Relic>().description);
-        if (luckyClover)
-            LuckyClover();
+        EquipRelic(carpenterRelics[input]);
         UpdateRessources();
         StartCoroutine(LoadNextEncounter());
     }
@@ -792,17 +786,7 @@ public class GameManager : MonoBehaviour
                 }
                 else
                 {
-                    Relic relicScript = relic.GetComponent<Relic>();
-                    relicsEquipped.Add(relic);
-                    if (relicScript.curse)
-                        cursesEquipped.Add(relic);
-                    relicsScript.RemoveGainedRelic(relic);
-                    relicScript.Equip();
-                    print("You have a new " + (relicScript.curse ? "curse :" : "relic :"));
-                    print(relicScript.name);
-                    print(relicScript.description);
-                    if (luckyClover)
-                        LuckyClover();
+                    EquipRelic(relic);
                 }
             }
         }
@@ -1036,9 +1020,17 @@ public class GameManager : MonoBehaviour
     }
     #endregion
 
+    public void Skip()
+    {
+        skipButton.enabled = false;
+        makeChoice = false;
+        atCarpenterWorkshop = false;
+        StartCoroutine(LoadNextEncounter());
+    }
+
     public void FoodConsumption()
     {
-        GameManager.instance.canSkip = false;
+        skipButton.enabled = false;
         switch (currentLevel)
         {
             case GameLevel.lvl1:
@@ -1626,15 +1618,39 @@ public class GameManager : MonoBehaviour
     #endregion
 
     #region RELICS
+    void EquipRelic(GameObject relic)
+    {
+        Relic relicScript = relic.GetComponent<Relic>();
+        relicsEquipped.Add(relic);
+        if (relicScript.curse)
+            cursesEquipped.Add(relic);
+        relicsScript.RemoveGainedRelic(relic);
+        relicScript.Equip();
+        relicsIcons[relicsEquipped.Count - 1].sprite = relicScript.icon;
+        print("You have a new " + (relicScript.curse ? "curse :" : "relic :"));
+        print(relicScript.name);
+        print(relicScript.description);
+        if (luckyClover)
+            LuckyClover();
+    }
+
     void UnequipRelic(GameObject relic, bool relootable)
     {
-        if (relic.GetComponent<Relic>().curse)
+        Relic relicScript = relic.GetComponent<Relic>();
+        if (relicScript.curse)
             cursesEquipped.Remove(relic);
+        int i;
+        for (i = 0; i < relicsIcons.Length; i++)
+        {
+            if (relicsIcons[i].sprite == relicScript.icon)
+                break;
+        }
+        relicsIcons[i].sprite = empty;
         relicsEquipped.Remove(relic);
         if (relootable)
             relicsScript.AddLostRelic(relic);
-        relic.GetComponent<Relic>().Unequip();
-        print(relic.GetComponent<Relic>().name + " got removed.");
+        relicScript.Unequip();
+        print(relicScript.name + " got removed.");
     }
 
     void UnequipRelic(string relicName, bool relootable)
@@ -1650,13 +1666,21 @@ public class GameManager : MonoBehaviour
         }
         if (relic == null)
             Debug.LogError("There is no relic with this name : " + relicName);
-        if (relic.GetComponent<Relic>().curse)
+        Relic relicScript = relic.GetComponent<Relic>();
+        if (relicScript.curse)
             cursesEquipped.Remove(relic);
+        int i;
+        for (i = 0; i < relicsIcons.Length; i++)
+        {
+            if (relicsIcons[i].sprite == relicScript.icon)
+                break;
+        }
+        relicsIcons[i].sprite = empty;
         relicsEquipped.Remove(relic);
         if (relootable)
             relicsScript.AddLostRelic(relic);
-        relic.GetComponent<Relic>().Unequip();
-        print(relic.GetComponent<Relic>().name + " got removed.");
+        relicScript.Unequip();
+        print(relicScript.name + " got removed.");
     }
 
     GameObject GetRelicReward(Cost cost, RelicType type, bool includeCurse)
@@ -1722,17 +1746,8 @@ public class GameManager : MonoBehaviour
             }
             else
             {
-                Relic relicScript = relic.GetComponent<Relic>();
-                relicsEquipped.Add(relic);
-                if (relicScript.curse)
-                    cursesEquipped.Add(relic);
-                relicsScript.RemoveGainedRelic(relic);
-                relicScript.Equip();
-                print("You have a new " + (relicScript.curse ? "curse " : "relic ")+"thanks to your Monkey's Paw !");
-                print(relicScript.name);
-                print(relicScript.description);
-                if (luckyClover)
-                    LuckyClover();
+                EquipRelic(relic);
+                print("You have a new " + (relic.GetComponent<Relic>().curse ? "curse " : "relic ")+"thanks to your Monkey's Paw !");
             }
         }
     }

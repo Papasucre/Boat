@@ -52,6 +52,7 @@ MonoBehaviour:
   type3: 0
   curse: 0
   goldPrice: 0
+  icon: {fileID: 21300000, guid: 864acfeb9208e344bafa2e5c6e0e0afc, type: 3}
   luckyCloverSailorsReward: 1
   luckyCloverFoodReward: 2
   luckyCloverWoodReward: 2

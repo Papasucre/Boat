@@ -51,6 +51,7 @@ MonoBehaviour:
   type3: 0
   curse: 1
   goldPrice: 0
+  icon: {fileID: 21300000, guid: ab9b2707415ff4d44b6e66738ea15150, type: 3}
   goldCost: 25
   relicData:
   - resource: 4

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5344480761029885794}
   - component: {fileID: 5948531890779928878}
   m_Layer: 0
-  m_Name: ShittyTeammates
+  m_Name: RustySword
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -43,14 +43,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13516d5ccac3849478dda5b1421f5e99, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  name: Shitty teammates
-  description: You lose one more sailor at each fight. (Damned matchmaking)
+  name: Rusty sword
+  description: You lose one more sailor at each fight.
   levelRequiered: 0
   type1: 1
   type2: 0
   type3: 0
   curse: 1
   goldPrice: 0
+  icon: {fileID: 21300000, guid: abf7f21c4664d71498953c4953bec5fc, type: 3}
   fightSailorCost: 1
   relicData:
   - resource: 1

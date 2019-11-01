@@ -50,9 +50,8 @@ public class Merchant : MonoBehaviour
             }
         }
         GameManager.Instance.makeChoice = true;
-        GameManager.Instance.canSkip = true;
+        GameManager.Instance.skipButton.enabled = true;
         GameManager.Instance.UpdateRessources();
-        print("Or you can skip this encounter with 4.");
     }
 
     string GetChoiceID()

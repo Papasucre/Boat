@@ -52,6 +52,7 @@ MonoBehaviour:
   type3: 0
   curse: 0
   goldPrice: 0
+  icon: {fileID: 21300000, guid: 917868280046c7c4aa3340afc09fb0d6, type: 3}
   fightFoodReward: 2
   fightWoodReward: 1
   fightGoldReward: 25

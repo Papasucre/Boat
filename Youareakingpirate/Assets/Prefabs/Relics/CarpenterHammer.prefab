@@ -51,3 +51,4 @@ MonoBehaviour:
   type3: 0
   curse: 0
   goldPrice: 0
+  icon: {fileID: 21300000, guid: d2506087e5256a54d913f957ec3af56c, type: 3}

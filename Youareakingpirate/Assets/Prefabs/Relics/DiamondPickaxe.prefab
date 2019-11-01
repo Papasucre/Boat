@@ -52,6 +52,7 @@ MonoBehaviour:
   type3: 0
   curse: 0
   goldPrice: 0
+  icon: {fileID: 21300000, guid: 6327739f08be1dd4caf5adbe9f19d907, type: 3}
   harvestGoldExtra: 15
   relicData:
   - resource: 4
