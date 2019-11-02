@@ -59,7 +59,6 @@ public class RelicsTable : MonoBehaviour
 
     public void GetFriendsRandomRelic(GameManager.RelicType type, bool includeCurse)
     {
-        GameManager.instance.CleanCarpenterRelics();
         GameObject relic = GetRandomRelic(type, includeCurse);
         if (relic == null)
             return;

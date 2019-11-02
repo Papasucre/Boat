@@ -401,7 +401,7 @@ public class GameManager : MonoBehaviour
                     }
                 }
             }
-            if (input_choice3 && (choicesArray[2].name != "" || choicesUpgradeArray[2] != null))
+            if (input_choice3 && (choicesArray[2].name != "" || choicesUpgradeArray[2] != null || carpenterRelics[2] != null))
             {
                 input_choice3 = false;
                 if (atCarpenterWorkshop || alliesGift)

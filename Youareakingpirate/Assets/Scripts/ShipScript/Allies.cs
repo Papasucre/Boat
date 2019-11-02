@@ -17,6 +17,8 @@ public class Allies : MonoBehaviour
     {
         GameManager.instance.CleanChoicesArray();
         GameManager.instance.FoodConsumption();
+        GameManager.instance.CleanCarpenterRelics();
+        GameManager.instance.CleanUpgradeArray();
         friendsRelicGift = false;
         friendsUpgradeGift = false;
         GameManager.instance.encounterNameTxt.text = SceneManager.GetActiveScene().name;

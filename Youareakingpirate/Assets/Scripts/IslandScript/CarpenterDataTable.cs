@@ -123,7 +123,6 @@ public class CarpenterDataTable : MonoBehaviour
     {
         FullProbList();
         RemoveItem("Relic");
-        GameManager.instance.CleanUpgradeArray();
         if (IDList.Count == 0)
             return;
         string ID = GetChoiceID();
