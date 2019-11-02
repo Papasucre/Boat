@@ -13771,7 +13771,7 @@ RectTransform:
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.395, y: 0.2}
-  m_AnchorMax: {x: 0.465, y: 0.8}
+  m_AnchorMax: {x: 0.475, y: 0.8}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -13801,9 +13801,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: '
-
-'
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 9b8971dc6e8e946439ccb48a3011b3b1, type: 2}
   m_sharedMaterial: {fileID: -2025689599711463251, guid: 9b8971dc6e8e946439ccb48a3011b3b1,
@@ -13873,13 +13871,13 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_textInfo:
     textComponent: {fileID: 1649754194}
-    characterCount: 1
+    characterCount: 0
     spriteCount: 0
-    spaceCount: 1
-    wordCount: 1
+    spaceCount: 0
+    wordCount: 0
     linkCount: 0
-    lineCount: 1
-    pageCount: 1
+    lineCount: 0
+    pageCount: 0
     materialCount: 1
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
@@ -19766,8 +19764,8 @@ MonoBehaviour:
   - {fileID: 1983273419}
   - {fileID: 1814263403}
   skipButton: {fileID: 1046809249}
-  encounterNumberTxt: {fileID: 4118636150741411053}
   encounterNameTxt: {fileID: 5494264859891659144}
+  encounterNumberTxt: {fileID: 4118636150741411053}
   sailorTxt: {fileID: 1523925137}
   foodTxt: {fileID: 1115029964}
   woodTxt: {fileID: 1708365073}
