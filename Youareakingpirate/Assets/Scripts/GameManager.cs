@@ -274,9 +274,7 @@ public class GameManager : MonoBehaviour
         carpenterScript = GetComponent<CarpenterDataTable>();
         islandsTableScript = GetComponent<IslandsTable>();
         shipsTableScript = GetComponent<ShipsTable>();
-        EquipRelic(relicsScript.GetSpecifRelic("Carpenter's Hammer"));
-        EquipRelic(relicsScript.GetSpecifRelic("Spyglass"));
-        randomEncounterScript.LoadRandomEncounter();
+        //randomEncounterScript.LoadRandomEncounter();
 
     }
 

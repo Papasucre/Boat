@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using TMPro;
 using UnityEngine.EventSystems;
 
-public class DisplayChoice : MonoBehaviour
+public class DisplayChoice : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
 #pragma warning disable 0649
     [SerializeField] int inputNumber;
@@ -85,6 +85,8 @@ public class DisplayChoice : MonoBehaviour
             }
         }
     }
+
+    
 
     public void Display(GameManager.Action item)
     {
@@ -216,5 +218,15 @@ public class DisplayChoice : MonoBehaviour
             relicTxt[i].text = "";
         }
         relicGoldCost.text = "";
+    }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        print(inputNumber);
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        throw new System.NotImplementedException();
     }
 }
