@@ -100,7 +100,6 @@ public class CarpenterDataTable : MonoBehaviour
                 GameManager.instance.UIChoices[i].Display(relic);
                 if (relicScript.goldPrice == 0)
                     Debug.LogError("ERROR NO FREE RELIC AT CARPENTER WORKSHOP " + relicScript.name);
-                print(relicScript.description);
                 continue;                
             }
             foreach (Upgrade item in upgradesList)

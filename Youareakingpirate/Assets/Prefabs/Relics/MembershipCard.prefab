@@ -43,7 +43,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4390e5b9322b7ea4390404d7e5715c55, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  name: Membership card
+  name: Membership Card
   description: You join Merchants' secret society. Reducing the cost of the goods
     in all merchant.
   levelRequiered: 0

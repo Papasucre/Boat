@@ -43,7 +43,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35c12da6aa4678c489c1d01a3fc8215a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  name: Reinforced hull
+  name: Reinforced Hull
   description: You got a better hull, reducing damage taken by your ship during fight
     and when running away.
   levelRequiered: 1

@@ -43,7 +43,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 039797ca3dd7a8346bfddabe1204dc8e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  name: Famous explorer
+  name: Famous Explorer
   description: You have earned a good reputation as an explorer. Regulary sailors
     will join your crew for free.
   levelRequiered: 0

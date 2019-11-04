@@ -185,7 +185,7 @@ public class DisplayChoice : MonoBehaviour
             }
             relicTxt[i].text = data[i].value;
         }
-        relicGoldCost.text = GameManager.instance.GetCarpenterGoldCostWithRelics(relicScript.goldPrice).ToString();
+        relicGoldCost.text = GameManager.instance.GetRelicGoldCostWithRelics(relicScript.goldPrice).ToString();
         masterCanvas.enabled = true;
         relicCanvas.enabled = true;
     }

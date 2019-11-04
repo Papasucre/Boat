@@ -14,6 +14,17 @@ public class RelicsTable : MonoBehaviour
     List<GameObject> tempRelicsList = new List<GameObject>();
     List<GameObject> foreachList = new List<GameObject>();
 
+    public GameObject GetSpecifRelic(string relicName)
+    {
+        foreach (GameObject item in relicsList)
+        {
+            if (item.GetComponent<Relic>().name == relicName)
+                return item;
+        }
+        Debug.LogError("There is no relics with this name " + relicName);
+        return null;
+    }
+
     public GameObject GetRandomRelic(GameManager.RelicType type, bool includeCurse)
     {
         tempRelicsList.Clear();

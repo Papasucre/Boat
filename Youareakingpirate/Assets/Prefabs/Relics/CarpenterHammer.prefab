@@ -43,7 +43,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b42ef4d018d29f4f97a9274c3f1e0b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  name: Carpenter's hammer
+  name: Carpenter's Hammer
   description: Next upgrade bought is free.
   levelRequiered: 1
   type1: 1

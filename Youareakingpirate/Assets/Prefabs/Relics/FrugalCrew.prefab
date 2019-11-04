@@ -43,7 +43,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2faf1e85ac2c520498a22a31241d64c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  name: Frugal crew
+  name: Frugal Crew
   description: Your crew eats less, reducing food consumption during travel.
   levelRequiered: 1
   type1: 4

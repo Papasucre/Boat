@@ -43,7 +43,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7882bb6b13eda904a84b31f073df148a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  name: Life insurance
+  name: Life Insurance
   description: You win gold each time you lose a sailor.
   levelRequiered: 0
   type1: 7

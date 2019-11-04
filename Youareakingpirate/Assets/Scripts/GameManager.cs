@@ -268,13 +268,16 @@ public class GameManager : MonoBehaviour
         {
             relicsIcons[i] = tmp[i].GetComponent<Image>();
         }
+        encounterNumberTxt.text = encounterCounter.ToString();
         relicsScript = GetComponent<RelicsTable>();
         randomEncounterScript = GetComponent<RandomEncounter>();
         carpenterScript = GetComponent<CarpenterDataTable>();
         islandsTableScript = GetComponent<IslandsTable>();
         shipsTableScript = GetComponent<ShipsTable>();
+        EquipRelic(relicsScript.GetSpecifRelic("Carpenter's Hammer"));
+        EquipRelic(relicsScript.GetSpecifRelic("Spyglass"));
         randomEncounterScript.LoadRandomEncounter();
-        encounterNumberTxt.text = encounterCounter.ToString();
+
     }
 
     private void Update()
@@ -298,7 +301,7 @@ public class GameManager : MonoBehaviour
                         }
                     }else if (carpenterRelics[0] != null)
                     {
-                        if(goldStock - carpenterRelics[0].GetComponent<Relic>().goldPrice >= 0)
+                        if(goldStock - GetRelicGoldCostWithRelics(carpenterRelics[0].GetComponent<Relic>().goldPrice) >= 0)
                         {
                             ValidateCarpenterRelic(0,true);
                         }
@@ -365,7 +368,7 @@ public class GameManager : MonoBehaviour
                     }
                     else if (carpenterRelics[1] != null)
                     {
-                        if (goldStock - carpenterRelics[1].GetComponent<Relic>().goldPrice >= 0)
+                        if (goldStock - GetRelicGoldCostWithRelics(carpenterRelics[1].GetComponent<Relic>().goldPrice) >= 0)
                         {
                             ValidateCarpenterRelic(1, true);
                         }
@@ -419,7 +422,7 @@ public class GameManager : MonoBehaviour
                     }
                     else if (carpenterRelics[2] != null)
                     {
-                        if (goldStock - carpenterRelics[2].GetComponent<Relic>().goldPrice >= 0 || alliesGift)
+                        if (goldStock - GetRelicGoldCostWithRelics(carpenterRelics[2].GetComponent<Relic>().goldPrice) >= 0 || alliesGift)
                         {
                             ValidateCarpenterRelic(2, !alliesGift);
                         }
@@ -456,6 +459,10 @@ public class GameManager : MonoBehaviour
                 }
             }
         }
+        if (Input.GetKeyDown(KeyCode.A))
+            UnequipRelic("Carpenter's Hammer",false);
+        if (Input.GetKeyDown(KeyCode.E))
+            EquipRelic(relicsScript.GetSpecifRelic("Lucky Clover"));
     }
 
 
@@ -485,7 +492,7 @@ public class GameManager : MonoBehaviour
             int goldCost = carpenterRelics[input].GetComponent<Relic>().goldPrice;
             if (goldCost != 0)
             {
-                int goldRes = GetCarpenterGoldCostWithRelics(goldCost);
+                int goldRes = GetRelicGoldCostWithRelics(goldCost);
                 if (goldRes > 0)
                 {
                     goldStock -= goldRes;
@@ -805,8 +812,18 @@ public class GameManager : MonoBehaviour
     #endregion
 
     #region GET COST/REWARD WITH RELICS
+    public int GetRelicGoldCostWithRelics(int initialCost)
+    {
+        relicGoldCost += merchantGoldCost;
+        int relic_goldRes = initialCost + relicGoldCost;
+        relicGoldCost -= merchantGoldCost;
+        return CheckValueIsPositive(relic_goldRes);
+    }
+
     public int GetCarpenterGoldCostWithRelics(int initialCost)//CARPENTER
     {
+        if (carpenterHammer)
+            return 0;
         relicGoldCost += merchantGoldCost;
         int carpenter_goldRes = initialCost + relicGoldCost;
         relicGoldCost -= merchantGoldCost;
@@ -1651,6 +1668,7 @@ public class GameManager : MonoBehaviour
         }
         relicsIcons[i].sprite = empty;
         relicsEquipped.Remove(relic);
+        AlignRelicsIcons();
         if (relootable)
             relicsScript.AddLostRelic(relic);
         relicScript.Unequip();
@@ -1681,10 +1699,28 @@ public class GameManager : MonoBehaviour
         }
         relicsIcons[i].sprite = empty;
         relicsEquipped.Remove(relic);
+        AlignRelicsIcons();
         if (relootable)
             relicsScript.AddLostRelic(relic);
         relicScript.Unequip();
         print(relicScript.name + " got removed.");
+    }
+
+    void AlignRelicsIcons()
+    {
+        List<Sprite> tmpList = new List<Sprite>();
+        foreach (Image item in relicsIcons)
+        {
+            if (item.sprite != empty)
+            {
+                tmpList.Add(item.sprite);
+                item.sprite = empty;
+            }
+        }
+        for (int i = 0; i < tmpList.Count; i++)
+        {
+            relicsIcons[i].sprite = tmpList[i];
+        }
     }
 
     GameObject GetRelicReward(Cost cost, RelicType type, bool includeCurse)

@@ -43,7 +43,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13516d5ccac3849478dda5b1421f5e99, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  name: Rusty sword
+  name: Rusty Sword
   description: You lose one more sailor at each fight.
   levelRequiered: 0
   type1: 1

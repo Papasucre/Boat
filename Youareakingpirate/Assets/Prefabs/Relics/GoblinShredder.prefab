@@ -43,7 +43,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5db0d275a27316409ee5797396dd594, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  name: Goblin shredder
+  name: Goblin Shredder
   description: A strange machine, with a place for a pilot (pretty small). Seems good
     to harvest wood.
   levelRequiered: 1
