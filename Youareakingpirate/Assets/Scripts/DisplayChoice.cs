@@ -42,6 +42,9 @@ public class DisplayChoice : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     [SerializeField] Sprite wood;
     [SerializeField] Sprite gold;
     [SerializeField] Sprite relic;
+
+    [Header("HIGHLIGHT")]
+    [SerializeField] Image highlight;
 #pragma warning restore 0649
 
     GraphicRaycaster raycaster;
@@ -222,11 +225,11 @@ public class DisplayChoice : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        print(inputNumber);
+        highlight.enabled = true;
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        throw new System.NotImplementedException();
+        highlight.enabled = false;
     }
 }
