@@ -568,6 +568,7 @@ MonoBehaviour:
   - name: Fight !
     ID: Fight
     ID2: 
+    cardIcon: {fileID: 21300000, guid: 1acd40591b4aec943b28b6157c24893e, type: 3}
     sailorPrice: 1
     foodPrice: 0
     woodPrice: 2
@@ -582,6 +583,7 @@ MonoBehaviour:
   - name: Take gift
     ID: 
     ID2: 
+    cardIcon: {fileID: 21300000, guid: b8bd6639e0174074ba342867b4d7000f, type: 3}
     sailorPrice: 0
     foodPrice: 0
     woodPrice: 0
@@ -596,6 +598,7 @@ MonoBehaviour:
   - name: Take gift
     ID: 
     ID2: 
+    cardIcon: {fileID: 21300000, guid: b8bd6639e0174074ba342867b4d7000f, type: 3}
     sailorPrice: 0
     foodPrice: 0
     woodPrice: 0
@@ -610,6 +613,7 @@ MonoBehaviour:
   - name: Take gift
     ID: 
     ID2: 
+    cardIcon: {fileID: 21300000, guid: b8bd6639e0174074ba342867b4d7000f, type: 3}
     sailorPrice: 0
     foodPrice: 0
     woodPrice: 0
@@ -624,6 +628,7 @@ MonoBehaviour:
   - name: Take gift
     ID: 
     ID2: 
+    cardIcon: {fileID: 21300000, guid: b8bd6639e0174074ba342867b4d7000f, type: 3}
     sailorPrice: 0
     foodPrice: 0
     woodPrice: 0
@@ -638,6 +643,7 @@ MonoBehaviour:
   - name: Upgrade or Relic
     ID: 
     ID2: 
+    cardIcon: {fileID: 0}
     sailorPrice: 0
     foodPrice: 0
     woodPrice: 0

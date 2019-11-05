@@ -568,6 +568,7 @@ MonoBehaviour:
   - name: Loot it
     ID: 
     ID2: 
+    cardIcon: {fileID: 21300000, guid: a68344d523df24747b67104481ae5f54, type: 3}
     sailorPrice: 1
     foodPrice: 0
     woodPrice: 0
@@ -582,6 +583,7 @@ MonoBehaviour:
   - name: Save the survivors
     ID: 
     ID2: 
+    cardIcon: {fileID: 21300000, guid: b8bd6639e0174074ba342867b4d7000f, type: 3}
     sailorPrice: 0
     foodPrice: 2
     woodPrice: 0
@@ -596,6 +598,7 @@ MonoBehaviour:
   - name: Ignore it
     ID: Ignore
     ID2: 
+    cardIcon: {fileID: 21300000, guid: a68344d523df24747b67104481ae5f54, type: 3}
     sailorPrice: 0
     foodPrice: 0
     woodPrice: 0

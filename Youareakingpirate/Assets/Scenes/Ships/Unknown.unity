@@ -568,6 +568,7 @@ MonoBehaviour:
   - name: Ignore them
     ID: Ignore
     ID2: 
+    cardIcon: {fileID: 21300000, guid: a68344d523df24747b67104481ae5f54, type: 3}
     sailorPrice: 0
     foodPrice: 0
     woodPrice: 0
@@ -582,6 +583,7 @@ MonoBehaviour:
   - name: Form an alliance
     ID: UnknownDiscover
     ID2: 
+    cardIcon: {fileID: 21300000, guid: b8bd6639e0174074ba342867b4d7000f, type: 3}
     sailorPrice: 0
     foodPrice: 0
     woodPrice: 0
@@ -596,6 +598,7 @@ MonoBehaviour:
   - name: Fight !
     ID: UnknownDiscover
     ID2: Fight
+    cardIcon: {fileID: 21300000, guid: 1acd40591b4aec943b28b6157c24893e, type: 3}
     sailorPrice: 2
     foodPrice: 0
     woodPrice: 2

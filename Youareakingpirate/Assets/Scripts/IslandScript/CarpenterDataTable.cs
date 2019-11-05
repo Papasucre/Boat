@@ -81,7 +81,6 @@ public class CarpenterDataTable : MonoBehaviour
         FullProbList();
         GameManager.instance.CleanUpgradeArray();
         GameManager.instance.CleanCarpenterRelics();
-        print("CARPENTER WORKSHOP");
         for (int i = 0; i < 3; i++)
         {
             if (IDList.Count == 0)

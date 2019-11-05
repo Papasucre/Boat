@@ -153,6 +153,7 @@ MonoBehaviour:
   - name: Fight !
     ID: Fight
     ID2: 
+    cardIcon: {fileID: 21300000, guid: 1acd40591b4aec943b28b6157c24893e, type: 3}
     sailorPrice: 2
     foodPrice: 0
     woodPrice: 2
@@ -167,6 +168,7 @@ MonoBehaviour:
   - name: Run away
     ID: RunningAway
     ID2: 
+    cardIcon: {fileID: 21300000, guid: 93147610dfe1b084dafecef727c142f8, type: 3}
     sailorPrice: 0
     foodPrice: 0
     woodPrice: 3
@@ -181,6 +183,7 @@ MonoBehaviour:
   - name: Bribe them
     ID: 
     ID2: 
+    cardIcon: {fileID: 21300000, guid: b8bd6639e0174074ba342867b4d7000f, type: 3}
     sailorPrice: 0
     foodPrice: 0
     woodPrice: 0

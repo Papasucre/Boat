@@ -48,6 +48,7 @@ MonoBehaviour:
   - name: Harvest food
     ID: Is_01
     ID2: 
+    cardIcon: {fileID: 21300000, guid: 6ae608ef721cf0b4fbb57ade729bccf7, type: 3}
     sailorPrice: 0
     foodPrice: 0
     woodPrice: 0
@@ -62,6 +63,7 @@ MonoBehaviour:
   - name: Harvest wood
     ID: Is_02
     ID2: 
+    cardIcon: {fileID: 21300000, guid: 6ae608ef721cf0b4fbb57ade729bccf7, type: 3}
     sailorPrice: 0
     foodPrice: 0
     woodPrice: 0
@@ -76,6 +78,7 @@ MonoBehaviour:
   - name: Harvest gold
     ID: Is_03
     ID2: 
+    cardIcon: {fileID: 21300000, guid: 6ae608ef721cf0b4fbb57ade729bccf7, type: 3}
     sailorPrice: 0
     foodPrice: 0
     woodPrice: 0
@@ -90,6 +93,7 @@ MonoBehaviour:
   - name: Engage sailors
     ID: Is_04
     ID2: 
+    cardIcon: {fileID: 21300000, guid: b8bd6639e0174074ba342867b4d7000f, type: 3}
     sailorPrice: 0
     foodPrice: 0
     woodPrice: 0
@@ -104,20 +108,22 @@ MonoBehaviour:
   - name: Carpenter workshop
     ID: Is_05
     ID2: 
+    cardIcon: {fileID: 21300000, guid: 878b83cffb34ef542b3048abf9d4f136, type: 3}
     sailorPrice: 0
     foodPrice: 0
     woodPrice: 0
-    goldPrice: 3
+    goldPrice: 0
     sailorReward: 0
     foodReward: 0
     woodReward: 0
     goldReward: 0
-    relicReward: 1
+    relicReward: 0
     relicType: 0
     includeCurse: 0
   - name: 
     ID: Is_06
     ID2: 
+    cardIcon: {fileID: 0}
     sailorPrice: 0
     foodPrice: 0
     woodPrice: 0
@@ -132,6 +138,7 @@ MonoBehaviour:
   - name: Explore ruins
     ID: Is_07
     ID2: 
+    cardIcon: {fileID: 21300000, guid: a68344d523df24747b67104481ae5f54, type: 3}
     sailorPrice: 1
     foodPrice: 2
     woodPrice: 1
@@ -174,6 +181,7 @@ MonoBehaviour:
   - name: Help villagers
     ID: Hv_01
     ID2: 
+    cardIcon: {fileID: 21300000, guid: b8bd6639e0174074ba342867b4d7000f, type: 3}
     sailorPrice: 2
     foodPrice: 0
     woodPrice: 0
@@ -188,6 +196,7 @@ MonoBehaviour:
   - name: Help villagers
     ID: Hv_02
     ID2: 
+    cardIcon: {fileID: 21300000, guid: b8bd6639e0174074ba342867b4d7000f, type: 3}
     sailorPrice: 2
     foodPrice: 0
     woodPrice: 0
@@ -202,6 +211,7 @@ MonoBehaviour:
   - name: Help villagers
     ID: Hv_03
     ID2: 
+    cardIcon: {fileID: 21300000, guid: b8bd6639e0174074ba342867b4d7000f, type: 3}
     sailorPrice: 2
     foodPrice: 0
     woodPrice: 0
@@ -216,6 +226,7 @@ MonoBehaviour:
   - name: Help villagers
     ID: Hv_04
     ID2: 
+    cardIcon: {fileID: 21300000, guid: b8bd6639e0174074ba342867b4d7000f, type: 3}
     sailorPrice: 2
     foodPrice: 0
     woodPrice: 0
@@ -230,6 +241,7 @@ MonoBehaviour:
   - name: Help villagers
     ID: Hv_05
     ID2: 
+    cardIcon: {fileID: 21300000, guid: b8bd6639e0174074ba342867b4d7000f, type: 3}
     sailorPrice: 0
     foodPrice: 2
     woodPrice: 0
@@ -244,6 +256,7 @@ MonoBehaviour:
   - name: Help villagers
     ID: Hv_06
     ID2: 
+    cardIcon: {fileID: 21300000, guid: b8bd6639e0174074ba342867b4d7000f, type: 3}
     sailorPrice: 0
     foodPrice: 2
     woodPrice: 0
@@ -258,6 +271,7 @@ MonoBehaviour:
   - name: Help villagers
     ID: Hv_07
     ID2: 
+    cardIcon: {fileID: 21300000, guid: b8bd6639e0174074ba342867b4d7000f, type: 3}
     sailorPrice: 0
     foodPrice: 2
     woodPrice: 0
@@ -272,6 +286,7 @@ MonoBehaviour:
   - name: Help villagers
     ID: Hv_08
     ID2: 
+    cardIcon: {fileID: 21300000, guid: b8bd6639e0174074ba342867b4d7000f, type: 3}
     sailorPrice: 0
     foodPrice: 2
     woodPrice: 0
@@ -286,6 +301,7 @@ MonoBehaviour:
   - name: Help villagers
     ID: Hv_09
     ID2: 
+    cardIcon: {fileID: 21300000, guid: b8bd6639e0174074ba342867b4d7000f, type: 3}
     sailorPrice: 0
     foodPrice: 0
     woodPrice: 2
@@ -300,6 +316,7 @@ MonoBehaviour:
   - name: Help villagers
     ID: Hv_10
     ID2: 
+    cardIcon: {fileID: 21300000, guid: b8bd6639e0174074ba342867b4d7000f, type: 3}
     sailorPrice: 0
     foodPrice: 0
     woodPrice: 2
@@ -314,6 +331,7 @@ MonoBehaviour:
   - name: Help villagers
     ID: Hv_11
     ID2: 
+    cardIcon: {fileID: 21300000, guid: b8bd6639e0174074ba342867b4d7000f, type: 3}
     sailorPrice: 0
     foodPrice: 0
     woodPrice: 2
@@ -328,6 +346,7 @@ MonoBehaviour:
   - name: Help villagers
     ID: Hv_12
     ID2: 
+    cardIcon: {fileID: 21300000, guid: b8bd6639e0174074ba342867b4d7000f, type: 3}
     sailorPrice: 0
     foodPrice: 0
     woodPrice: 2
@@ -342,6 +361,7 @@ MonoBehaviour:
   - name: Help villagers
     ID: Hv_13
     ID2: 
+    cardIcon: {fileID: 21300000, guid: b8bd6639e0174074ba342867b4d7000f, type: 3}
     sailorPrice: 0
     foodPrice: 0
     woodPrice: 0
@@ -356,6 +376,7 @@ MonoBehaviour:
   - name: Help villagers
     ID: Hv_14
     ID2: 
+    cardIcon: {fileID: 21300000, guid: b8bd6639e0174074ba342867b4d7000f, type: 3}
     sailorPrice: 0
     foodPrice: 0
     woodPrice: 0
@@ -370,6 +391,7 @@ MonoBehaviour:
   - name: Help villagers
     ID: Hv_15
     ID2: 
+    cardIcon: {fileID: 21300000, guid: b8bd6639e0174074ba342867b4d7000f, type: 3}
     sailorPrice: 0
     foodPrice: 0
     woodPrice: 0
@@ -384,6 +406,7 @@ MonoBehaviour:
   - name: Help villagers
     ID: Hv_16
     ID2: 
+    cardIcon: {fileID: 21300000, guid: b8bd6639e0174074ba342867b4d7000f, type: 3}
     sailorPrice: 0
     foodPrice: 0
     woodPrice: 0

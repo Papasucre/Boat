@@ -17,6 +17,7 @@ public class DisplayChoice : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     [SerializeField] Canvas relicCanvas;
 
     [Header("UI")]
+    [SerializeField] Image icon;
     [SerializeField] new TextMeshProUGUI name;
 
     [Header("ACTION")]
@@ -42,6 +43,13 @@ public class DisplayChoice : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     [SerializeField] Sprite wood;
     [SerializeField] Sprite gold;
     [SerializeField] Sprite relic;
+    [SerializeField] Sprite balance;
+    [SerializeField] Sprite sword;
+    [SerializeField] Sprite boots;
+    [SerializeField] Sprite windRose;
+    [SerializeField] Sprite handshake;
+    [SerializeField] Sprite pickaxe;
+    [SerializeField] Sprite treasure;
 
     [Header("HIGHLIGHT")]
     [SerializeField] Image highlight;
@@ -93,6 +101,10 @@ public class DisplayChoice : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
 
     public void Display(GameManager.Action item)
     {
+        if (item.cardIcon != null)
+            icon.sprite = item.cardIcon;
+        else
+            icon.sprite = windRose;
         name.text = item.name;
         int i = 0;
         if(item.sailorReward != GameManager.Cost.none)
@@ -129,24 +141,40 @@ public class DisplayChoice : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         {
             actionImgCost[i].sprite = sailor;
             actionTxtCost[i].text = GameManager.instance.GetSailorsCostWithRelics(item, GameManager.instance.GetSailorCost(item.sailorPrice)).ToString();
+            if (GameManager.instance.SimulateSailorsCost(item))
+                actionTxtCost[i].color = Color.white;
+            else
+                actionTxtCost[i].color = Color.red;
             i++;
         }
         if (item.foodPrice != GameManager.Cost.none)
         {
             actionImgCost[i].sprite = food;
             actionTxtCost[i].text = GameManager.instance.GetFoodCostWithRelics(item, GameManager.instance.GetFoodCost(item.foodPrice)).ToString();
+            if (GameManager.instance.SimulateFoodCost(item))
+                actionTxtCost[i].color = Color.white;
+            else
+                actionTxtCost[i].color = Color.red;
             i++;
         }
         if (item.woodPrice != GameManager.Cost.none)
         {
             actionImgCost[i].sprite = wood;
             actionTxtCost[i].text = GameManager.instance.GetWoodCostWithRelics(item, GameManager.instance.GetWoodCost(item.woodPrice)).ToString();
+            if (GameManager.instance.SimulateWoodCost(item))
+                actionTxtCost[i].color = Color.white;
+            else
+                actionTxtCost[i].color = Color.red;
             i++;
         }
         if (item.goldPrice != GameManager.Cost.none)
         {
             actionImgCost[i].sprite = gold;
             actionTxtCost[i].text = GameManager.instance.GetGoldCostWithRelics(item, GameManager.instance.GetGoldCost(item.goldPrice)).ToString();
+            if (GameManager.instance.SimulateGoldCost(item))
+                actionTxtCost[i].color = Color.white;
+            else
+                actionTxtCost[i].color = Color.red;
         }
         masterCanvas.enabled = true;
         actionCanvas.enabled = true;
@@ -154,15 +182,21 @@ public class DisplayChoice : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
 
     public void Display(Upgrade item)
     {
+        icon.sprite = balance;
         name.text = item.name;
         upgradeNewCapacity.text = item.newCapacity.ToString();
         upgradeGoldCost.text = GameManager.instance.GetCarpenterGoldCostWithRelics(GameManager.instance.GetGoldCostCarpenter(item.goldPrice)).ToString();
+        if (GameManager.instance.SimulateCarpenterCost(item))
+            upgradeGoldCost.color = Color.white;
+        else
+            upgradeGoldCost.color = Color.red;
         masterCanvas.enabled = true;
         upgradeCanvas.enabled = true;
     }
 
     public void Display(GameObject item)
     {
+        icon.sprite = treasure;
         Relic relicScript = item.GetComponent<Relic>();
         name.text = relicScript.name;
         relicDescription.text = relicScript.description;
@@ -191,6 +225,10 @@ public class DisplayChoice : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
             relicTxt[i].text = data[i].value;
         }
         relicGoldCost.text = GameManager.instance.GetRelicGoldCostWithRelics(relicScript.goldPrice).ToString();
+        if (GameManager.instance.goldStock - GameManager.instance.GetRelicGoldCostWithRelics(item.GetComponent<Relic>().goldPrice) >= 0)
+            relicGoldCost.color = Color.white;
+        else
+            relicGoldCost.color = Color.red;
         masterCanvas.enabled = true;
         relicCanvas.enabled = true;
     }

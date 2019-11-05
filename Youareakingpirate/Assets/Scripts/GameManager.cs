@@ -229,7 +229,6 @@ public class GameManager : MonoBehaviour
     #region SCRIPTS VARIABLES
     RelicsTable relicsScript;
     RandomEncounter randomEncounterScript;
-    IslandsTable islandsTableScript;
     ShipsTable shipsTableScript;
     CarpenterDataTable carpenterScript;
     #endregion
@@ -239,8 +238,6 @@ public class GameManager : MonoBehaviour
     public bool input_choice2;
     public bool input_choice3;
     #endregion
-
-    float deltaTime = 0.0f;
 
     public static GameManager instance;
     public static GameManager Instance {
@@ -274,31 +271,13 @@ public class GameManager : MonoBehaviour
         relicsScript = GetComponent<RelicsTable>();
         randomEncounterScript = GetComponent<RandomEncounter>();
         carpenterScript = GetComponent<CarpenterDataTable>();
-        islandsTableScript = GetComponent<IslandsTable>();
         shipsTableScript = GetComponent<ShipsTable>();
-        //randomEncounterScript.LoadRandomEncounter();
+        randomEncounterScript.LoadRandomEncounter();
 
-    }
-
-    void OnGUI()
-    {
-        int w = Screen.width, h = Screen.height;
-
-        GUIStyle style = new GUIStyle();
-
-        Rect rect = new Rect(0, 0, w, h * 2 / 100);
-        style.alignment = TextAnchor.UpperLeft;
-        style.fontSize = h * 2 / 100;
-        style.normal.textColor = new Color(0.0f, 0.0f, 0.5f, 1.0f);
-        float msec = deltaTime * 1000.0f;
-        float fps = 1.0f / deltaTime;
-        string text = string.Format("{0:0.0} ms ({1:0.} fps)", msec, fps);
-        GUI.Label(rect, text, style);
     }
 
     private void Update()
     {
-        deltaTime += (Time.unscaledDeltaTime - deltaTime) * 0.1f;
         if (makeChoice)
         {
             if (input_choice1)
@@ -312,21 +291,12 @@ public class GameManager : MonoBehaviour
                         {
                             ValidateCarpenterUpgrade(0);
                         }
-                        else
-                        {
-                            print("You cannot take this choice, you don't have enough gold.");
-                        }
                     }else if (carpenterRelics[0] != null)
                     {
                         if(goldStock - GetRelicGoldCostWithRelics(carpenterRelics[0].GetComponent<Relic>().goldPrice) >= 0)
                         {
                             ValidateCarpenterRelic(0,true);
                         }
-                        else
-                        {
-                            print("You don't have enough gold to buy this relic.");
-                        }
-                        
                     }
                     else
                     {
@@ -340,10 +310,6 @@ public class GameManager : MonoBehaviour
                         if(cursesEquipped.Count != 0)
                         {
                             ValidateChoice(0);
-                        }
-                        else
-                        {
-                            print("You have no curse to remove.");
                         }
                     }
                     else
@@ -378,20 +344,12 @@ public class GameManager : MonoBehaviour
                         {
                             ValidateCarpenterUpgrade(1);
                         }
-                        else
-                        {
-                            print("You cannot take this choice, you don't have enough gold.");
-                        }
                     }
                     else if (carpenterRelics[1] != null)
                     {
                         if (goldStock - GetRelicGoldCostWithRelics(carpenterRelics[1].GetComponent<Relic>().goldPrice) >= 0)
                         {
                             ValidateCarpenterRelic(1, true);
-                        }
-                        else
-                        {
-                            print("You don't have enough gold to buy this relic.");
                         }
                     }
                     else
@@ -432,20 +390,12 @@ public class GameManager : MonoBehaviour
                         {
                             ValidateCarpenterUpgrade(2);
                         }
-                        else
-                        {
-                            print("You cannot take this choice, you don't have enough gold.");
-                        }
                     }
                     else if (carpenterRelics[2] != null)
                     {
                         if (goldStock - GetRelicGoldCostWithRelics(carpenterRelics[2].GetComponent<Relic>().goldPrice) >= 0 || alliesGift)
                         {
                             ValidateCarpenterRelic(2, !alliesGift);
-                        }
-                        else
-                        {
-                            print("You don't have enough gold to buy this relic.");
                         }
                     }
                     else
@@ -476,15 +426,11 @@ public class GameManager : MonoBehaviour
                 }
             }
         }
-        if (Input.GetKeyDown(KeyCode.A))
-            UnequipRelic("Carpenter's Hammer",false);
-        if (Input.GetKeyDown(KeyCode.E))
-            EquipRelic(relicsScript.GetSpecifRelic("Lucky Clover"));
     }
 
 
     #region CARPENTER
-    bool SimulateCarpenterCost(Upgrade item)
+    public bool SimulateCarpenterCost(Upgrade item)
     {
         if (!carpenterHammer)
         {
@@ -526,8 +472,6 @@ public class GameManager : MonoBehaviour
 
     void ValidateCarpenterUpgrade(int input)
     {
-        print("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
-        print("You choose " + choicesUpgradeArray[input].name);
         atCarpenterWorkshop = false;
         if (!alliesGift || !carpenterHammer)
         {
@@ -608,10 +552,66 @@ public class GameManager : MonoBehaviour
     #endregion
 
     #region CLASSIC ACTION
+    #region SIMULATE COST FOR UI
+    public bool SimulateSailorsCost(Action item)
+    {
+        int sailorsCost = GetSailorCost(item.sailorPrice);
+        if (sailorsCost != 0)
+        {
+            int sailorsRes = GetSailorsCostWithRelics(item, sailorsCost);
+            if (sailorsRes > 0)
+            {
+                if ((sailorsStock - sailorsRes) <= 0)
+                    return false;
+            }
+        }
+        return true;
+    }
+    public bool SimulateFoodCost(Action item)
+    {
+        int foodCost = GetFoodCost(item.foodPrice);
+        if (foodCost != 0)
+        {
+            int foodRes = GetFoodCostWithRelics(item, foodCost);
+            if (foodRes > 0)
+            {
+                if ((foodStock - foodRes) < 0)
+                    return false;
+            }
+        }
+        return true;
+    }
+    public bool SimulateWoodCost(Action item)
+    {
+        int woodCost = GetWoodCost(item.woodPrice);
+        if (woodCost != 0)
+        {
+            int woodRes = GetWoodCostWithRelics(item, woodCost);
+            if (woodRes > 0)
+            {
+                if ((woodStock - woodRes) < 0)
+                    return false;
+            }
+        }
+        return true;
+    }
+    public bool SimulateGoldCost(Action item)
+    {
+        int goldCost = GetGoldCost(item.goldPrice);
+        if (goldCost != 0)
+        {
+            int goldRes = GetGoldCostWithRelics(item, goldCost);
+            if (goldRes > 0)
+            {
+                if ((goldStock - goldRes) < 0)
+                    return false;
+            }
+        }
+        return true;
+    }
+    #endregion
     void ValidateChoice(int input)
     {
-        print("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
-        print("You choose " + choicesArray[input].name);
         makeChoice = false;
         switch (choicesArray[input].ID)
         {
@@ -1689,7 +1689,6 @@ public class GameManager : MonoBehaviour
         if (relootable)
             relicsScript.AddLostRelic(relic);
         relicScript.Unequip();
-        print(relicScript.name + " got removed.");
     }
 
     void UnequipRelic(string relicName, bool relootable)
@@ -1720,7 +1719,6 @@ public class GameManager : MonoBehaviour
         if (relootable)
             relicsScript.AddLostRelic(relic);
         relicScript.Unequip();
-        print(relicScript.name + " got removed.");
     }
 
     void AlignRelicsIcons()
@@ -1920,6 +1918,7 @@ public class GameManager : MonoBehaviour
         public string name;
         public string ID;
         public string ID2;
+        public Sprite cardIcon;
         [Header("Price")]
         public GameManager.Cost sailorPrice;
         public GameManager.Cost foodPrice;
