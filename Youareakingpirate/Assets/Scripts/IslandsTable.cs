@@ -33,6 +33,12 @@ public class IslandsTable : MonoBehaviour
 
     public void LoadRandomIsland()
     {
-        SceneManager.LoadScene(copyIslandsList[Random.Range(0, copyIslandsList.Count)]);
+        string nextScene = copyIslandsList[Random.Range(0, copyIslandsList.Count)];
+        while(nextScene == GameManager.instance.lastScene)
+        {
+            nextScene = copyIslandsList[Random.Range(0, copyIslandsList.Count)];
+        }
+        GameManager.instance.lastScene = nextScene;
+        SceneManager.LoadScene(nextScene);
     }
 }

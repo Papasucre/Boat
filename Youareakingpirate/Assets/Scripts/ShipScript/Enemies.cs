@@ -21,6 +21,5 @@ public class Enemies : MonoBehaviour
         }
         GameManager.Instance.makeChoice = true;
         GameManager.Instance.UpdateRessources();
-        print("Choose your action with 1 2 or 3.");
     }
 }

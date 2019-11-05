@@ -150,6 +150,7 @@ public class GameManager : MonoBehaviour
 
     #region GAME INFORMATIONS
     [Header("GAME INFORMATIONS")]
+    public string lastScene;
     public int encounterCounter = 1;
     public GameLevel currentLevel;
     public BoatLevel currentBoat;

@@ -39,7 +39,13 @@ public class ShipsTable : MonoBehaviour
 
     public void LoadRandomShip()
     {
-        SceneManager.LoadScene(copyShipList[Random.Range(0, copyShipList.Count)]);
+        string nextScene = copyShipList[Random.Range(0, copyShipList.Count)];
+        while (nextScene == GameManager.instance.lastScene)
+        {
+            nextScene = copyShipList[Random.Range(0, copyShipList.Count)];
+        }
+        GameManager.instance.lastScene = nextScene;
+        SceneManager.LoadScene(nextScene);
     }
 
     public void UnknownDiscover()
