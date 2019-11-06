@@ -228,7 +228,7 @@ public class GameManager : MonoBehaviour
     #endregion
 
     #region SCRIPTS VARIABLES
-    RelicsTable relicsScript;
+    public RelicsTable relicsScript;
     RandomEncounter randomEncounterScript;
     ShipsTable shipsTableScript;
     CarpenterDataTable carpenterScript;
@@ -427,10 +427,6 @@ public class GameManager : MonoBehaviour
                 }
             }
         }
-        if (Input.GetKeyDown(KeyCode.A))
-            EquipRelic(relicsScript.GetRandomRelic(RelicType.all, true));
-        if (Input.GetKeyDown(KeyCode.E))
-            UnequipRelic(relicsEquipped[Random.Range(0, relicsEquipped.Count)], true);
     }
 
 
@@ -1663,6 +1659,8 @@ public class GameManager : MonoBehaviour
     #region RELICS
     void EquipRelic(GameObject relic)
     {
+        if (luckyClover)
+            LuckyClover();
         Relic relicScript = relic.GetComponent<Relic>();
         relicsEquipped.Add(relic);
         if (relicScript.curse)
@@ -1671,8 +1669,6 @@ public class GameManager : MonoBehaviour
         relicScript.Equip();
         relicsIcons[relicsEquipped.Count - 1].sprite = relicScript.icon;
         relicsIcons[relicsEquipped.Count - 1].gameObject.GetComponent<RelicIcon>().SetRelic(relicScript);
-        if (luckyClover)
-            LuckyClover();
     }
 
     void UnequipRelic(GameObject relic, bool relootable)

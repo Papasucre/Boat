@@ -6,11 +6,12 @@ public class RelicsTable : MonoBehaviour
 {
 #pragma warning disable 0649
     [SerializeField] List<GameObject> relicsList;
-    [Header("PROB REWARD %")]
-    [SerializeField] int low;
-    [SerializeField] int medium;
-    [SerializeField] int high;
 #pragma warning restore 0649
+    [Header("PROB REWARD %")]
+    public int low;
+    public int medium;
+    public int high;
+
     List<GameObject> tempRelicsList = new List<GameObject>();
     List<GameObject> foreachList = new List<GameObject>();
 

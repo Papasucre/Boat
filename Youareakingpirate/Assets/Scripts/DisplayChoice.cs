@@ -110,31 +110,101 @@ public class DisplayChoice : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         if(item.sailorReward != GameManager.Cost.none)
         {
             actionImgReward[i].sprite = sailor;
-            actionTxtReward[i].text = item.sailorReward.ToString();
+            switch (item.sailorReward)
+            {
+                case GameManager.Cost.low:
+                    actionTxtReward[i].text = "+";
+                    break;
+                case GameManager.Cost.medium:
+                    actionTxtReward[i].text = "++";
+                    break;
+                case GameManager.Cost.high:
+                    actionTxtReward[i].text = "+++";
+                    break;
+                default:
+                    Debug.LogError("You shouldn't be there.");
+                    break;
+            }
             i++;
         }
         if (item.foodReward != GameManager.Cost.none)
         {
             actionImgReward[i].sprite = food;
-            actionTxtReward[i].text = item.foodReward.ToString();
+            switch (item.foodReward)
+            {
+                case GameManager.Cost.low:
+                    actionTxtReward[i].text = "+";
+                    break;
+                case GameManager.Cost.medium:
+                    actionTxtReward[i].text = "++";
+                    break;
+                case GameManager.Cost.high:
+                    actionTxtReward[i].text = "+++";
+                    break;
+                default:
+                    Debug.LogError("You shouldn't be there.");
+                    break;
+            }
             i++;
         }
         if (item.woodReward != GameManager.Cost.none)
         {
             actionImgReward[i].sprite = wood;
-            actionTxtReward[i].text = item.woodReward.ToString();
+            switch (item.woodReward)
+            {
+                case GameManager.Cost.low:
+                    actionTxtReward[i].text = "+";
+                    break;
+                case GameManager.Cost.medium:
+                    actionTxtReward[i].text = "++";
+                    break;
+                case GameManager.Cost.high:
+                    actionTxtReward[i].text = "+++";
+                    break;
+                default:
+                    Debug.LogError("You shouldn't be there.");
+                    break;
+            }
             i++;
         }
         if (item.goldReward != GameManager.Cost.none)
         {
             actionImgReward[i].sprite = gold;
-            actionTxtReward[i].text = item.goldReward.ToString();
+            switch (item.goldReward)
+            {
+                case GameManager.Cost.low:
+                    actionTxtReward[i].text = "+";
+                    break;
+                case GameManager.Cost.medium:
+                    actionTxtReward[i].text = "++";
+                    break;
+                case GameManager.Cost.high:
+                    actionTxtReward[i].text = "+++";
+                    break;
+                default:
+                    Debug.LogError("You shouldn't be there.");
+                    break;
+            }
             i++;
         }
         if (item.relicReward != GameManager.Cost.none)
         {
             actionImgReward[i].sprite = relic;
-            actionTxtReward[i].text = item.relicReward.ToString();
+            switch (item.relicReward)
+            {
+                case GameManager.Cost.low:
+                    actionTxtReward[i].text = GameManager.instance.relicsScript.low.ToString() + "%";
+                    break;
+                case GameManager.Cost.medium:
+                    actionTxtReward[i].text = GameManager.instance.relicsScript.medium.ToString() + "%";
+                    break;
+                case GameManager.Cost.high:
+                    actionTxtReward[i].text = GameManager.instance.relicsScript.high.ToString() + "%";
+                    break;
+                default:
+                    Debug.LogError("You shouldn't be there.");
+                    break;
+            }
         }
         i = 0;
         if(item.sailorPrice != GameManager.Cost.none)
