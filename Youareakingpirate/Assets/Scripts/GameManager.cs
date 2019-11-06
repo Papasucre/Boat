@@ -427,6 +427,10 @@ public class GameManager : MonoBehaviour
                 }
             }
         }
+        if (Input.GetKeyDown(KeyCode.A))
+            EquipRelic(relicsScript.GetRandomRelic(RelicType.all, true));
+        if (Input.GetKeyDown(KeyCode.E))
+            UnequipRelic(relicsEquipped[Random.Range(0, relicsEquipped.Count)], true);
     }
 
 
@@ -1666,9 +1670,7 @@ public class GameManager : MonoBehaviour
         relicsScript.RemoveGainedRelic(relic);
         relicScript.Equip();
         relicsIcons[relicsEquipped.Count - 1].sprite = relicScript.icon;
-        print("You have a new " + (relicScript.curse ? "curse :" : "relic :"));
-        print(relicScript.name);
-        print(relicScript.description);
+        relicsIcons[relicsEquipped.Count - 1].gameObject.GetComponent<RelicIcon>().SetRelic(relicScript);
         if (luckyClover)
             LuckyClover();
     }
@@ -1685,6 +1687,7 @@ public class GameManager : MonoBehaviour
                 break;
         }
         relicsIcons[i].sprite = empty;
+        relicsIcons[i].gameObject.GetComponent<RelicIcon>().relicScript = null;
         relicsEquipped.Remove(relic);
         AlignRelicsIcons();
         if (relootable)
@@ -1715,6 +1718,7 @@ public class GameManager : MonoBehaviour
                 break;
         }
         relicsIcons[i].sprite = empty;
+        relicsIcons[i].gameObject.GetComponent<RelicIcon>().relicScript = null;
         relicsEquipped.Remove(relic);
         AlignRelicsIcons();
         if (relootable)
@@ -1725,17 +1729,20 @@ public class GameManager : MonoBehaviour
     void AlignRelicsIcons()
     {
         List<Sprite> tmpList = new List<Sprite>();
+        List<Relic> tmpScriptList = new List<Relic>();
         foreach (Image item in relicsIcons)
         {
             if (item.sprite != empty)
             {
                 tmpList.Add(item.sprite);
                 item.sprite = empty;
+                tmpScriptList.Add(item.gameObject.GetComponent<RelicIcon>().relicScript);
             }
         }
         for (int i = 0; i < tmpList.Count; i++)
         {
             relicsIcons[i].sprite = tmpList[i];
+            relicsIcons[i].gameObject.GetComponent<RelicIcon>().SetRelic(tmpScriptList[i]);
         }
     }
 
