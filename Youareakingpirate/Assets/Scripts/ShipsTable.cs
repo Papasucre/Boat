@@ -51,10 +51,10 @@ public class ShipsTable : MonoBehaviour
     public void UnknownDiscover()
     {
         unknownDiscover = true;
-        RemoveItem("Unknown");
+        RemoveItem("Unknown Ships");
         RemoveItem("Allies");
         RemoveItem("Enemies");
-        probList.Add(new GameManager.Prob("Unknown",0));
+        probList.Add(new GameManager.Prob("Unknown Ships",0));
         probList.Add(new GameManager.Prob("Allies", alliesProb));
         probList.Add(new GameManager.Prob("Enemies", enemiesProb));
         DoList();
@@ -118,7 +118,7 @@ public class ShipsTable : MonoBehaviour
                     case "Merchant":
                         merchantProb = item.prob;
                         break;
-                    case "DarkMerchant":
+                    case "Dark Merchant":
                         darkMerchantProb = item.prob;
                         break;
                     default:
@@ -126,17 +126,17 @@ public class ShipsTable : MonoBehaviour
                 }
             }
             RemoveItem("Merchant");
-            RemoveItem("DarkMerchant");
+            RemoveItem("Dark Merchant");
             probList.Add(new GameManager.Prob("Merchant", 0));
-            probList.Add(new GameManager.Prob("DarkMerchant", 0));
+            probList.Add(new GameManager.Prob("Dark Merchant", 0));
             DoList();
         }
         else
         {
             RemoveItem("Merchant");
-            RemoveItem("DarkMerchant");
+            RemoveItem("Dark Merchant");
             probList.Add(new GameManager.Prob("Merchant", merchantProb));
-            probList.Add(new GameManager.Prob("DarkMerchant", darkMerchantProb));
+            probList.Add(new GameManager.Prob("Dark Merchant", darkMerchantProb));
             DoList();
         }
     }

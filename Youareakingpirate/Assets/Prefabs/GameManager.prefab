@@ -49930,6 +49930,7 @@ MonoBehaviour:
   lifeInsurance: 0
   carpenterHammer: 0
   monkeysPaw: 0
+  relicsScript: {fileID: 0}
   input_choice1: 0
   input_choice2: 0
   input_choice3: 0
@@ -49947,9 +49948,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   probList:
   - ID: Island
-    prob: 60
+    prob: 50
   - ID: Ship
-    prob: 40
+    prob: 50
 --- !u!114 &3332060135297979182
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -49984,9 +49985,9 @@ MonoBehaviour:
     prob: 20
   - ID: Merchant
     prob: 31
-  - ID: DarkMerchant
+  - ID: Dark Merchant
     prob: 8
-  - ID: Unknown
+  - ID: Unknown Ships
     prob: 24
   - ID: Allies
     prob: 0

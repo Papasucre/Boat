@@ -21,7 +21,7 @@ EditorBuildSettings:
     path: Assets/Scenes/Ships/Allies.unity
     guid: 8e473f3b4689707419f05c332ccdcf78
   - enabled: 1
-    path: Assets/Scenes/Ships/DarkMerchant.unity
+    path: Assets/Scenes/Ships/Dark Merchant.unity
     guid: d11af839f0f8b7346baecc8636a20755
   - enabled: 1
     path: Assets/Scenes/Ships/Enemies.unity
@@ -33,7 +33,7 @@ EditorBuildSettings:
     path: Assets/Scenes/Ships/Merchant.unity
     guid: eddd8f48ec2a22e499d6935dc5151670
   - enabled: 1
-    path: Assets/Scenes/Ships/Unknown.unity
+    path: Assets/Scenes/Ships/Unknown Ships.unity
     guid: 37a92a3aeca190a49bb1ef63f3d43360
   - enabled: 1
     path: Assets/Scenes/Ships/Wreck.unity
