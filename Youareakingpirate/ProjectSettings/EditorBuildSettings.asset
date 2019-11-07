@@ -9,11 +9,14 @@ EditorBuildSettings:
     path: Assets/Scenes/Menu.unity
     guid: 3bf91abe2c9ca614798f578d9fde9176
   - enabled: 1
-    path: Assets/Scenes/Islands/Island 1.unity
+    path: Assets/Scenes/Islands/Rock Island.unity
     guid: 03755ff6ecb352e44897287a6a4c1c1f
   - enabled: 1
     path: Assets/Scenes/Islands/Island 2.unity
     guid: 914e3e84a241f5148867639b2e468a02
+  - enabled: 1
+    path: Assets/Scenes/Islands/Island 3.unity
+    guid: dbdddbd27f9e8e84a9617ed1eb68d2e7
   - enabled: 1
     path: Assets/Scenes/Ships/Pirates.unity
     guid: dc10e0dfd20a5f746acdddf73fdd66cd
@@ -33,9 +36,9 @@ EditorBuildSettings:
     path: Assets/Scenes/Ships/Merchant.unity
     guid: eddd8f48ec2a22e499d6935dc5151670
   - enabled: 1
-    path: Assets/Scenes/Ships/Unknown Ships.unity
-    guid: 37a92a3aeca190a49bb1ef63f3d43360
-  - enabled: 1
     path: Assets/Scenes/Ships/Wreck.unity
     guid: 4ea7454861e91a14192bc1b1765a34f4
+  - enabled: 1
+    path: Assets/Scenes/Ships/Unknown Ships.unity
+    guid: 5e1d51437469db64ab87c2e5ef02b62f
   m_configObjects: {}

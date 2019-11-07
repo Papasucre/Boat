@@ -49964,9 +49964,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   probList:
-  - ID: Island 1
+  - ID: Rock Island
     prob: 50
   - ID: Island 2
+    prob: 50
+  - ID: Island 3
     prob: 50
 --- !u!114 &394538626521987292
 MonoBehaviour:
