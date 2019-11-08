@@ -164,6 +164,7 @@ public class GameManager : MonoBehaviour
     public GameObject[] carpenterRelics = new GameObject[3];
     public string defeatCause;
     bool startGame;
+    bool defeat;
     #endregion
 
     #region UI
@@ -289,8 +290,6 @@ public class GameManager : MonoBehaviour
             randomEncounterScript.LoadRandomEncounter();
             ShowUI(true);
         }
-        if (Input.GetKeyDown(KeyCode.A))
-            Defeat("Wood");
         if (makeChoice)
         {
             if (input_choice1)
@@ -666,8 +665,11 @@ public class GameManager : MonoBehaviour
                 break;
         }
         CheckStock();
-        UpdateRessources();
-        StartCoroutine(LoadNextEncounter());
+        if (!defeat)
+        {
+            UpdateRessources();
+            StartCoroutine(LoadNextEncounter());
+        }
     }
 
     bool SimulateCost(Action item)
@@ -1072,24 +1074,11 @@ public class GameManager : MonoBehaviour
                 {
                     foodStock = 0;
                     print("You ate your last rations when you got here.");
-                }else if(foodStock - (lvl1_foodConsumption + relicFoodConsumption) < 0)
-                {
-                    foodStock = 0;
-                    sailorsStock--;
-                    if(sailorsStock == 0)
-                    {
-                        Defeat("Food");
-                    }
-                    else
-                    {
-                        print("You have to eat one of your men to survive.");
-                    }
-                    if (sailorsStock < 0)
-                        Debug.LogError("You shoudln't be there.");
                 }
                 else
                 {
                     foodStock -= (lvl1_foodConsumption + relicFoodConsumption);
+                    CheckStock();
                 }
                 break;
             case GameLevel.lvl2:
@@ -1100,20 +1089,10 @@ public class GameManager : MonoBehaviour
                     foodStock = 0;
                     print("You ate your last rations when you got here.");
                 }
-                else if (foodStock - (lvl2_foodConsumption + relicFoodConsumption) < 0)
-                {
-                    foodStock = 0;
-                    sailorsStock--;
-                    if (sailorsStock == 0)
-                    {
-                        Defeat("Food");
-                    }
-                    if (sailorsStock < 0)
-                        Debug.LogError("You shoudnl't be there.");
-                }
                 else
                 {
                     foodStock -= (lvl2_foodConsumption + relicFoodConsumption);
+                    CheckStock();
                 }
                 break;
             case GameLevel.lvl3:
@@ -1124,20 +1103,10 @@ public class GameManager : MonoBehaviour
                     foodStock = 0;
                     print("You have eaten your last rations to come up here.");
                 }
-                else if (foodStock - (lvl3_foodConsumption + relicFoodConsumption) < 0)
-                {
-                    foodStock = 0;
-                    sailorsStock--;
-                    if (sailorsStock == 0)
-                    {
-                        Defeat("Food");
-                    }
-                    if (sailorsStock < 0)
-                        Debug.LogError("You shoudnl't be there.");
-                }
                 else
                 {
                     foodStock -= (lvl3_foodConsumption + relicFoodConsumption);
+                    CheckStock();
                 }
                 break;
             default:
@@ -1835,14 +1804,26 @@ public class GameManager : MonoBehaviour
         {
             sailorsStock += foodStock;
             if (sailorsStock <= 0)
+            {
                 Defeat("Food");
+                return;
+            }
             print("You kill "+ -foodStock +" of your men to compensate for the lack of food, you monster.");
+            if (lifeInsurance)
+            {
+                int result = -foodStock * lifeInsuranceRevenue;
+                goldStock += result;
+                if (goldStock > goldMaxStock)
+                    goldStock = goldMaxStock;
+                print("You earn the insurance from " + -foodStock + " sailor(s), deep condolences");
+            }
             foodStock = 0;
         }
         if (sailorsStock <= 0)
         {
             sailorsStock = 0;
             Defeat("Sailors");
+            return;
         }
         if (woodStock == 0)
         {
@@ -1852,6 +1833,7 @@ public class GameManager : MonoBehaviour
         {
             woodStock = 0;
             Defeat("Wood");
+            return;
         }
         if (goldStock <= 0)
         {
@@ -1861,7 +1843,7 @@ public class GameManager : MonoBehaviour
 
     public void ShowUI(bool value)
     {
-        if (!value)
+        if (value == false)
         {
             foreach (DisplayChoice item in UIChoices)
             {
@@ -1875,8 +1857,8 @@ public class GameManager : MonoBehaviour
 
     void Defeat(string cause)
     {
+        defeat = true;
         SceneManager.LoadScene("Defeat");
-        ShowUI(false);
         switch (cause)
         {
             case "Food":

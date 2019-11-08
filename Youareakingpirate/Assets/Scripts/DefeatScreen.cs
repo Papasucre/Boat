@@ -9,6 +9,7 @@ public class DefeatScreen : MonoBehaviour
     private void Awake()
     {
         GetComponent<TextMeshProUGUI>().text = GameManager.instance.defeatCause;
+        GameManager.instance.ShowUI(false);
     }
 
     public void Retry()
