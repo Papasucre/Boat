@@ -210,40 +210,68 @@ public class DisplayChoice : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         if(item.sailorPrice != GameManager.Cost.none)
         {
             actionImgCost[i].sprite = sailor;
-            actionTxtCost[i].text = GameManager.instance.GetSailorsCostWithRelics(item, GameManager.instance.GetSailorCost(item.sailorPrice)).ToString();
-            if (GameManager.instance.SimulateSailorsCost(item))
-                actionTxtCost[i].color = Color.white;
-            else
-                actionTxtCost[i].color = Color.red;
+            switch (item.sailorPrice)
+            {
+                case GameManager.Cost.low:
+                    actionTxtCost[i].text = "-";
+                    break;
+                case GameManager.Cost.medium:
+                    actionTxtCost[i].text = "--";
+                    break;
+                case GameManager.Cost.high:
+                    actionTxtCost[i].text = "---";
+                    break;
+                default:
+                    Debug.LogError("You shouldn't be there.");
+                    break;
+            }
             i++;
         }
         if (item.foodPrice != GameManager.Cost.none)
         {
             actionImgCost[i].sprite = food;
-            actionTxtCost[i].text = GameManager.instance.GetFoodCostWithRelics(item, GameManager.instance.GetFoodCost(item.foodPrice)).ToString();
-            if (GameManager.instance.SimulateFoodCost(item))
-                actionTxtCost[i].color = Color.white;
-            else
-                actionTxtCost[i].color = Color.red;
+            switch (item.foodPrice)
+            {
+                case GameManager.Cost.low:
+                    actionTxtCost[i].text = "-";
+                    break;
+                case GameManager.Cost.medium:
+                    actionTxtCost[i].text = "--";
+                    break;
+                case GameManager.Cost.high:
+                    actionTxtCost[i].text = "---";
+                    break;
+                default:
+                    Debug.LogError("You shouldn't be there.");
+                    break;
+            }
             i++;
         }
         if (item.woodPrice != GameManager.Cost.none)
         {
             actionImgCost[i].sprite = wood;
-            actionTxtCost[i].text = GameManager.instance.GetWoodCostWithRelics(item, GameManager.instance.GetWoodCost(item.woodPrice)).ToString();
-            if (GameManager.instance.SimulateWoodCost(item))
-                actionTxtCost[i].color = Color.white;
-            else
-                actionTxtCost[i].color = Color.red;
+            switch (item.woodPrice)
+            {
+                case GameManager.Cost.low:
+                    actionTxtCost[i].text = "-";
+                    break;
+                case GameManager.Cost.medium:
+                    actionTxtCost[i].text = "--";
+                    break;
+                case GameManager.Cost.high:
+                    actionTxtCost[i].text = "---";
+                    break;
+                default:
+                    Debug.LogError("You shouldn't be there.");
+                    break;
+            }
             i++;
         }
         if (item.goldPrice != GameManager.Cost.none)
         {
             actionImgCost[i].sprite = gold;
             actionTxtCost[i].text = GameManager.instance.GetGoldCostWithRelics(item, GameManager.instance.GetGoldCost(item.goldPrice)).ToString();
-            if (GameManager.instance.SimulateGoldCost(item))
-                actionTxtCost[i].color = Color.white;
-            else
+            if (!GameManager.instance.SimulateGoldCost(item))
                 actionTxtCost[i].color = Color.red;
         }
         masterCanvas.enabled = true;
@@ -319,6 +347,7 @@ public class DisplayChoice : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         {
             actionImgCost[i].sprite = empty;
             actionTxtCost[i].text = "";
+            actionTxtCost[i].color = Color.white;
         }
         upgradeNewCapacity.text = "";
         upgradeGoldCost.text = "";

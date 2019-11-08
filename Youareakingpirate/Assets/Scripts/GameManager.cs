@@ -669,39 +669,6 @@ public class GameManager : MonoBehaviour
             default:
                 break;
         }
-        //SAILOR
-        int sailorsCost = GetSailorCost(item.sailorPrice);
-        if (sailorsCost != 0)
-        {
-            int sailorsRes = GetSailorsCostWithRelics(item, sailorsCost);
-            if (sailorsRes > 0)
-            {
-                if ((sailorsStock - sailorsRes) <= 0)
-                    return false;
-            }
-        }
-        //FOOD
-        int foodCost = GetFoodCost(item.foodPrice);
-        if (foodCost != 0)
-        {
-            int foodRes = GetFoodCostWithRelics(item, foodCost);
-            if (foodRes > 0)
-            {
-                if ((foodStock - foodRes) < 0)
-                    return false;
-            }
-        }
-        //WOOD
-        int woodCost = GetWoodCost(item.woodPrice);
-        if (woodCost != 0)
-        {
-            int woodRes = GetWoodCostWithRelics(item, woodCost);
-            if (woodRes > 0)
-            {
-                if ((woodStock - woodRes) < 0)
-                    return false;
-            }
-        }
         //GOLD
         int goldCost = GetGoldCost(item.goldPrice);
         if (goldCost != 0)
@@ -1854,9 +1821,9 @@ public class GameManager : MonoBehaviour
         }
         else if (foodStock < 0)
         {
+            sailorsStock += foodStock;
+            print("You kill "+ -foodStock +" of your men to compensate for the lack of food, you monster.");
             foodStock = 0;
-            sailorsStock--;
-            print("You kill one of your men to compensate for the lack of food, you monster.");
         }
         if (sailorsStock <= 0)
         {
