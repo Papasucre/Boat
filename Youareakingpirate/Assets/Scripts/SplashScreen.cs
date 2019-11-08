@@ -5,8 +5,15 @@ using UnityEngine.SceneManagement;
 
 public class SplashScreen : MonoBehaviour
 {
+    bool canLoad;
+
     void LoadMenu()
     {
-        SceneManager.LoadScene("Menu");
+        canLoad = true;
+    }
+    private void Update()
+    {
+        if(Input.anyKey && canLoad)
+            SceneManager.LoadScene("Menu");
     }
 }
