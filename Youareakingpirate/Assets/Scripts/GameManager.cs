@@ -292,12 +292,16 @@ public class GameManager : MonoBehaviour
                         {
                             ValidateCarpenterUpgrade(0);
                         }
+                        else
+                            StartCoroutine(CannotChooseThat(0));
                     }else if (carpenterRelics[0] != null)
                     {
                         if(goldStock - GetRelicGoldCostWithRelics(carpenterRelics[0].GetComponent<Relic>().goldPrice) >= 0)
                         {
                             ValidateCarpenterRelic(0,true);
                         }
+                        else
+                            StartCoroutine(CannotChooseThat(0));
                     }
                     else
                     {
@@ -318,6 +322,7 @@ public class GameManager : MonoBehaviour
                 }
                 else
                 {
+                    StartCoroutine(CannotChooseThat(0));
                     switch (choicesArray[0].ID)
                     {
                         case "RunningAway":
@@ -345,6 +350,8 @@ public class GameManager : MonoBehaviour
                         {
                             ValidateCarpenterUpgrade(1);
                         }
+                        else
+                            StartCoroutine(CannotChooseThat(1));
                     }
                     else if (carpenterRelics[1] != null)
                     {
@@ -352,6 +359,8 @@ public class GameManager : MonoBehaviour
                         {
                             ValidateCarpenterRelic(1, true);
                         }
+                        else
+                            StartCoroutine(CannotChooseThat(1));
                     }
                     else
                     {
@@ -364,6 +373,7 @@ public class GameManager : MonoBehaviour
                 }
                 else
                 {
+                    StartCoroutine(CannotChooseThat(1));
                     switch (choicesArray[1].ID)
                     {
                         case "RunningAway":
@@ -391,6 +401,8 @@ public class GameManager : MonoBehaviour
                         {
                             ValidateCarpenterUpgrade(2);
                         }
+                        else
+                            StartCoroutine(CannotChooseThat(2));
                     }
                     else if (carpenterRelics[2] != null)
                     {
@@ -398,6 +410,8 @@ public class GameManager : MonoBehaviour
                         {
                             ValidateCarpenterRelic(2, !alliesGift);
                         }
+                        else
+                            StartCoroutine(CannotChooseThat(2));
                     }
                     else
                     {
@@ -410,6 +424,7 @@ public class GameManager : MonoBehaviour
                 }
                 else
                 {
+                    StartCoroutine(CannotChooseThat(2));
                     switch (choicesArray[0].ID)
                     {
                         case "RunningAway":
@@ -1202,6 +1217,14 @@ public class GameManager : MonoBehaviour
             }
         }
         randomEncounterScript.LoadRandomEncounter();
+    }
+
+    IEnumerator CannotChooseThat(int input)
+    {
+        Image current = UIChoices[input].gameObject.GetComponent<Image>();
+        current.color = Color.red;
+        yield return new WaitForSeconds(.35f);
+        current.color = Color.white;
     }
 
     #region GET COST/REWARD GAME LEVEL

@@ -3459,13 +3459,13 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_textInfo:
     textComponent: {fileID: 591756082}
-    characterCount: 0
+    characterCount: 4
     spriteCount: 0
     spaceCount: 0
-    wordCount: 0
+    wordCount: 1
     linkCount: 0
-    lineCount: 0
-    pageCount: 0
+    lineCount: 1
+    pageCount: 1
     materialCount: 1
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
@@ -9750,8 +9750,8 @@ MonoBehaviour:
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 0.21960786, g: 0.21960786, b: 0.21960786, a: 1}
+    m_HighlightedColor: {r: 0, g: 0.3962264, b: 0.37913427, a: 1}
+    m_PressedColor: {r: 1, g: 1, b: 1, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
@@ -10132,7 +10132,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1917150877
 RectTransform:
   m_ObjectHideFlags: 0
@@ -28514,7 +28514,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 15683a14e9ef29b44940ba70c1b413bc, type: 3}
+  m_Sprite: {fileID: 21300000, guid: df65b8b35621d224093ce519ed589ffa, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -49965,11 +49965,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   probList:
   - ID: Rock Island
-    prob: 50
+    prob: 33
   - ID: Island 2
-    prob: 50
-  - ID: Island 3
-    prob: 50
+    prob: 33
+  - ID: Statues Beach
+    prob: 34
 --- !u!114 &394538626521987292
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -50128,7 +50128,7 @@ MonoBehaviour:
   name: Upgrade Wood Storage
   ID: UW_02
   goldPrice: 1
-  newCapacity: 45
+  newCapacity: 30
   bought: 1
 --- !u!114 &1762078730
 MonoBehaviour:
@@ -50145,7 +50145,7 @@ MonoBehaviour:
   name: Upgrade Wood Storage
   ID: UW_01
   goldPrice: 0
-  newCapacity: 30
+  newCapacity: 25
   bought: 0
 --- !u!114 &1762078731
 MonoBehaviour:
@@ -50162,7 +50162,7 @@ MonoBehaviour:
   name: Upgrade Food Storage
   ID: UF_02
   goldPrice: 1
-  newCapacity: 65
+  newCapacity: 42
   bought: 1
 --- !u!114 &1762078732
 MonoBehaviour:
@@ -50179,7 +50179,7 @@ MonoBehaviour:
   name: Upgrade Food Storage
   ID: UF_01
   goldPrice: 0
-  newCapacity: 45
+  newCapacity: 36
   bought: 0
 --- !u!114 &1762078733
 MonoBehaviour:
@@ -50196,7 +50196,7 @@ MonoBehaviour:
   name: Upgrade Sailors Capacity
   ID: US_02
   goldPrice: 1
-  newCapacity: 30
+  newCapacity: 24
   bought: 1
 --- !u!114 &1762078734
 MonoBehaviour:
@@ -50213,7 +50213,7 @@ MonoBehaviour:
   name: Upgrade Sailors Capacity
   ID: US_01
   goldPrice: 0
-  newCapacity: 20
+  newCapacity: 18
   bought: 0
 --- !u!1 &8559375901121468519
 GameObject:
