@@ -15,7 +15,7 @@ EditorBuildSettings:
     path: Assets/Scenes/Islands/Island 2.unity
     guid: 914e3e84a241f5148867639b2e468a02
   - enabled: 1
-    path: Assets/Scenes/Islands/Island 3.unity
+    path: Assets/Scenes/Islands/Statues Beach.unity
     guid: dbdddbd27f9e8e84a9617ed1eb68d2e7
   - enabled: 1
     path: Assets/Scenes/Ships/Pirates.unity
