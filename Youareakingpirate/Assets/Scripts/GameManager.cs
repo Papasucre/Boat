@@ -236,6 +236,7 @@ public class GameManager : MonoBehaviour
     public RelicsTable relicsScript;
     RandomEncounter randomEncounterScript;
     ShipsTable shipsTableScript;
+    IslandsTable islandsTableScript;
     CarpenterDataTable carpenterScript;
     #endregion
 
@@ -279,6 +280,7 @@ public class GameManager : MonoBehaviour
         randomEncounterScript = GetComponent<RandomEncounter>();
         carpenterScript = GetComponent<CarpenterDataTable>();
         shipsTableScript = GetComponent<ShipsTable>();
+        islandsTableScript = GetComponent<IslandsTable>();
         startGame = true;
     }
 
@@ -287,7 +289,7 @@ public class GameManager : MonoBehaviour
         if(Input.anyKey && startGame)
         {
             startGame = false;
-            randomEncounterScript.LoadRandomEncounter();
+            islandsTableScript.LoadRandomIsland();
             ShowUI(true);
         }
         if (makeChoice)
