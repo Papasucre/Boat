@@ -162,6 +162,8 @@ public class GameManager : MonoBehaviour
     public List<GameObject> relicsEquipped = new List<GameObject>();
     public List<GameObject> cursesEquipped = new List<GameObject>();
     public GameObject[] carpenterRelics = new GameObject[3];
+    public string defeatCause;
+    bool startGame;
     #endregion
 
     #region UI
@@ -170,6 +172,8 @@ public class GameManager : MonoBehaviour
     public Canvas skipButton;
     public TextMeshProUGUI encounterNameTxt;
 #pragma warning disable 0649
+    [SerializeField] Canvas topCanvas;
+    [SerializeField] Canvas treasuresCanvas;
     [SerializeField] TextMeshProUGUI encounterNumberTxt;
     [SerializeField] TextMeshProUGUI sailorTxt;
     [SerializeField] TextMeshProUGUI foodTxt;
@@ -258,6 +262,7 @@ public class GameManager : MonoBehaviour
         UpdateRessources();
         if (GameManager.instance != this)
             Destroy(gameObject);
+        ShowUI(false);
     }
 
     private void Start()
@@ -273,12 +278,19 @@ public class GameManager : MonoBehaviour
         randomEncounterScript = GetComponent<RandomEncounter>();
         carpenterScript = GetComponent<CarpenterDataTable>();
         shipsTableScript = GetComponent<ShipsTable>();
-        randomEncounterScript.LoadRandomEncounter();
-
+        startGame = true;
     }
 
     private void Update()
     {
+        if(Input.anyKey && startGame)
+        {
+            startGame = false;
+            randomEncounterScript.LoadRandomEncounter();
+            ShowUI(true);
+        }
+        if (Input.GetKeyDown(KeyCode.A))
+            Defeat("Wood");
         if (makeChoice)
         {
             if (input_choice1)
@@ -1163,7 +1175,7 @@ public class GameManager : MonoBehaviour
         alliesGift = false;
         monkeysPawTried = false;
         skipButton.enabled = false;
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(0);
         encounterCounter++;
         encounterNumberTxt.text = encounterCounter.ToString();
         if (famousExplorer)
@@ -1817,11 +1829,13 @@ public class GameManager : MonoBehaviour
     {
         if (foodStock == 0)
         {
-            print("You run out of food, care, next time you will have to eat one of your sailors.");
+            print("You run out of food, care, next time you will have to eat yours sailors.");
         }
         else if (foodStock < 0)
         {
             sailorsStock += foodStock;
+            if (sailorsStock <= 0)
+                Defeat("Food");
             print("You kill "+ -foodStock +" of your men to compensate for the lack of food, you monster.");
             foodStock = 0;
         }
@@ -1845,21 +1859,36 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public void ShowUI(bool value)
+    {
+        if (!value)
+        {
+            foreach (DisplayChoice item in UIChoices)
+            {
+                item.Undisplay();
+            }
+            skipButton.enabled = value;
+        }
+        topCanvas.enabled = value;
+        treasuresCanvas.enabled = value;
+    }
+
     void Defeat(string cause)
     {
+        SceneManager.LoadScene("Defeat");
+        ShowUI(false);
         switch (cause)
         {
             case "Food":
-                print("You eat your last man to survive, do you deserve to be called captain ?");
+                defeatCause = "You run out of food.";
                 break;
             case "Wood":
-                print("You have no more wood, you see your ship sink, shame on you.");
+                defeatCause = "You run out of wood.";
                 break;
             case "Sailors":
-                print("You lost all your men, you will die alone.");
+                defeatCause = "You run out of sailors.";
                 break;
             default:
-                print("You loose.");
                 break;
         }
     }

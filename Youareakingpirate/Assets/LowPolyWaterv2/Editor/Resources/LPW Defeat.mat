@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: LPW parametre soleil
+  m_Name: LPW Defeat
   m_Shader: {fileID: 4800000, guid: 8165be4dd0b12774d80426d906df9c38, type: 3}
   m_ShaderKeywords: LPW_HQFOAM WATER_REFLECTIVE WATER_REFRACTIVE _DISTORT_ON _EDGEBLEND_ON
     _HQFOAM_ON _LIGHTABS_ON _SHADING_VERTEXLIT _WAVES_HIGHQUALITY
@@ -48,7 +48,7 @@ Material:
     - _Cull: 0
     - _Cull_: 2
     - _Diffuse: 0.6
-    - _Direction: 180
+    - _Direction: 191
     - _Distort: 1
     - _Distortion: 0.1
     - _EdgeBlend: 1
@@ -60,7 +60,7 @@ Material:
     - _HQFoam: 1
     - _Height: 0.5
     - _Height_: 0.5
-    - _Length: 4
+    - _Length: 2
     - _LightAbs: 1
     - _NormalOffset: 1
     - _Opacity: 1
@@ -78,9 +78,9 @@ Material:
     - _ShoreDistance: 0.25
     - _ShoreIntensity: 1
     - _Specular: 30
-    - _Speed: 0.5
-    - _Speed_: 0.5
-    - _Steepness: 0.2
+    - _Speed: 1
+    - _Speed_: 1
+    - _Steepness: 0.831
     - _Stretch: 10
     - _TexSize_: 64
     - _Time_: 0
@@ -89,10 +89,10 @@ Material:
     - _ZWrite: 1
     m_Colors:
     - _Color: {r: 0.5439378, g: 0.120149545, b: 0.5660378, a: 1}
-    - _DeepColor: {r: 1, g: 0.116941765, b: 0, a: 1}
-    - _Direction_: {r: -1, g: -0.00000008742278, b: -0.8, a: -0.000000069938224}
+    - _DeepColor: {r: 0.9433962, g: 0.4227483, b: 0.5771724, a: 1}
+    - _Direction_: {r: -0.98162717, g: -0.19080895, b: -1.6314642, a: -0.31712446}
     - _FresColor: {r: 0.2028302, g: 0.79204273, b: 1, a: 1}
     - _ShoreColor: {r: 0.745283, g: 0.5589622, b: 0.6694304, a: 1}
     - _SpecColor: {r: 0.6698113, g: 0, b: 0.21550582, a: 1}
-    - _Sun: {r: 0.19978002, g: 0.83421063, b: -0.51398504, a: 0}
-    - _SunColor: {r: 0.6886792, g: 0.48456597, b: 0.21764861, a: 1}
+    - _Sun: {r: -0.15968361, g: 0.8342089, b: 0.52782243, a: 0}
+    - _SunColor: {r: 1, g: 0.95686275, b: 0.8392157, a: 1}

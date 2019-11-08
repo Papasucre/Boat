@@ -10,7 +10,7 @@ EditorBuildSettings:
     guid: 51fc0fced159ac74398c37e489d8a8cf
   - enabled: 1
     path: Assets/Scenes/Menu.unity
-    guid: 3bf91abe2c9ca614798f578d9fde9176
+    guid: 0b9f4ddadd1388a4d927311da24ceef8
   - enabled: 1
     path: Assets/Scenes/Islands/Rock Island.unity
     guid: 03755ff6ecb352e44897287a6a4c1c1f
@@ -44,4 +44,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Ships/Unknown Ships.unity
     guid: 5e1d51437469db64ab87c2e5ef02b62f
+  - enabled: 1
+    path: Assets/Scenes/Defeat.unity
+    guid: 62c1bf3fd4b97ab4f87f5560bcc675ec
   m_configObjects: {}

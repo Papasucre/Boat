@@ -50115,6 +50115,8 @@ MonoBehaviour:
   - {fileID: 1814263403}
   skipButton: {fileID: 1046809249}
   encounterNameTxt: {fileID: 5494264859891659144}
+  topCanvas: {fileID: 7764699978369884004}
+  treasuresCanvas: {fileID: 8312727875805420558}
   encounterNumberTxt: {fileID: 4118636150741411053}
   sailorTxt: {fileID: 1523925137}
   foodTxt: {fileID: 1115029964}
