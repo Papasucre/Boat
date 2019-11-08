@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: LPWDefault
+  m_Name: LPWDefault Splashscreen
   m_Shader: {fileID: 4800000, guid: 8165be4dd0b12774d80426d906df9c38, type: 3}
   m_ShaderKeywords: LPW_HQFOAM WATER_REFLECTIVE WATER_REFRACTIVE _DISTORT_ON _EDGEBLEND_ON
     _HQFOAM_ON _LIGHTABS_ON _SHADING_VERTEXLIT _WAVES_HIGHQUALITY
@@ -77,7 +77,7 @@ Material:
     - _Shadow: 0.7
     - _ShoreDistance: 0.25
     - _ShoreIntensity: 1
-    - _Specular: 20
+    - _Specular: 150
     - _Speed: 0.5
     - _Speed_: 0.5
     - _Steepness: 0.2
