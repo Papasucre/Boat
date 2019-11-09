@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class RelicIcon : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
@@ -16,7 +17,7 @@ public class RelicIcon : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        if(relicScript)
+        if(relicScript && GetComponent<Image>().sprite.name != "Empty")
         {
             popUpCanvas.enabled = true;
         }

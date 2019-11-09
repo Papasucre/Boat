@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
 using UnityEngine.UI;
+using System.Linq;
 
 public class GameManager : MonoBehaviour
 {
@@ -269,7 +270,7 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        GameObject[] tmp = GameObject.FindGameObjectsWithTag("TreasuresIcons");
+        GameObject[] tmp = GameObject.FindGameObjectsWithTag("TreasuresIcons").OrderBy(go => go.name).ToArray<GameObject>();
         relicsIcons = new Image[tmp.Length];
         for (int i = 0; i < tmp.Length; i++)
         {

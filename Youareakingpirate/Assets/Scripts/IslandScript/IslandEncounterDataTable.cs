@@ -53,6 +53,7 @@ public class IslandEncounterDataTable : MonoBehaviour
                     }
                     else
                     {
+                        print(item.name);
                         GameManager.instance.choicesArray[i] = item;
                         GameManager.instance.UIChoices[i].Display(item);
                         break;

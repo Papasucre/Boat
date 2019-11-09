@@ -14,7 +14,7 @@ public class DefeatScreen : MonoBehaviour
 
     public void Retry()
     {
-        SceneManager.LoadScene("SplashScreen");
+        SceneManager.LoadScene("Menu");
         Destroy(GameManager.instance.gameObject);
     }
 }

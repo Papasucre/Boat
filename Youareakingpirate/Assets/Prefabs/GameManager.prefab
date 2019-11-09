@@ -4115,7 +4115,7 @@ GameObject:
   - component: {fileID: 801637651}
   - component: {fileID: 4427209406460427194}
   m_Layer: 5
-  m_Name: Treasure (2)
+  m_Name: Treasure (02)
   m_TagString: TreasuresIcons
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4422,7 +4422,7 @@ GameObject:
   - component: {fileID: 919359278}
   - component: {fileID: 7720222513545278697}
   m_Layer: 5
-  m_Name: Treasure (3)
+  m_Name: Treasure (03)
   m_TagString: TreasuresIcons
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5338,7 +5338,7 @@ GameObject:
   - component: {fileID: 1103289802}
   - component: {fileID: 1404824623796574494}
   m_Layer: 5
-  m_Name: Treasure (6)
+  m_Name: Treasure (06)
   m_TagString: TreasuresIcons
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6307,7 +6307,7 @@ GameObject:
   - component: {fileID: 1249326294}
   - component: {fileID: 1198369099589891961}
   m_Layer: 5
-  m_Name: Treasure (7)
+  m_Name: Treasure (07)
   m_TagString: TreasuresIcons
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7303,7 +7303,7 @@ GameObject:
   - component: {fileID: 1463252384}
   - component: {fileID: 4883067131748879046}
   m_Layer: 5
-  m_Name: Treasure (4)
+  m_Name: Treasure (04)
   m_TagString: TreasuresIcons
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8413,7 +8413,7 @@ GameObject:
   - component: {fileID: 1633621290}
   - component: {fileID: 4393743621502106689}
   m_Layer: 5
-  m_Name: Treasure (5)
+  m_Name: Treasure (05)
   m_TagString: TreasuresIcons
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9796,7 +9796,7 @@ GameObject:
   - component: {fileID: 1881980923}
   - component: {fileID: 4183848473639820225}
   m_Layer: 5
-  m_Name: Treasure (9)
+  m_Name: Treasure (09)
   m_TagString: TreasuresIcons
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10201,7 +10201,7 @@ GameObject:
   - component: {fileID: 1935125207}
   - component: {fileID: 3369339273044604376}
   m_Layer: 5
-  m_Name: Treasure (8)
+  m_Name: Treasure (08)
   m_TagString: TreasuresIcons
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11198,7 +11198,7 @@ GameObject:
   - component: {fileID: 2057088796}
   - component: {fileID: 5693348129427065045}
   m_Layer: 5
-  m_Name: Treasure (1)
+  m_Name: Treasure (01)
   m_TagString: TreasuresIcons
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -49927,6 +49927,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4589f7982c4dc7a4f82561a933896eba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  text: {fileID: 0}
   sailorsStock: 12
   sailorsMaxStock: 12
   foodStock: 30
@@ -50109,6 +50110,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  defeatCause: 
   UIChoices:
   - {fileID: 1257542223}
   - {fileID: 1983273419}
@@ -50193,7 +50195,7 @@ MonoBehaviour:
   probList:
   - ID: Rock Island
     prob: 33
-  - ID: Island 2
+  - ID: Fanatics' Island
     prob: 33
   - ID: Statues Beach
     prob: 34
